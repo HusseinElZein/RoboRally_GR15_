@@ -38,6 +38,8 @@ public class GameController {
         this.board = board;
     }
 
+    private static int i = 0;
+
     /**
      * This is just some dummy controller operation to make a simple move to see something
      * happening on the board. This method should eventually be deleted!
@@ -52,6 +54,22 @@ public class GameController {
         //     following the current player
         //   - the counter of moves in the game should be increased by one
         //     if the player is moved
+
+        if(space.getPlayer() == null){
+
+            space.setPlayer(board.getCurrentPlayer());
+            board.setMoveNumber();
+
+
+            if(i != board.getPlayersNumber() - 1) {
+                i++;
+            }else {
+                i = 0;
+            }
+
+            board.setCurrentPlayer(board.getPlayer(i));
+
+        }
 
     }
 

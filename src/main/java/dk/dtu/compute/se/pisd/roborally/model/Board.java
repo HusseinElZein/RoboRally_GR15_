@@ -55,6 +55,8 @@ public class Board extends Subject {
 
     private int step = 0;
 
+    private static int moveNumber = 0;
+
     private boolean stepMode;
 
     public Board(int width, int height, @NotNull String boardName) {
@@ -211,11 +213,19 @@ public class Board extends Subject {
         //      which is counted up every time a player makes a move; the
         //      status line should show the current player and the number
         //      of the current move!
-        return "Player = " + getCurrentPlayer().getName();
+        return "Player turn: " + getCurrentPlayer().getName() + " Move number: " + getMoveNumber();
     }
 
     // TODO Assignment V1: add a counter along with a getter and a setter, so the
-    //      state the board (game) contains the number of moves, which then can
-    //      be used to extend the status message including the number of
+    //      state of the board (game) contains the number of moves, which then can
+    //      be used to extend the status message including the number of moves
 
+
+    public void setMoveNumber() {
+        Board.moveNumber += 1;
+    }
+
+    public int getMoveNumber() {
+        return moveNumber;
+    }
 }
