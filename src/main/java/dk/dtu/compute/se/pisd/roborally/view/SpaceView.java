@@ -22,14 +22,14 @@
 package dk.dtu.compute.se.pisd.roborally.view;
 
 import dk.dtu.compute.se.pisd.designpatterns.observer.Subject;
-import dk.dtu.compute.se.pisd.roborally.model.Heading;
-import dk.dtu.compute.se.pisd.roborally.model.Player;
-import dk.dtu.compute.se.pisd.roborally.model.Space;
+import dk.dtu.compute.se.pisd.roborally.model.*;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Circle;
 import javafx.scene.shape.Polygon;
+import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.StrokeLineCap;
 import org.jetbrains.annotations.NotNull;
 
@@ -41,8 +41,8 @@ import org.jetbrains.annotations.NotNull;
  */
 public class SpaceView extends StackPane implements ViewObserver {
 
-    final public static int SPACE_HEIGHT = 60; // 60; // 75;
-    final public static int SPACE_WIDTH = 60;  // 60; // 75;
+    final public static int SPACE_HEIGHT = 60; // 75;
+    final public static int SPACE_WIDTH = 60; // 75;
 
     public final Space space;
 
@@ -91,11 +91,43 @@ public class SpaceView extends StackPane implements ViewObserver {
         }
     }
 
+    private void updateWall(){
+
+        Wall wall = space.getWall();
+        if (wall != null) {
+            Rectangle squareWall = new Rectangle(30, 30);
+            try {
+                squareWall.setFill(Color.DARKGRAY);
+            } catch (Exception e) {
+                squareWall.setFill(Color.DARKGRAY);
+            }
+            this.getChildren().add(squareWall);
+        }
+    }
+
+    private void updateTransportField(){
+
+        TransportField transportField = space.getTransportField();
+
+        if (transportField != null) {
+
+            Circle circle = new Circle(10);
+
+            try {
+                circle.setFill(Color.GOLD);
+            } catch (Exception e) {
+                circle.setFill(Color.GOLD);
+            }
+            this.getChildren().add(circle);
+        }
+    }
+
     @Override
     public void updateView(Subject subject) {
         if (subject == this.space) {
             updatePlayer();
+            updateWall();
+            updateTransportField();
         }
     }
-
 }

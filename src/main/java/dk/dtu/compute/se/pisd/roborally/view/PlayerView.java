@@ -90,15 +90,14 @@ public class PlayerView extends Tab implements ViewObserver {
         //      players, but on the PlayersView (view for all players). This should be
         //      refactored.
 
-        // XXX the respective GameController operations are not yet implemented
         finishButton = new Button("Finish Programming");
-        finishButton.setOnAction( e -> gameController.notImplememted());
+        finishButton.setOnAction( e -> gameController.finishProgrammingPhase());
 
         executeButton = new Button("Execute Program");
-        executeButton.setOnAction( e-> gameController.notImplememted());
+        executeButton.setOnAction( e-> gameController.executePrograms());
 
         stepButton = new Button("Execute Current Register");
-        stepButton.setOnAction( e-> gameController.notImplememted());
+        stepButton.setOnAction( e-> gameController.executeStep());
 
         buttonPanel = new VBox(finishButton, executeButton, stepButton);
         buttonPanel.setAlignment(Pos.CENTER_LEFT);
@@ -199,23 +198,37 @@ public class PlayerView extends Tab implements ViewObserver {
                 }
                 playerInteractionPanel.getChildren().clear();
 
-                if (player.board.getCurrentPlayer() == player) {
-                    // TODO Assignment V3: these buttons should be shown only when there is
-                    //      an interactive command card, and the buttons should represent
-                    //      the player's choices of the interactive command card. The
-                    //      following is just a mockup showing two options
-                    Button optionButton = new Button("Option1");
-                    optionButton.setOnAction( e -> gameController.notImplememted());
-                    optionButton.setDisable(false);
-                    playerInteractionPanel.getChildren().add(optionButton);
 
-                    optionButton = new Button("Option 2");
-                    optionButton.setOnAction( e -> gameController.notImplememted());
-                    optionButton.setDisable(false);
-                    playerInteractionPanel.getChildren().add(optionButton);
+                if(player.getProgramField(player.board.getStep()).getCard() != null) {
+                    if (player.getProgramField(player.board.getStep()).getCard().command.isInteractive()) {
+                        // TODO Assignment P3: these buttons should be shown only when there is
+                        //      an interactive command card, and the buttons should represent
+                        //      the player's choices of the interactive command card. The
+                        //      following is just a mockup showing two options
+
+                        Command command = player.getProgramField(player.board.getStep()).getCard().command;
+
+                        if(command.isInteractive()){
+
+                            Button[] optionButton = new Button[command.getOptions().size()];
+
+                            for (int i = 0; i < command.getOptions().size(); i++) {
+                                optionButton[i] = new Button(command.getOptions().get(i).displayName);
+                            }
+
+                            for (int i = 0; i < optionButton.length; i++) {
+                                int finalK = i;
+                                optionButton[i].setOnAction(e -> gameController.executeCommandOptionAndContinue(command.getOptions().get(finalK)));
+                                optionButton[i].setDisable(false);
+                                playerInteractionPanel.getChildren().add(optionButton[i]);
+                            }
+
+                        }
+
+
+                    }
                 }
             }
         }
     }
-
 }

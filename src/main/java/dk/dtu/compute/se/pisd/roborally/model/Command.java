@@ -38,12 +38,26 @@ public enum Command {
     FORWARD("Fwd"),
     RIGHT("Turn Right"),
     LEFT("Turn Left"),
-    FAST_FORWARD("Fast Fwd");
+    FAST_FORWARD("Fast Fwd"),
+
+    // XXX Assignment P3
+    OPTION_LEFT_RIGHT("Left OR Right", LEFT, RIGHT);
 
     final public String displayName;
 
-    Command(String displayName) {
+    final private List<Command> options;
+
+    Command(String displayName, Command... options) {
         this.displayName = displayName;
+        this.options = Collections.unmodifiableList(Arrays.asList(options));
+    }
+
+    public boolean isInteractive() {
+        return !options.isEmpty();
+    }
+
+    public List<Command> getOptions() {
+        return options;
     }
 
 }

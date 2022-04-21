@@ -32,6 +32,8 @@ import dk.dtu.compute.se.pisd.designpatterns.observer.Subject;
 public class Space extends Subject {
 
     public final Board board;
+    public Wall wall;
+    public TransportField transportField;
 
     public final int x;
     public final int y;
@@ -43,6 +45,35 @@ public class Space extends Subject {
         this.x = x;
         this.y = y;
         player = null;
+        wall = null;
+        transportField = null;
+    }
+
+    public Space(Board board, int x, int y, Wall wall) {
+        this.board = board;
+        this.x = x;
+        this.y = y;
+        this.wall = wall;
+        player = null;
+        transportField = null;
+    }
+
+    public Space(Board board, int x, int y, TransportField transportField) {
+        this.board = board;
+        this.x = x;
+        this.y = y;
+        this.wall = null;
+        player = null;
+        this.transportField = transportField;
+    }
+
+
+    public Wall getWall() {
+        return wall;
+    }
+
+    public TransportField getTransportField() {
+        return transportField;
     }
 
     public Player getPlayer() {
