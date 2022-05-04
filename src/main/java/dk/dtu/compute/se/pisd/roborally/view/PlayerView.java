@@ -208,6 +208,10 @@ public class PlayerView extends Tab implements ViewObserver {
 
                     CommandCardField field = player.getProgramField(player.board.getStep());
 
+                    if(0==1){
+                        System.out.println();
+                    }
+
                     if(field != null){
 
                         CommandCard card = field.getCard();
