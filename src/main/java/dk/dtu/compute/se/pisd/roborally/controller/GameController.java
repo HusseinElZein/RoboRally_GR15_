@@ -157,14 +157,23 @@ public class GameController {
 
                     if(command.isInteractive()){
                         board.setPhase(Phase.PLAYER_INTERACTION);
+                        return;
                     }else {
                         executeCommand(currentPlayer, command);
                     }
                 }
-                int nextPlayerNumber = board.getPlayerNumber(currentPlayer) + 1;
-                if (nextPlayerNumber < board.getPlayersNumber()) {
-                    board.setCurrentPlayer(board.getPlayer(nextPlayerNumber));
+                int nextPlayer = 1 + board.getPlayerNumber(currentPlayer);
+                if (nextPlayer < board.getPlayersNumber()) {
+                    board.setCurrentPlayer(board.getPlayer(nextPlayer));
                 } else {
+                    for(int i = 0; i < board.getPlayersNumber(); i++) {
+                        Player player = board.getPlayer(i);
+                        if (player.getSpace().getActions() != null && player.getSpace() != null) {
+                            for (FieldAction field : player.getSpace().getActions()) {
+                                field.doAction(this, player.getSpace());
+                            }
+                        }
+                    }
                     step++;
                     if (step < Player.NO_REGISTERS) {
                         makeProgramFieldsVisible(step);
@@ -210,9 +219,6 @@ public class GameController {
         }
     }
 
-    public void moveOtherPlayer(Heading heading, Player targetedPlayer){
-
-    }
 
     // TODO: V2
     public void moveForward(@NotNull Player player) {
@@ -223,15 +229,11 @@ public class GameController {
 
             if (target != null) {
 
-
-                moveOtherPlayer(heading, target.getPlayer());
                 // XXX note that this removes another player from the space, when there
                 //     is another player on the target. Eventually, this needs to be
                 //     implemented in a way so that other players are pushed away!
 
                 Player targetedPlayer = null;
-
-                Player cp1 = player;
 
                 Space otherSpace = board.getNeighbour(space, heading);
 
@@ -249,7 +251,7 @@ public class GameController {
                     Space targetNew = board.getNeighbour(space, heading);
                     targetNew.setPlayer(targetedPlayer);
 
-                    if(target.getWall() == null) {
+                    if(target.getWall() == null && target.conveyorBelt == null) {
                         target.setPlayer(player);
 
                         if(target.getTransportField() != null){
@@ -261,6 +263,17 @@ public class GameController {
                         }
 
                     }
+                }
+                if(target.conveyorBelt != null) {
+
+                    Space newSpace = target;
+
+                    while (newSpace.conveyorBelt != null) {
+                        newSpace = board.getNeighbour(newSpace, newSpace.conveyorBelt.getHeading());
+                        newSpace.setPlayer(player);
+                    }
+
+
                 }else if (target.getPlayer() == null && target.getWall() == null){
                     target.setPlayer(player);
 
@@ -271,10 +284,8 @@ public class GameController {
                             board.getTransportField(0).setPlayer(player);
                         }
                     }
-
                 }
             }
-
         }
     }
 
@@ -318,12 +329,25 @@ public class GameController {
 
         Player currentPlayer = board.getCurrentPlayer();
 
-        if(currentPlayer != null && board.getPhase() == Phase.PLAYER_INTERACTION) {
+        if(currentPlayer != null && board.getPhase() == Phase.PLAYER_INTERACTION && chosenCommand != null) {
+
             board.setPhase(Phase.ACTIVATION);
 
-
-            board.setCurrentPlayer(currentPlayer);
             executeCommand(currentPlayer, chosenCommand);
+
+            int nextPlayer = 1 + board.getPlayerNumber(currentPlayer);
+            if (nextPlayer < board.getPlayersNumber()) {
+                board.setCurrentPlayer(board.getPlayer(nextPlayer));
+            } else {
+                int step = board.getStep() + 1;
+                if (step < Player.NO_REGISTERS) {
+                    makeProgramFieldsVisible(step);
+                    board.setStep(step);
+                    board.setCurrentPlayer(board.getPlayer(0));
+                } else {
+                    startProgrammingPhase();
+                }
+            }
         }
     }
 }

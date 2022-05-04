@@ -26,7 +26,9 @@ import dk.dtu.compute.se.pisd.designpatterns.observer.Subject;
 
 import dk.dtu.compute.se.pisd.roborally.RoboRally;
 
+import dk.dtu.compute.se.pisd.roborally.fileaccess.LoadBoard;
 import dk.dtu.compute.se.pisd.roborally.model.Board;
+import dk.dtu.compute.se.pisd.roborally.model.Heading;
 import dk.dtu.compute.se.pisd.roborally.model.Player;
 
 import javafx.application.Platform;
@@ -34,8 +36,10 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.ChoiceDialog;
+import javafx.scene.control.TextInputDialog;
 import org.jetbrains.annotations.NotNull;
 
+import java.io.File;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
@@ -54,6 +58,7 @@ public class AppController implements Observer {
     final private RoboRally roboRally;
 
     private GameController gameController;
+    Board board;
 
     public AppController(@NotNull RoboRally roboRally) {
         this.roboRally = roboRally;
@@ -76,9 +81,13 @@ public class AppController implements Observer {
 
             // XXX the board should eventually be created programmatically or loaded from a file
             //     here we just create an empty board with the required number of players.
-            Board board = new Board(8,8);
+            board = LoadBoard.loadBoard("src/main/resources/boards/defaultboard.json");
+            //Board board = new Board(8,8);
 
             board.insertWall(0, 1);
+
+            board.insertConveyorBelt(3, 2, Heading.SOUTH);
+            board.insertConveyorBelt(3, 3, Heading.SOUTH);
 
             board.insertTransportField(4, 4);
             board.insertTransportField(6, 6);
@@ -101,13 +110,41 @@ public class AppController implements Observer {
 
     public void saveGame() {
         // XXX needs to be implemented eventually
+        TextInputDialog input = new TextInputDialog();
+        input.setHeaderText("Enter filename");
+        Optional<String> boardName = input.showAndWait();
+        input.setTitle("Save state of game");
+
+        boardName.ifPresent(end ->{LoadBoard.saveBoard(board, end);}); //Lambda expression that
     }
 
     public void loadGame() {
         // XXX needs to be implememted eventually
         // for now, we just create a new game
         if (gameController == null) {
-            newGame();
+            String path = "src/main/resources/boards";
+            File file = new File(path);
+            String absPath = file.getAbsolutePath();
+            absPath = absPath.replaceAll("\\\\", "$0$0");
+            File filePath = new File(absPath);
+            File[] folder = filePath.listFiles();
+            String[] filenames = new String[folder.length];
+            for (int i = 0; i < filenames.length; i++) {
+                filenames[i] = folder[i].getName().substring(0,folder[i].getName().length()-5);
+            }
+
+            ChoiceDialog<String> dialog = new ChoiceDialog<>(filenames[0],filenames);
+            dialog.setTitle("Load Game");
+            dialog.setHeaderText("Select a game to load");
+            Optional<String> result = dialog.showAndWait();
+
+            result.ifPresent(choice->{
+                board = LoadBoard.loadBoard(choice);
+                gameController = new GameController(board);
+                gameController.startProgrammingPhase();
+                roboRally.createBoardView(gameController);
+                System.out.println("test");
+            });
         }
     }
 

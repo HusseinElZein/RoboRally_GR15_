@@ -22,6 +22,7 @@
 package dk.dtu.compute.se.pisd.roborally.model;
 
 import dk.dtu.compute.se.pisd.designpatterns.observer.Subject;
+import dk.dtu.compute.se.pisd.roborally.controller.ConveyorBelt;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
@@ -82,6 +83,15 @@ public class Board extends Subject {
 
         spaces[x][y] = space;
     }
+
+    public void insertConveyorBelt(int x, int y, Heading heading){
+        ConveyorBelt conveyorBelt = new ConveyorBelt();
+        Space space = new Space(this, x, y, conveyorBelt, heading);
+
+        spaces[x][y] = space;
+    }
+
+
 
     public void insertTransportField(int x, int y){
 

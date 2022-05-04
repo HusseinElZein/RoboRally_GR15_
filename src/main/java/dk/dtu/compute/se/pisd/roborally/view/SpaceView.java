@@ -22,6 +22,7 @@
 package dk.dtu.compute.se.pisd.roborally.view;
 
 import dk.dtu.compute.se.pisd.designpatterns.observer.Subject;
+import dk.dtu.compute.se.pisd.roborally.controller.ConveyorBelt;
 import dk.dtu.compute.se.pisd.roborally.model.*;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
@@ -122,12 +123,34 @@ public class SpaceView extends StackPane implements ViewObserver {
         }
     }
 
+    private void updateConveyorField(){
+        ConveyorBelt conveyorBelt = space.conveyorBelt;
+
+        if(conveyorBelt != null){
+            Rectangle rectangle = new Rectangle(50, 50);
+            Polygon arrow = new Polygon(0.0, 0.0,
+                    15.0, 30.0,
+                    30.0, 0.0);
+
+            try {
+                arrow.setFill(Color.BLACK);
+                rectangle.setFill(Color.GREEN);
+            } catch (Exception e) {
+                arrow.setFill(Color.BLACK);
+                rectangle.setFill(Color.GREEN);
+            }
+            this.getChildren().add(rectangle);
+            this.getChildren().add(arrow);
+        }
+    }
+
     @Override
     public void updateView(Subject subject) {
         if (subject == this.space) {
             updatePlayer();
             updateWall();
             updateTransportField();
+            updateConveyorField();
         }
     }
 }
