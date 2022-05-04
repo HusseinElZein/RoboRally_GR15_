@@ -35,7 +35,6 @@ import java.awt.*;
 public class GameController {
 
     final public Board board;
-    private Player playerInteracter;
 
     public GameController(@NotNull Board board) {
         this.board = board;
@@ -317,8 +316,14 @@ public class GameController {
      */
     public void executeCommandOptionAndContinue(Command chosenCommand) {
 
-        executeCommand(playerInteracter, chosenCommand);
-        board.setPhase(Phase.ACTIVATION);
-    }
+        Player currentPlayer = board.getCurrentPlayer();
 
+        if(currentPlayer != null && board.getPhase() == Phase.PLAYER_INTERACTION) {
+            board.setPhase(Phase.ACTIVATION);
+
+
+            board.setCurrentPlayer(currentPlayer);
+            executeCommand(currentPlayer, chosenCommand);
+        }
+    }
 }

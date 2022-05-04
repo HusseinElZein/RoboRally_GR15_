@@ -26,6 +26,7 @@ import dk.dtu.compute.se.pisd.roborally.controller.GameController;
 import dk.dtu.compute.se.pisd.roborally.model.*;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.Tab;
 import javafx.scene.layout.GridPane;
@@ -91,13 +92,13 @@ public class PlayerView extends Tab implements ViewObserver {
         //      refactored.
 
         finishButton = new Button("Finish Programming");
-        finishButton.setOnAction( e -> gameController.finishProgrammingPhase());
+        finishButton.setOnAction(e -> gameController.finishProgrammingPhase());
 
         executeButton = new Button("Execute Program");
-        executeButton.setOnAction( e-> gameController.executePrograms());
+        executeButton.setOnAction(e -> gameController.executePrograms());
 
         stepButton = new Button("Execute Current Register");
-        stepButton.setOnAction( e-> gameController.executeStep());
+        stepButton.setOnAction(e -> gameController.executeStep());
 
         buttonPanel = new VBox(finishButton, executeButton, stepButton);
         buttonPanel.setAlignment(Pos.CENTER_LEFT);
@@ -138,7 +139,7 @@ public class PlayerView extends Tab implements ViewObserver {
             for (int i = 0; i < Player.NO_REGISTERS; i++) {
                 CardFieldView cardFieldView = programCardViews[i];
                 if (cardFieldView != null) {
-                    if (player.board.getPhase() == Phase.PROGRAMMING ) {
+                    if (player.board.getPhase() == Phase.PROGRAMMING) {
                         cardFieldView.setBackground(CardFieldView.BG_DEFAULT);
                     } else {
                         if (i < player.board.getStep()) {
@@ -199,32 +200,29 @@ public class PlayerView extends Tab implements ViewObserver {
                 playerInteractionPanel.getChildren().clear();
 
 
-                if(player.getProgramField(player.board.getStep()).getCard() != null) {
-                    if (player.getProgramField(player.board.getStep()).getCard().command.isInteractive()) {
-                        // TODO Assignment P3: these buttons should be shown only when there is
-                        //      an interactive command card, and the buttons should represent
-                        //      the player's choices of the interactive command card. The
-                        //      following is just a mockup showing two options
+                if (player.board.getCurrentPlayer() == player) {
+                    // TODO Assignment P3: these buttons should be shown only when there is
+                    //      an interactive command card, and the buttons should represent
+                    //      the player's choices of the interactive command card. The
+                    //      following is just a mockup showing two options
 
-                        Command command = player.getProgramField(player.board.getStep()).getCard().command;
+                    CommandCardField field = player.getProgramField(player.board.getStep());
 
-                        if(command.isInteractive()){
+                    if(field != null){
 
-                            Button[] optionButton = new Button[command.getOptions().size()];
+                        CommandCard card = field.getCard();
+                        if(card != null){
 
-                            for (int i = 0; i < command.getOptions().size(); i++) {
-                                optionButton[i] = new Button(command.getOptions().get(i).displayName);
-                            }
+                            for (Command command : card.command.getOptions()) {
 
-                            for (int i = 0; i < optionButton.length; i++) {
-                                int finalK = i;
-                                optionButton[i].setOnAction(e -> gameController.executeCommandOptionAndContinue(command.getOptions().get(finalK)));
-                                optionButton[i].setDisable(false);
-                                playerInteractionPanel.getChildren().add(optionButton[i]);
+                                Button optionButton = new Button(command.displayName);
+
+                                optionButton.setOnAction(e -> gameController.executeCommandOptionAndContinue(command));
+                                optionButton.setDisable(false);
+                                playerInteractionPanel.getChildren().add(optionButton);
                             }
 
                         }
-
 
                     }
                 }
