@@ -22,16 +22,15 @@
 package dk.dtu.compute.se.pisd.roborally.view;
 
 import dk.dtu.compute.se.pisd.designpatterns.observer.Subject;
-import dk.dtu.compute.se.pisd.roborally.controller.ConveyorBelt;
+import dk.dtu.compute.se.pisd.roborally.model.SpaceComponents.ConveyorBelt;
 import dk.dtu.compute.se.pisd.roborally.model.*;
-import javafx.scene.canvas.Canvas;
-import javafx.scene.canvas.GraphicsContext;
+import dk.dtu.compute.se.pisd.roborally.model.SpaceComponents.Gear;
+import dk.dtu.compute.se.pisd.roborally.model.SpaceComponents.Wall;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Polygon;
 import javafx.scene.shape.Rectangle;
-import javafx.scene.shape.StrokeLineCap;
 import org.jetbrains.annotations.NotNull;
 
 /**
@@ -108,9 +107,9 @@ public class SpaceView extends StackPane implements ViewObserver {
 
     private void updateTransportField(){
 
-        TransportField transportField = space.getTransportField();
+        Gear gear = space.getTransportField();
 
-        if (transportField != null) {
+        if (gear != null) {
 
             Circle circle = new Circle(10);
 
@@ -154,8 +153,14 @@ public class SpaceView extends StackPane implements ViewObserver {
         }
     }
 
+    int x, y;
+
+
     @Override
     public void updateView(Subject subject) {
+        x = space.board.width;
+        y = space.board.width;
+
         if (subject == this.space) {
             updatePlayer();
             updateWall();

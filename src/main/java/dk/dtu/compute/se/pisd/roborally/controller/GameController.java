@@ -250,20 +250,9 @@ public class GameController {
 
                     Space targetNew = board.getNeighbour(space, heading);
                     targetNew.setPlayer(targetedPlayer);
-
-                    if(target.getWall() == null && target.conveyorBelt == null) {
-                        target.setPlayer(player);
-
-                        if(target.getTransportField() != null){
-                            if(board.getTransportField(0) == target){
-                                board.getTransportField(1).setPlayer(player);
-                            }else{
-                                board.getTransportField(0).setPlayer(player);
-                            }
-                        }
-
                     }
                 }
+
                 if(target.conveyorBelt != null) {
 
                     Space newSpace = target;
@@ -273,18 +262,8 @@ public class GameController {
                         newSpace.setPlayer(player);
                     }
 
-
                 }else if (target.getPlayer() == null && target.getWall() == null){
                     target.setPlayer(player);
-
-                    if(target.getTransportField() != null){
-                        if(board.getTransportField(0) == target){
-                            board.getTransportField(1).setPlayer(player);
-                        }else{
-                            board.getTransportField(0).setPlayer(player);
-                        }
-                    }
-                }
             }
         }
     }

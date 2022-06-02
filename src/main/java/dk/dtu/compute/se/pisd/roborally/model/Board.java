@@ -22,7 +22,7 @@
 package dk.dtu.compute.se.pisd.roborally.model;
 
 import dk.dtu.compute.se.pisd.designpatterns.observer.Subject;
-import dk.dtu.compute.se.pisd.roborally.controller.ConveyorBelt;
+import dk.dtu.compute.se.pisd.roborally.model.SpaceComponents.Gear;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
@@ -42,7 +42,7 @@ public class Board extends Subject {
 
     public final int height;
 
-    public final String boardName;
+    public String boardName;
 
     private Integer gameId;
 
@@ -60,7 +60,7 @@ public class Board extends Subject {
 
     private boolean stepMode;
 
-    private TransportField[] transportField = new TransportField[2];
+    private Gear[] gear = new Gear[2];
 
     public Board(int width, int height, @NotNull String boardName) {
         this.boardName = boardName;
@@ -74,40 +74,6 @@ public class Board extends Subject {
             }
         }
         this.stepMode = false;
-    }
-
-    public void insertWall(int x, int y){
-        Wall wall = new Wall();
-
-        Space space = new Space(this, x, y, wall);
-
-        spaces[x][y] = space;
-    }
-
-    public void insertConveyorBelt(int x, int y, Heading heading){
-        ConveyorBelt conveyorBelt = new ConveyorBelt();
-        Space space = new Space(this, x, y, conveyorBelt, heading);
-
-        spaces[x][y] = space;
-    }
-
-
-
-    public void insertTransportField(int x, int y){
-
-        transportField[i] = new TransportField(x, y);
-        Space space = new Space(this, x, y, transportField[i]);
-        i++;
-        spaces[x][y] = space;
-    }
-
-    public Space getTransportField(int zeroOrOne) {
-
-        int x = transportField[zeroOrOne].getX();
-
-        int y = transportField[zeroOrOne].getY();
-
-        return spaces[x][y];
     }
 
     public Board(int width, int height) {

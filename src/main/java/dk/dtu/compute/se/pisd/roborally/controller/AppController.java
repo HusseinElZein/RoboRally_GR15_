@@ -104,15 +104,18 @@ public class AppController implements Observer {
             // XXX the board should eventually be created programmatically or loaded from a file
             //     here we just create an empty board with the required number of players.
 
+
             //Board board = new Board(8,8);
 
-            board.insertWall(0, 1);
+            /*board.insertWall(0, 1);
 
             board.insertConveyorBelt(3, 2, Heading.SOUTH);
             board.insertConveyorBelt(3, 3, Heading.SOUTH);
 
             board.insertTransportField(4, 4);
             board.insertTransportField(6, 6);
+
+             */
 
             gameController = new GameController(board);
             int no = result.get();
