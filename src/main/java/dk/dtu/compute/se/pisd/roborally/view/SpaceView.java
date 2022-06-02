@@ -131,6 +131,16 @@ public class SpaceView extends StackPane implements ViewObserver {
             Polygon arrow = new Polygon(0.0, 0.0,
                     15.0, 30.0,
                     30.0, 0.0);
+            double v = 0;
+
+            switch (conveyorBelt.getHeading()){
+                case SOUTH -> v = 0;
+                case WEST -> v = 90;
+                case NORTH -> v = 180;
+                case EAST -> v = 270;
+            }
+
+            arrow.setRotate(v);
 
             try {
                 arrow.setFill(Color.BLACK);
