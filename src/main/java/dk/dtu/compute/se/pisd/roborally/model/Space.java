@@ -128,6 +128,5 @@ public class Space extends Subject {
 
     public List<FieldAction> getActions() {
         return actions;
-
     }
 }

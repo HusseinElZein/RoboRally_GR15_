@@ -15,7 +15,7 @@ public class ViewConveyorBelt {
 
     public static void insertConveyorBeltView(SpaceView spaceView, FieldAction fieldAction) {
         ConveyorBelt conveyorBelt = (ConveyorBelt) fieldAction;
-        //spaceView.getChildren().clear();
+        spaceView.getChildren().clear();
 
         Rectangle rectangle = new Rectangle(50, 50);
         Polygon arrow = new Polygon(0.0, 0.0,

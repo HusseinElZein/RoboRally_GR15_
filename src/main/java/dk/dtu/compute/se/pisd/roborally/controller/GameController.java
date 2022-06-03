@@ -22,6 +22,7 @@
 package dk.dtu.compute.se.pisd.roborally.controller;
 
 import dk.dtu.compute.se.pisd.roborally.model.*;
+import dk.dtu.compute.se.pisd.roborally.model.SpaceComponents.ConveyorBelt;
 import org.jetbrains.annotations.NotNull;
 
 import java.awt.*;
@@ -223,6 +224,7 @@ public class GameController {
     // TODO: V2
     public void moveForward(@NotNull Player player) {
         Space space = player.getSpace();
+
         if (player != null && player.board == board && space != null) {
             Heading heading = player.getHeading();
             Space target = board.getNeighbour(space, heading);
@@ -237,11 +239,11 @@ public class GameController {
 
                 Space otherSpace = board.getNeighbour(space, heading);
 
-                if(otherSpace.getPlayer() != null){
+                if (otherSpace.getPlayer() != null) {
                     otherSpace = board.getNeighbour(otherSpace.getPlayer().getSpace(), heading);
                 }
 
-                if(target.getPlayer() != null && otherSpace.getPlayer() == null){
+                if (target.getPlayer() != null && otherSpace.getPlayer() == null) {
                     targetedPlayer = target.getPlayer();
 
                     Player cp = targetedPlayer;
@@ -250,21 +252,22 @@ public class GameController {
 
                     Space targetNew = board.getNeighbour(space, heading);
                     targetNew.setPlayer(targetedPlayer);
+                }
+            }
+
+            if (target.getPlayer() == null) {
+                target.setPlayer(player);
+            }
+
+            while(player.getSpace().getActions().size() > 0){
+                for (FieldAction fieldAction : player.getSpace().getActions()) {
+                    if (fieldAction instanceof ConveyorBelt) {
+                        fieldAction.doAction(this, player.getSpace());
                     }
                 }
-
-                if(target.conveyorBelt != null) {
-
-                    Space newSpace = target;
-
-                    while (newSpace.conveyorBelt != null) {
-                        newSpace = board.getNeighbour(newSpace, newSpace.conveyorBelt.getHeading());
-                        newSpace.setPlayer(player);
-                    }
-
-                }else if (target.getPlayer() == null && target.getWall() == null){
-                    target.setPlayer(player);
             }
+
+
         }
     }
 
