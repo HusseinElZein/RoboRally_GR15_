@@ -23,10 +23,12 @@ package dk.dtu.compute.se.pisd.roborally.view;
 
 import dk.dtu.compute.se.pisd.designpatterns.observer.Subject;
 import dk.dtu.compute.se.pisd.roborally.controller.FieldAction;
+import dk.dtu.compute.se.pisd.roborally.model.SpaceComponents.Checkpoint;
 import dk.dtu.compute.se.pisd.roborally.model.SpaceComponents.ConveyorBelt;
 import dk.dtu.compute.se.pisd.roborally.model.*;
 import dk.dtu.compute.se.pisd.roborally.model.SpaceComponents.Gear;
 import dk.dtu.compute.se.pisd.roborally.model.SpaceComponents.Wall;
+import dk.dtu.compute.se.pisd.roborally.view.ViewComponents.ViewCheckpoint;
 import dk.dtu.compute.se.pisd.roborally.view.ViewComponents.ViewConveyorBelt;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
@@ -183,7 +185,6 @@ public class SpaceView extends StackPane implements ViewObserver {
         this.getChildren().clear();
         if (subject == this.space) {
 
-
             /*if(!this.space.getWalls().isEmpty()){
                 WallView.drawWall(this, this.space);
             }
@@ -202,6 +203,10 @@ public class SpaceView extends StackPane implements ViewObserver {
 
                 if (fieldAction instanceof ConveyorBelt) {
                     ViewConveyorBelt.insertConveyorBeltView(this, fieldAction);
+                }
+
+                if (fieldAction instanceof Checkpoint) {
+                    ViewCheckpoint.drawCheckpoint(this, fieldAction);
                 }
             }
             updatePlayer();
