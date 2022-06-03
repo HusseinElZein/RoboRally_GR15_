@@ -26,6 +26,7 @@ import dk.dtu.compute.se.pisd.roborally.model.SpaceComponents.ConveyorBelt;
 import org.jetbrains.annotations.NotNull;
 
 import java.awt.*;
+import java.util.concurrent.TimeUnit;
 
 /**
  * ...
@@ -270,6 +271,8 @@ public class GameController {
             while(player.getSpace().getActions().size() > 0){
                 for (FieldAction fieldAction : player.getSpace().getActions()) {
                     if (fieldAction instanceof ConveyorBelt) {
+                        
+
                         fieldAction.doAction(this, player.getSpace());
                     }
                 }

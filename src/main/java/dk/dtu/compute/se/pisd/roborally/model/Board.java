@@ -220,5 +220,9 @@ public class Board extends Subject {
                 ", Step: " + getStep();
     }
 
+    public List<Player> getPlayers() {
+        return players;
+    }
+
 
 }

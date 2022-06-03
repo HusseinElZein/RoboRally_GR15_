@@ -67,8 +67,6 @@ public class SpaceView extends StackPane implements ViewObserver {
             this.setStyle("-fx-background-color: black;");
         }
 
-        // updatePlayer();
-
         // This space view should listen to changes of the space
         space.attach(this);
         update(space);
@@ -159,24 +157,6 @@ public class SpaceView extends StackPane implements ViewObserver {
             this.getChildren().add(arrow);
         }
     }
-
-    int x, y;
-
-
-   /* @Override
-    public void updateView(Subject subject) {
-        x = space.board.width;
-        y = space.board.width;
-
-        if (subject == this.space) {
-            updatePlayer();
-            updateWall();
-            updateTransportField();
-            updateConveyorField();
-        }
-    }
-
-    */
 
     @Override
     public void updateView(Subject subject) {
