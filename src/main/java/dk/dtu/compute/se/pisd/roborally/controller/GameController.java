@@ -246,6 +246,14 @@ public class GameController {
                 if (target.getPlayer() != null && otherSpace.getPlayer() == null) {
                     targetedPlayer = target.getPlayer();
 
+                    while(targetedPlayer.getSpace().getActions().size() > 0){
+                        for (FieldAction fieldAction : player.getSpace().getActions()) {
+                            if (fieldAction instanceof ConveyorBelt) {
+                                fieldAction.doAction(this, targetedPlayer.getSpace());
+                            }
+                        }
+                    }
+
                     Player cp = targetedPlayer;
 
                     space = cp.getSpace();
@@ -266,8 +274,6 @@ public class GameController {
                     }
                 }
             }
-
-
         }
     }
 
