@@ -81,15 +81,14 @@ public class AppController implements Observer {
 
         ChoiceDialog<String> boardDialog = new ChoiceDialog<>(filenames[0],filenames);
 
-        dialog.setTitle("Board");
-        dialog.setHeaderText("Select a board");
+        boardDialog.setTitle("Board");
+        boardDialog.setHeaderText("Select a board");
         Optional<String> boardResult = boardDialog.showAndWait();
 
         board = LoadBoard.loadBoard(boardResult.get());
 
-
-        dialog.setTitle("Player number");
-        dialog.setHeaderText("Select number of players");
+        boardDialog.setTitle("Player number");
+        boardDialog.setHeaderText("Select number of players");
         Optional<Integer> result = dialog.showAndWait();
 
         if (result.isPresent()) {
@@ -100,22 +99,6 @@ public class AppController implements Observer {
                     return;
                 }
             }
-
-            // XXX the board should eventually be created programmatically or loaded from a file
-            //     here we just create an empty board with the required number of players.
-
-
-            //Board board = new Board(8,8);
-
-            /*board.insertWall(0, 1);
-
-            board.insertConveyorBelt(3, 2, Heading.SOUTH);
-            board.insertConveyorBelt(3, 3, Heading.SOUTH);
-
-            board.insertTransportField(4, 4);
-            board.insertTransportField(6, 6);
-
-             */
 
             gameController = new GameController(board);
             int no = result.get();

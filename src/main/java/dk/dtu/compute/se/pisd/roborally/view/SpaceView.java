@@ -22,10 +22,12 @@
 package dk.dtu.compute.se.pisd.roborally.view;
 
 import dk.dtu.compute.se.pisd.designpatterns.observer.Subject;
+import dk.dtu.compute.se.pisd.roborally.controller.FieldAction;
 import dk.dtu.compute.se.pisd.roborally.model.SpaceComponents.ConveyorBelt;
 import dk.dtu.compute.se.pisd.roborally.model.*;
 import dk.dtu.compute.se.pisd.roborally.model.SpaceComponents.Gear;
 import dk.dtu.compute.se.pisd.roborally.model.SpaceComponents.Wall;
+import dk.dtu.compute.se.pisd.roborally.view.ViewComponents.ViewConveyorBelt;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
@@ -156,7 +158,7 @@ public class SpaceView extends StackPane implements ViewObserver {
     int x, y;
 
 
-    @Override
+   /* @Override
     public void updateView(Subject subject) {
         x = space.board.width;
         y = space.board.width;
@@ -166,6 +168,41 @@ public class SpaceView extends StackPane implements ViewObserver {
             updateWall();
             updateTransportField();
             updateConveyorField();
+        }
+    }
+
+    */
+
+    @Override
+    public void updateView(Subject subject) {
+        this.getChildren().clear();
+        if (subject == this.space) {
+
+
+            /*if(!this.space.getWalls().isEmpty()){
+                WallView.drawWall(this, this.space);
+            }
+
+             */
+            for(FieldAction fieldAction : space.getActions()) {
+
+               /* else if (fieldAction instanceof Gear) {
+                    GearView.drawGear(this, fieldAction);
+                }
+                else if (fa instanceof Checkpoint) {
+                    CheckpointView.drawCheckpoint(this, fieldAction);
+                }
+
+                */
+
+                if (fieldAction instanceof ConveyorBelt) {
+                    ViewConveyorBelt.insertConveyorBeltView(this, fieldAction);
+                }
+
+
+            }
+
+            updatePlayer();
         }
     }
 }
