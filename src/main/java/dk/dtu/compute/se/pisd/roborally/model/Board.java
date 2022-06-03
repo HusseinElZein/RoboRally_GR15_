@@ -39,28 +39,18 @@ import static dk.dtu.compute.se.pisd.roborally.model.Phase.INITIALISATION;
 public class Board extends Subject {
 
     public final int width;
-
     public final int height;
-
     public String boardName;
-
     private Integer gameId;
-
     private final Space[][] spaces;
-
     private final List<Player> players = new ArrayList<>();
-
     private Player current;
-
     private Phase phase = INITIALISATION;
-
     private int step = 0;
-
     private int i = 0;
-
     private boolean stepMode;
-
     private Gear[] gear = new Gear[2];
+    private int checkpointCounter;
 
     public Board(int width, int height, @NotNull String boardName) {
         this.boardName = boardName;
@@ -176,6 +166,14 @@ public class Board extends Subject {
         } else {
             return -1;
         }
+    }
+
+    public int getCheckpointCounter() {
+        return checkpointCounter;
+    }
+
+    public void setCheckpointCounter(int checkpointCounter) {
+        this.checkpointCounter += checkpointCounter;
     }
 
     /**

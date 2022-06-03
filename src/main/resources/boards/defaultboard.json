@@ -201,6 +201,21 @@
       ],
       "x": 7,
       "y": 7
+    },
+    {
+      "walls": [
+        "EAST"
+      ],
+      "actions": [
+        {
+          "CLASSNAME": "dk.dtu.compute.se.pisd.roborally.model.SpaceComponents.Checkpoint",
+          "INSTANCE": {
+
+          }
+        }
+      ],
+      "x": 0,
+      "y": 7
     }
   ]
 }
