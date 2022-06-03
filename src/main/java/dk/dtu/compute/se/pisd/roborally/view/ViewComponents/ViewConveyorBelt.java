@@ -9,16 +9,13 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Polygon;
 import javafx.scene.shape.Rectangle;
 
+
+
 public class ViewConveyorBelt {
-    /**
-     * @param spaceView   used to update view of the game.
-     * @param fieldAction Used to check the heading of the present conveyorbelt.
-     * @author s20544, Lucas
-     */
+
     public static void insertConveyorBeltView(SpaceView spaceView, FieldAction fieldAction) {
         ConveyorBelt conveyorBelt = (ConveyorBelt) fieldAction;
-        Heading heading = conveyorBelt.getHeading();
-        spaceView.getChildren().clear();
+        //spaceView.getChildren().clear();
 
         Rectangle rectangle = new Rectangle(50, 50);
         Polygon arrow = new Polygon(0.0, 0.0,
@@ -44,7 +41,5 @@ public class ViewConveyorBelt {
         }
         spaceView.getChildren().add(rectangle);
         spaceView.getChildren().add(arrow);
-
-
     }
 }

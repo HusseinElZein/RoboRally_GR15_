@@ -75,10 +75,10 @@ public class SpaceView extends StackPane implements ViewObserver {
     }
 
     private void updatePlayer() {
-        this.getChildren().clear();
 
         Player player = space.getPlayer();
         if (player != null) {
+            this.getChildren().clear();
             Polygon arrow = new Polygon(0.0, 0.0,
                     10.0, 20.0,
                     20.0, 0.0 );
@@ -134,6 +134,8 @@ public class SpaceView extends StackPane implements ViewObserver {
                     30.0, 0.0);
             double v = 0;
 
+
+
             switch (conveyorBelt.getHeading()){
                 case SOUTH -> v = 0;
                 case WEST -> v = 90;
@@ -175,7 +177,7 @@ public class SpaceView extends StackPane implements ViewObserver {
 
     @Override
     public void updateView(Subject subject) {
-        this.getChildren().clear();
+        //this.getChildren().clear();
         if (subject == this.space) {
 
 
@@ -198,10 +200,7 @@ public class SpaceView extends StackPane implements ViewObserver {
                 if (fieldAction instanceof ConveyorBelt) {
                     ViewConveyorBelt.insertConveyorBeltView(this, fieldAction);
                 }
-
-
             }
-
             updatePlayer();
         }
     }
