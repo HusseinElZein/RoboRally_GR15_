@@ -258,11 +258,11 @@ public class GameController {
                             if (fieldAction instanceof ConveyorBelt) {
                                 fieldAction.doAction(this, targetedPlayer.getSpace());
                             }else if(fieldAction instanceof Gear){
-                            fieldAction.doAction(this, player.getSpace());
+                            fieldAction.doAction(this, targetedPlayer.getSpace());
                             again = false;
                             break;
                         }else if(fieldAction instanceof Checkpoint){
-                            fieldAction.doAction(this, player.getSpace());
+                            fieldAction.doAction(this, targetedPlayer.getSpace());
                             again = false;
                             break;
                         }
