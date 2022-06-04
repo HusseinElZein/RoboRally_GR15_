@@ -252,11 +252,20 @@ public class GameController {
                 if (target.getPlayer() != null && otherSpace.getPlayer() == null) {
                     targetedPlayer = target.getPlayer();
 
+                    boolean again = true;
                     while(targetedPlayer.getSpace().getActions().size() > 0){
                         for (FieldAction fieldAction : player.getSpace().getActions()) {
                             if (fieldAction instanceof ConveyorBelt) {
                                 fieldAction.doAction(this, targetedPlayer.getSpace());
-                            }
+                            }else if(fieldAction instanceof Gear){
+                            fieldAction.doAction(this, player.getSpace());
+                            again = false;
+                            break;
+                        }else if(fieldAction instanceof Checkpoint){
+                            fieldAction.doAction(this, player.getSpace());
+                            again = false;
+                            break;
+                        }
                         }
                     }
 

@@ -28,8 +28,6 @@ import dk.dtu.compute.se.pisd.roborally.model.Player;
 import dk.dtu.compute.se.pisd.roborally.model.Space;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.concurrent.TimeUnit;
-
 /**
  * ...
  *
@@ -62,8 +60,7 @@ public class ConveyorBelt extends FieldAction {
             }
 
             target.setPlayer(playerOnSpace);
-            return true;
         }
-        return false;
+        return true;
     }
 }
