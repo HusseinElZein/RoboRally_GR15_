@@ -22,7 +22,9 @@
 package dk.dtu.compute.se.pisd.roborally.controller;
 
 import dk.dtu.compute.se.pisd.roborally.model.*;
+import dk.dtu.compute.se.pisd.roborally.model.SpaceComponents.Checkpoint;
 import dk.dtu.compute.se.pisd.roborally.model.SpaceComponents.ConveyorBelt;
+import dk.dtu.compute.se.pisd.roborally.model.SpaceComponents.Gear;
 import javafx.scene.control.Alert;
 import org.jetbrains.annotations.NotNull;
 
@@ -271,10 +273,20 @@ public class GameController {
                 target.setPlayer(player);
             }
 
-            while(player.getSpace().getActions().size() > 0){
+            boolean again = true;
+
+            while(player.getSpace().getActions().size() > 0 && again){
                 for (FieldAction fieldAction : player.getSpace().getActions()) {
                     if (fieldAction instanceof ConveyorBelt) {
                         fieldAction.doAction(this, player.getSpace());
+                    }else if(fieldAction instanceof Gear){
+                        fieldAction.doAction(this, player.getSpace());
+                        again = false;
+                        break;
+                    }else if(fieldAction instanceof Checkpoint){
+                        fieldAction.doAction(this, player.getSpace());
+                        again = false;
+                        break;
                     }
                 }
             }
