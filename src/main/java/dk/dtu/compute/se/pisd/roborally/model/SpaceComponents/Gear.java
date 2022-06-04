@@ -7,6 +7,16 @@ import dk.dtu.compute.se.pisd.roborally.model.Space;
 
 public class Gear extends FieldAction {
 
+    private final Heading heading;
+
+    public Gear(Heading heading) {
+        this.heading = heading;
+    }
+
+    public Heading getHeading(){
+        return heading;
+    }
+
     @Override
     public boolean doAction(GameController gameController, Space space) {
 

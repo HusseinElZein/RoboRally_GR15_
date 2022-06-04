@@ -30,6 +30,7 @@ import dk.dtu.compute.se.pisd.roborally.model.SpaceComponents.Gear;
 import dk.dtu.compute.se.pisd.roborally.model.SpaceComponents.Wall;
 import dk.dtu.compute.se.pisd.roborally.view.ViewComponents.ViewCheckpoint;
 import dk.dtu.compute.se.pisd.roborally.view.ViewComponents.ViewConveyorBelt;
+import dk.dtu.compute.se.pisd.roborally.view.ViewComponents.ViewGear;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
@@ -193,8 +194,13 @@ public class SpaceView extends StackPane implements ViewObserver {
                 }
 
                 if (fieldAction instanceof Checkpoint) {
-                    ViewCheckpoint.drawCheckpoint(this, fieldAction);
+                    ViewCheckpoint.insertCheckpointView(this, fieldAction);
                 }
+
+                if (fieldAction instanceof Gear) {
+                    ViewGear.insertGearView(this, fieldAction);
+                }
+
             }
             updatePlayer();
         }
