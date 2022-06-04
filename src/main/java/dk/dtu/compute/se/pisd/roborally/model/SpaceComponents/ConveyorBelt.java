@@ -55,10 +55,14 @@ public class ConveyorBelt extends FieldAction {
             Player playerOnSpace = space.getPlayer();
 
             Space target = gameController.board.getNeighbour(space, heading);
-            if(target != null){
-                target.setPlayer(playerOnSpace);
-                return true;
+
+            if(target.getPlayer() != null){
+                Space targetNew = gameController.board.getNeighbour(target, heading);
+                targetNew.setPlayer(target.getPlayer());
             }
+
+            target.setPlayer(playerOnSpace);
+            return true;
         }
         return false;
     }
