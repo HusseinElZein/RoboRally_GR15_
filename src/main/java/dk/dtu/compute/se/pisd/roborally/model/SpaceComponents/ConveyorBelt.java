@@ -28,8 +28,6 @@ import dk.dtu.compute.se.pisd.roborally.model.Player;
 import dk.dtu.compute.se.pisd.roborally.model.Space;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.concurrent.TimeUnit;
-
 /**
  * ...
  *
@@ -55,11 +53,14 @@ public class ConveyorBelt extends FieldAction {
             Player playerOnSpace = space.getPlayer();
 
             Space target = gameController.board.getNeighbour(space, heading);
-            if(target != null){
-                target.setPlayer(playerOnSpace);
-                return true;
+
+            if(target.getPlayer() != null){
+                Space targetNew = gameController.board.getNeighbour(target, heading);
+                targetNew.setPlayer(target.getPlayer());
             }
+
+            target.setPlayer(playerOnSpace);
         }
-        return false;
+        return true;
     }
 }
