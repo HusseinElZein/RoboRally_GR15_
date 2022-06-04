@@ -33,7 +33,7 @@ public class ViewConveyorBelt {
             spaceView.getChildren().add(canvas);
         }
         catch(Exception e){
-            System.out.print("Images for Conveyor belts not in files.");
+            System.out.print("Images for Conveyor belts are not in files.");
         }
     }
 }
