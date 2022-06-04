@@ -7,12 +7,13 @@ import dk.dtu.compute.se.pisd.roborally.model.Space;
 import org.jetbrains.annotations.NotNull;
 
 public class Checkpoint extends FieldAction {
-    private int checkpoint = 1000;
+    private int checkpoint;
 
     public int getCheckpoints() {
         return checkpoint;
     }
 
+    @Override
     public boolean doAction(@NotNull GameController gameController, @NotNull Space space) {
         Player playerOnSpace = space.getPlayer();
 
@@ -22,10 +23,12 @@ public class Checkpoint extends FieldAction {
                 space.getPlayer().setCheckpoints(space.getPlayer().getCheckpoints() + 1);
             }
 
+            /*
             if(playerOnSpace.getCheckpoints() == gameController.board.getCheckpointCounter()) {
-                //gameController.findWinner(playerOnSpace);
+                gameController.findWinner(playerOnSpace);
             }
-
+             */
+            return true;
         }
 
         return false;

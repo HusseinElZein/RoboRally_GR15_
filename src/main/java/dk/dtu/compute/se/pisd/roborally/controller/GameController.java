@@ -174,7 +174,7 @@ public class GameController {
                         Player player = board.getPlayer(i);
                         if (player.getSpace().getActions() != null && player.getSpace() != null) {
                             for (FieldAction field : player.getSpace().getActions()) {
-                                if (checkWinner) break;
+                                // if (checkWinner) break;
                                 field.doAction(this, player.getSpace());
                             }
                         }
@@ -274,8 +274,6 @@ public class GameController {
             while(player.getSpace().getActions().size() > 0){
                 for (FieldAction fieldAction : player.getSpace().getActions()) {
                     if (fieldAction instanceof ConveyorBelt) {
-                        
-
                         fieldAction.doAction(this, player.getSpace());
                     }
                 }
@@ -345,11 +343,11 @@ public class GameController {
         }
     }
 
+    /*
     public void findWinner(Player player) {
         Alert winMessage = new Alert(Alert.AlertType.INFORMATION, "Player \"" + player.getName() + "\" won.");
         this.checkWinner = true;
         winMessage.showAndWait();
     }
-
-
+     */
 }

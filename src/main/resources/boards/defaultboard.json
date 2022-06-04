@@ -204,18 +204,31 @@
     },
     {
       "walls": [
-        "EAST"
       ],
       "actions": [
         {
           "CLASSNAME": "dk.dtu.compute.se.pisd.roborally.model.SpaceComponents.Checkpoint",
           "INSTANCE": {
-
+              "checkpoint": "1"
           }
         }
       ],
-      "x": 0,
-      "y": 7
+      "x": 3,
+      "y": 6
+    },
+    {
+      "walls": [
+      ],
+      "actions": [
+        {
+          "CLASSNAME": "dk.dtu.compute.se.pisd.roborally.model.SpaceComponents.Checkpoint",
+          "INSTANCE": {
+            "checkpoint": "2"
+          }
+        }
+      ],
+      "x": 6,
+      "y": 2
     }
   ]
 }

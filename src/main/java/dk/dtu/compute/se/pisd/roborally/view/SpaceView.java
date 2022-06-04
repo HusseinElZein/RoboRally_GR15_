@@ -30,6 +30,9 @@ import dk.dtu.compute.se.pisd.roborally.model.SpaceComponents.Gear;
 import dk.dtu.compute.se.pisd.roborally.model.SpaceComponents.Wall;
 import dk.dtu.compute.se.pisd.roborally.view.ViewComponents.ViewCheckpoint;
 import dk.dtu.compute.se.pisd.roborally.view.ViewComponents.ViewConveyorBelt;
+import javafx.scene.canvas.Canvas;
+import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.image.Image;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
@@ -63,11 +66,13 @@ public class SpaceView extends StackPane implements ViewObserver {
         this.setMinHeight(SPACE_HEIGHT);
         this.setMaxHeight(SPACE_HEIGHT);
 
+        /*
         if ((space.x + space.y) % 2 == 0) {
             this.setStyle("-fx-background-color: white;");
         } else {
             this.setStyle("-fx-background-color: black;");
         }
+         */
 
         // This space view should listen to changes of the space
         space.attach(this);
@@ -165,6 +170,8 @@ public class SpaceView extends StackPane implements ViewObserver {
         this.getChildren().clear();
         if (subject == this.space) {
 
+            updateSpaceView();
+
             /*if(!this.space.getWalls().isEmpty()){
                 WallView.drawWall(this, this.space);
             }
@@ -191,5 +198,13 @@ public class SpaceView extends StackPane implements ViewObserver {
             }
             updatePlayer();
         }
+    }
+
+    public void updateSpaceView() {
+        Image image = new Image("Images/Space.png", 50, 50, true, true);
+        Canvas canvas = new Canvas(SpaceView.SPACE_WIDTH, SpaceView.SPACE_HEIGHT);
+        GraphicsContext gc = canvas.getGraphicsContext2D();
+        gc.drawImage(image, 0,0);
+        this.getChildren().add(canvas);
     }
 }
