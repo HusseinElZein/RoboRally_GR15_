@@ -9,6 +9,10 @@ import org.jetbrains.annotations.NotNull;
 public class Checkpoint extends FieldAction {
     private int checkpoint;
 
+    public Checkpoint(int checkpoint) {
+        this.checkpoint = checkpoint;
+    }
+
     public int getCheckpoints() {
         return checkpoint;
     }
