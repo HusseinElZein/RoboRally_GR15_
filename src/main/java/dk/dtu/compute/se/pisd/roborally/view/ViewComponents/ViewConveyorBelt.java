@@ -15,10 +15,10 @@ public class ViewConveyorBelt {
         Heading heading = conveyorBelt.getHeading();
         spaceView.getChildren().clear();
         try {
-            Image conveyorPointRight = new Image("Images/conveyorPointRight.png", 50, 50, true, true);
-            Image conveyorPointLeft = new Image("Images/conveyorPointLeft.png", 50, 50, true, true);
-            Image conveyorPointUp = new Image("Images/conveyorPointUp.png", 50, 50, true, true);
-            Image conveyorPointDown = new Image("Images/conveyorPointDown.png", 50, 50, true, true);
+            Image conveyorPointRight = new Image("Images/conveyorRight.png", 50, 50, true, true);
+            Image conveyorPointLeft = new Image("Images/conveyorLeft.png", 50, 50, true, true);
+            Image conveyorPointUp = new Image("Images/conveyorUp.png", 50, 50, true, true);
+            Image conveyorPointDown = new Image("Images/conveyorDown.png", 50, 50, true, true);
 
             Canvas canvas = new Canvas(SpaceView.SPACE_WIDTH, SpaceView.SPACE_HEIGHT);
             GraphicsContext GraphicsContext = canvas.getGraphicsContext2D();
