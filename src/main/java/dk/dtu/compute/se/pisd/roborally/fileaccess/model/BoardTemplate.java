@@ -32,10 +32,9 @@ import java.util.List;
  *
  */
 public class BoardTemplate {
-
     public int width;
     public int height;
 
+    public List<TemplateForPlayer> players = new ArrayList<>();
     public List<SpaceTemplate> spaces = new ArrayList<>();
-
 }
