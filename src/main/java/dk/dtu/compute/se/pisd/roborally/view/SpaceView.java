@@ -23,11 +23,9 @@ package dk.dtu.compute.se.pisd.roborally.view;
 
 import dk.dtu.compute.se.pisd.designpatterns.observer.Subject;
 import dk.dtu.compute.se.pisd.roborally.controller.FieldAction;
-import dk.dtu.compute.se.pisd.roborally.model.SpaceComponents.Checkpoint;
-import dk.dtu.compute.se.pisd.roborally.model.SpaceComponents.ConveyorBelt;
+import dk.dtu.compute.se.pisd.roborally.model.SpaceComponents.*;
 import dk.dtu.compute.se.pisd.roborally.model.*;
-import dk.dtu.compute.se.pisd.roborally.model.SpaceComponents.Gear;
-import dk.dtu.compute.se.pisd.roborally.model.SpaceComponents.Wall;
+import dk.dtu.compute.se.pisd.roborally.view.ViewComponents.ViewBlueConveyorBelt;
 import dk.dtu.compute.se.pisd.roborally.view.ViewComponents.ViewCheckpoint;
 import dk.dtu.compute.se.pisd.roborally.view.ViewComponents.ViewConveyorBelt;
 import dk.dtu.compute.se.pisd.roborally.view.ViewComponents.ViewGear;
@@ -191,6 +189,10 @@ public class SpaceView extends StackPane implements ViewObserver {
 
                 if (fieldAction instanceof ConveyorBelt) {
                     ViewConveyorBelt.insertConveyorBeltView(this, fieldAction);
+                }
+
+                if (fieldAction instanceof BlueConveyorBelt) {
+                    ViewBlueConveyorBelt.insertBlueConveyorBelt(this, fieldAction);
                 }
 
                 if (fieldAction instanceof Checkpoint) {

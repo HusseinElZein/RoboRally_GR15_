@@ -22,6 +22,7 @@
 package dk.dtu.compute.se.pisd.roborally.controller;
 
 import dk.dtu.compute.se.pisd.roborally.model.*;
+import dk.dtu.compute.se.pisd.roborally.model.SpaceComponents.BlueConveyorBelt;
 import dk.dtu.compute.se.pisd.roborally.model.SpaceComponents.Checkpoint;
 import dk.dtu.compute.se.pisd.roborally.model.SpaceComponents.ConveyorBelt;
 import dk.dtu.compute.se.pisd.roborally.model.SpaceComponents.Gear;
@@ -255,6 +256,9 @@ public class GameController {
                         for (FieldAction fieldAction : player.getSpace().getActions()) {
                             if (fieldAction instanceof ConveyorBelt) {
                                 fieldAction.doAction(this, targetedPlayer.getSpace());
+                            } else if (fieldAction instanceof BlueConveyorBelt) {
+                                fieldAction.doAction(this, targetedPlayer.getSpace());
+                                fieldAction.doAction(this, targetedPlayer.getSpace());
                             } else if (fieldAction instanceof Gear) {
                                 fieldAction.doAction(this, targetedPlayer.getSpace());
                                 again = false;
@@ -286,11 +290,14 @@ public class GameController {
                 for (FieldAction fieldAction : player.getSpace().getActions()) {
                     if (fieldAction instanceof ConveyorBelt) {
                         fieldAction.doAction(this, player.getSpace());
-                    }else if(fieldAction instanceof Gear){
+                    } else if (fieldAction instanceof BlueConveyorBelt) {
+                        fieldAction.doAction(this, player.getSpace());
+                        fieldAction.doAction(this, player.getSpace());
+                    } else if(fieldAction instanceof Gear){
                         fieldAction.doAction(this, player.getSpace());
                         again = false;
                         break;
-                    }else if(fieldAction instanceof Checkpoint){
+                    } else if(fieldAction instanceof Checkpoint){
                         fieldAction.doAction(this, player.getSpace());
                         again = false;
                         break;
