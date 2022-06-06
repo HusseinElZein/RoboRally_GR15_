@@ -22,6 +22,7 @@
 package dk.dtu.compute.se.pisd.roborally.controller;
 
 import dk.dtu.compute.se.pisd.roborally.model.*;
+import dk.dtu.compute.se.pisd.roborally.model.SpaceComponents.BlueConveyorBelt;
 import dk.dtu.compute.se.pisd.roborally.model.SpaceComponents.Checkpoint;
 import dk.dtu.compute.se.pisd.roborally.model.SpaceComponents.ConveyorBelt;
 import dk.dtu.compute.se.pisd.roborally.model.SpaceComponents.Gear;
@@ -40,7 +41,6 @@ import java.util.concurrent.TimeUnit;
 public class GameController {
 
     final public Board board;
-    private boolean checkWinner = false;
 
     public GameController(@NotNull Board board) {
         this.board = board;
@@ -176,7 +176,6 @@ public class GameController {
                         Player player = board.getPlayer(i);
                         if (player.getSpace().getActions() != null && player.getSpace() != null) {
                             for (FieldAction field : player.getSpace().getActions()) {
-                                // if (checkWinner) break;
                                 field.doAction(this, player.getSpace());
                             }
                         }
@@ -281,6 +280,9 @@ public class GameController {
                         for (FieldAction fieldAction : player.getSpace().getActions()) {
                             if (fieldAction instanceof ConveyorBelt) {
                                 fieldAction.doAction(this, targetedPlayer.getSpace());
+                            } else if (fieldAction instanceof BlueConveyorBelt) {
+                                fieldAction.doAction(this, targetedPlayer.getSpace());
+                                fieldAction.doAction(this, targetedPlayer.getSpace());
                             } else if (fieldAction instanceof Gear) {
                                 fieldAction.doAction(this, targetedPlayer.getSpace());
                                 again = false;
@@ -313,11 +315,14 @@ public class GameController {
                 for (FieldAction fieldAction : player.getSpace().getActions()) {
                     if (fieldAction instanceof ConveyorBelt) {
                         fieldAction.doAction(this, player.getSpace());
-                    }else if(fieldAction instanceof Gear){
+                    } else if (fieldAction instanceof BlueConveyorBelt) {
+                        fieldAction.doAction(this, player.getSpace());
+                        fieldAction.doAction(this, player.getSpace());
+                    } else if(fieldAction instanceof Gear){
                         fieldAction.doAction(this, player.getSpace());
                         again = false;
                         break;
-                    }else if(fieldAction instanceof Checkpoint){
+                    } else if(fieldAction instanceof Checkpoint){
                         fieldAction.doAction(this, player.getSpace());
                         again = false;
                         break;
@@ -393,11 +398,8 @@ public class GameController {
         }
     }
 
-    /*
     public void findWinner(Player player) {
         Alert winMessage = new Alert(Alert.AlertType.INFORMATION, "Player \"" + player.getName() + "\" won.");
-        this.checkWinner = true;
         winMessage.showAndWait();
     }
-     */
 }
