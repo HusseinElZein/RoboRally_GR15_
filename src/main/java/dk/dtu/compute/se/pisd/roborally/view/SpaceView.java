@@ -66,14 +66,6 @@ public class SpaceView extends StackPane implements ViewObserver {
         this.setMinHeight(SPACE_HEIGHT);
         this.setMaxHeight(SPACE_HEIGHT);
 
-        /*
-        if ((space.x + space.y) % 2 == 0) {
-            this.setStyle("-fx-background-color: white;");
-        } else {
-            this.setStyle("-fx-background-color: black;");
-        }
-         */
-
         // This space view should listen to changes of the space
         space.attach(this);
         update(space);
@@ -109,22 +101,7 @@ public class SpaceView extends StackPane implements ViewObserver {
         if (subject == this.space) {
 
             updateSpaceView();
-
-            /*if(!this.space.getWalls().isEmpty()){
-                WallView.drawWall(this, this.space);
-            }
-
-             */
             for (FieldAction fieldAction : space.getActions()) {
-
-               /* else if (fieldAction instanceof Gear) {
-                    GearView.drawGear(this, fieldAction);
-                }
-                else if (fa instanceof Checkpoint) {
-                    CheckpointView.drawCheckpoint(this, fieldAction);
-                }
-
-                */
 
                 if (fieldAction instanceof ConveyorBelt) {
                     ViewConveyorBelt.insertConveyorBeltView(this, fieldAction);
@@ -152,7 +129,7 @@ public class SpaceView extends StackPane implements ViewObserver {
     }
 
     public void updateSpaceView() {
-        Image image = new Image("Images/Space.png", 50, 50, true, true);
+        Image image = new Image("Images/Space.png", 60, 60, true, true);
         Canvas canvas = new Canvas(SpaceView.SPACE_WIDTH, SpaceView.SPACE_HEIGHT);
         GraphicsContext gc = canvas.getGraphicsContext2D();
         gc.drawImage(image, 0, 0);
