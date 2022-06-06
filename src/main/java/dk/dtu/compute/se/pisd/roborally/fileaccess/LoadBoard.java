@@ -31,6 +31,7 @@ import dk.dtu.compute.se.pisd.roborally.controller.FieldAction;
 import dk.dtu.compute.se.pisd.roborally.fileaccess.model.TemplateForPlayer;
 import dk.dtu.compute.se.pisd.roborally.model.Board;
 import dk.dtu.compute.se.pisd.roborally.model.CommandCard;
+import dk.dtu.compute.se.pisd.roborally.model.Player;
 import dk.dtu.compute.se.pisd.roborally.model.Space;
 
 import java.io.*;
@@ -81,6 +82,19 @@ public class LoadBoard {
                     space.getWalls().addAll(spaceTemplate.walls);
                 }
             }
+
+            for (TemplateForPlayer templateForPlayer : template.players) {
+                System.out.println(templateForPlayer.isCurrent);
+                Player player=new Player(result, templateForPlayer.color, templateForPlayer.name);
+                //player.setCheckpointNumber(playerTemplate.CheckpointAmount);
+                player.setHeading(player.getHeading());
+                player.setSpace(result.getSpace(templateForPlayer.x, templateForPlayer.y));
+                result.getPlayers().add(player);
+                if(templateForPlayer.isCurrent) {
+                    result.setCurrentPlayer(player);
+                }
+            }
+
             reader.close();
             return result;
         } catch (IOException e1) {
@@ -118,6 +132,22 @@ public class LoadBoard {
                     template.spaces.add(spaceTemplate);
                 }
             }
+        }
+
+        for (int i = 0; i < board.getPlayers().size(); i++) {
+            TemplateForPlayer playerTemplate = new TemplateForPlayer();
+            playerTemplate.heading = board.getPlayers().get(i).getHeading();
+            //playerTemplate.CheckpointAmount = board.getPlayers().get(i).getCheckpointNumber();
+            playerTemplate.x=board.getPlayers().get(i).getSpace().x;
+            playerTemplate.y=board.getPlayers().get(i).getSpace().y;
+            playerTemplate.name=board.getPlayers().get(i).getName();
+            playerTemplate.color=board.getPlayers().get(i).getColor();
+            if(board.getPlayers().get(i).equals(board.getCurrentPlayer()))
+                playerTemplate.isCurrent=true;
+            else
+                playerTemplate.isCurrent=false;
+
+            template.players.add(playerTemplate);
         }
 
 
