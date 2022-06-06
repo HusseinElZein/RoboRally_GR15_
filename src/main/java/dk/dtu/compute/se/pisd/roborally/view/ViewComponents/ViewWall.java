@@ -19,8 +19,8 @@ public class ViewWall {
 
         GraphicsContext gc = canvas.getGraphicsContext2D();
 
-        Image verticalWall = new Image("Images/VerticalWall.png", 50, 50, true, true);
-        Image horizontalWall = new Image("Images/HorizontalWall.png", 50, 50, true, true);
+        Image verticalWall = new Image("Images/VerticalWall.png", 60, 60, true, true);
+        Image horizontalWall = new Image("Images/HorizontalWall.png", 60, 60, true, true);
 
         for (Heading heading : walls) {
             switch (heading) {
