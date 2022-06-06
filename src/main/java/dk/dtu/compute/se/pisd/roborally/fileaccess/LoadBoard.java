@@ -32,6 +32,7 @@ import dk.dtu.compute.se.pisd.roborally.fileaccess.model.TemplateForPlayer;
 import dk.dtu.compute.se.pisd.roborally.model.Board;
 import dk.dtu.compute.se.pisd.roborally.model.CommandCard;
 import dk.dtu.compute.se.pisd.roborally.model.Space;
+import dk.dtu.compute.se.pisd.roborally.model.SpaceComponents.Checkpoint;
 
 import java.io.*;
 import java.util.Objects;
@@ -79,6 +80,11 @@ public class LoadBoard {
                 if (space != null) {
                     space.getActions().addAll(spaceTemplate.actions);
                     space.getWalls().addAll(spaceTemplate.walls);
+                    if(space.getActions().size() != 0){
+                        if(space.getActions().get(0) instanceof Checkpoint){
+                            result.setCheckpointCounter(1);
+                        }
+                    }
                 }
             }
             reader.close();

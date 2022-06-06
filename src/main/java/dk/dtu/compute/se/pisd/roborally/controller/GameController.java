@@ -40,7 +40,6 @@ import java.util.concurrent.TimeUnit;
 public class GameController {
 
     final public Board board;
-    private boolean checkWinner = false;
 
     public GameController(@NotNull Board board) {
         this.board = board;
@@ -176,7 +175,6 @@ public class GameController {
                         Player player = board.getPlayer(i);
                         if (player.getSpace().getActions() != null && player.getSpace() != null) {
                             for (FieldAction field : player.getSpace().getActions()) {
-                                // if (checkWinner) break;
                                 field.doAction(this, player.getSpace());
                             }
                         }
@@ -364,11 +362,8 @@ public class GameController {
         }
     }
 
-    /*
     public void findWinner(Player player) {
         Alert winMessage = new Alert(Alert.AlertType.INFORMATION, "Player \"" + player.getName() + "\" won.");
-        this.checkWinner = true;
         winMessage.showAndWait();
     }
-     */
 }
