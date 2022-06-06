@@ -279,7 +279,6 @@ public class GameController {
                     canMoveOntoWalls(player);
                 } catch (cantMoveTroughWallExeption e) {
                     // Empty catch statement.
-                    // System.err.println("You can't go through walls!");
                 }
 
 
