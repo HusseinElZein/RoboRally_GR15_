@@ -26,6 +26,7 @@ import dk.dtu.compute.se.pisd.roborally.model.SpaceComponents.BlueConveyorBelt;
 import dk.dtu.compute.se.pisd.roborally.model.SpaceComponents.Checkpoint;
 import dk.dtu.compute.se.pisd.roborally.model.SpaceComponents.ConveyorBelt;
 import dk.dtu.compute.se.pisd.roborally.model.SpaceComponents.Gear;
+import dk.dtu.compute.se.pisd.roborally.view.SpaceView;
 import javafx.scene.control.Alert;
 import org.jetbrains.annotations.NotNull;
 
@@ -331,6 +332,7 @@ public class GameController {
 
             while(player.getSpace().getActions().size() > 0 && again){
                 for (FieldAction fieldAction : player.getSpace().getActions()) {
+
                     if (fieldAction instanceof ConveyorBelt) {
                         fieldAction.doAction(this, player.getSpace());
                     } else if (fieldAction instanceof BlueConveyorBelt) {
@@ -347,6 +349,7 @@ public class GameController {
                     }
                 }
             }
+
         }
         if(!canMoveThroughWall){
             canMoveThroughWall = true;
@@ -417,7 +420,7 @@ public class GameController {
     }
 
     public void findWinner(Player player) {
-        Alert winMessage = new Alert(Alert.AlertType.INFORMATION, "Player \"" + player.getName() + "\" won.");
+        Alert winMessage = new Alert(Alert.AlertType.INFORMATION, player.getName() + "\" won.");
         winMessage.showAndWait();
         System.exit(0);
     }

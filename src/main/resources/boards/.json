@@ -3,17 +3,17 @@
   "height": 8,
   "players": [
     {
-      "x": 2,
-      "y": 1,
+      "x": 9,
+      "y": 0,
       "isCurrent": false,
       "CheckpointAmount": 0,
-      "heading": "SOUTH",
+      "heading": "NORTH",
       "name": "Player 1",
       "color": "red"
     },
     {
       "x": 4,
-      "y": 2,
+      "y": 7,
       "isCurrent": true,
       "CheckpointAmount": 0,
       "heading": "SOUTH",
