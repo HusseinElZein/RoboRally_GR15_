@@ -85,9 +85,9 @@ public class LoadBoard {
                     result.setCurrentPlayer(player);
                 }
 
-                //player.setCheckpointNumber(playerTemplate.CheckpointAmount);
-                player.setSpace(result.getSpace(templateForPlayer.x, templateForPlayer.y));
                 player.setHeading(player.getHeading());
+                player.setSpace(result.getSpace(templateForPlayer.x, templateForPlayer.y));
+                player.setCheckpoints(templateForPlayer.CheckpointAmount);
                 result.getPlayers().add(player);
             }
 
@@ -133,16 +133,17 @@ public class LoadBoard {
         for (int i = 0; i < board.getPlayers().size(); i++) {
             TemplateForPlayer playerTemplate = new TemplateForPlayer();
             playerTemplate.heading = board.getPlayers().get(i).getHeading();
-            //playerTemplate.CheckpointAmount = board.getPlayers().get(i).getCheckpointNumber();
             playerTemplate.x = board.getPlayers().get(i).getSpace().x;
             playerTemplate.y = board.getPlayers().get(i).getSpace().y;
-            playerTemplate.name = board.getPlayers().get(i).getName();
+            playerTemplate.CheckpointAmount = board.getPlayers().get(i).getCheckpoints();
             playerTemplate.color = board.getPlayers().get(i).getColor();
-            if(board.getPlayers().get(i).equals(board.getCurrentPlayer()))
-                playerTemplate.isCurrent=true;
-            else
-                playerTemplate.isCurrent=false;
+            playerTemplate.name = board.getPlayers().get(i).getName();
 
+            if (board.getPlayers().get(i).equals(board.getCurrentPlayer())) {
+                playerTemplate.isCurrent = true;
+            } else {
+                playerTemplate.isCurrent = false;
+            }
             template.players.add(playerTemplate);
         }
 
