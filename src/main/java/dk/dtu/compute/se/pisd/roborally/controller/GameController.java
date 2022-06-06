@@ -226,7 +226,7 @@ public class GameController {
     }
     boolean canMoveThroughWall = true;
 
-    public void canMoveOntoWalls(Player player) {
+    public void canMoveOntoWalls(Player player) throws cantMoveTroughWallExeption {
 
         Heading heading = player.getHeading();
         Space space = player.getSpace();
@@ -236,10 +236,10 @@ public class GameController {
 
                 if (wallHeading == player.getHeading()) {
                     canMoveThroughWall = false;
+                    throw new cantMoveTroughWallExeption(player);
                 }
             }
         }
-
 
         Space target = board.getNeighbour(space, heading);
 
@@ -250,9 +250,11 @@ public class GameController {
                 if ((wallHeading == Heading.SOUTH && player.getHeading() == Heading.NORTH)
                 || (wallHeading == Heading.NORTH && player.getHeading() == Heading.SOUTH)) {
                     canMoveThroughWall = false;
-                }else if((wallHeading == Heading.EAST && player.getHeading() == Heading.WEST)
+                    throw new cantMoveTroughWallExeption(player);
+                } else if((wallHeading == Heading.EAST && player.getHeading() == Heading.WEST)
                         || (wallHeading == Heading.WEST && player.getHeading() == Heading.EAST)){
                     canMoveThroughWall = false;
+                    throw new cantMoveTroughWallExeption(player);
                 }
             }
         }
@@ -273,7 +275,12 @@ public class GameController {
                 //     is another player on the target. Eventually, this needs to be
                 //     implemented in a way so that other players are pushed away!
 
-                canMoveOntoWalls(player);
+                try {
+                    canMoveOntoWalls(player);
+                } catch (cantMoveTroughWallExeption e) {
+                    // Empty catch statement.
+                    // System.err.println("You can't go through walls!");
+                }
 
                 Player targetedPlayer = null;
 

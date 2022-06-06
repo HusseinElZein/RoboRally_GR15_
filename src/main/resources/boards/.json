@@ -1,6 +1,26 @@
 {
   "width": 10,
   "height": 8,
+  "players": [
+    {
+      "x": 2,
+      "y": 1,
+      "isCurrent": false,
+      "CheckpointAmount": 0,
+      "heading": "SOUTH",
+      "name": "Player 1",
+      "color": "red"
+    },
+    {
+      "x": 4,
+      "y": 2,
+      "isCurrent": true,
+      "CheckpointAmount": 0,
+      "heading": "SOUTH",
+      "name": "Player 2",
+      "color": "green"
+    }
+  ],
   "spaces": [
     {
       "walls": [
@@ -230,7 +250,7 @@
       ],
       "actions": [
         {
-          "CLASSNAME": "dk.dtu.compute.se.pisd.roborally.model.SpaceComponents.ConveyorBelt",
+          "CLASSNAME": "dk.dtu.compute.se.pisd.roborally.model.SpaceComponents.BlueConveyorBelt",
           "INSTANCE": {
             "heading": "EAST"
           }
