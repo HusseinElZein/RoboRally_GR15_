@@ -412,5 +412,6 @@ public class GameController {
     public void findWinner(Player player) {
         Alert winMessage = new Alert(Alert.AlertType.INFORMATION, "Player \"" + player.getName() + "\" won.");
         winMessage.showAndWait();
+        System.exit(0);
     }
 }
