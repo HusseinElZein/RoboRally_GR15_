@@ -22,11 +22,7 @@
 package dk.dtu.compute.se.pisd.roborally.model;
 
 import dk.dtu.compute.se.pisd.designpatterns.observer.Subject;
-import dk.dtu.compute.se.pisd.roborally.model.SpaceComponents.ConveyorBelt;
 import dk.dtu.compute.se.pisd.roborally.controller.FieldAction;
-import dk.dtu.compute.se.pisd.roborally.model.SpaceComponents.Gear;
-import dk.dtu.compute.se.pisd.roborally.model.SpaceComponents.Wall;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -42,9 +38,6 @@ public class Space extends Subject {
     private List<Heading> walls = new ArrayList<>();
 
     public final Board board;
-    public Wall wall;
-    public Gear gear;
-    public ConveyorBelt conveyorBelt;
 
     public final int x;
     public final int y;
@@ -56,43 +49,6 @@ public class Space extends Subject {
         this.x = x;
         this.y = y;
         player = null;
-        wall = null;
-        gear = null;
-    }
-
-    public Space(Board board, int x, int y, Wall wall) {
-        this.board = board;
-        this.x = x;
-        this.y = y;
-        this.wall = wall;
-        player = null;
-        gear = null;
-    }
-
-    public Space(Board board, int x, int y, Gear gear) {
-        this.board = board;
-        this.x = x;
-        this.y = y;
-        this.wall = null;
-        player = null;
-        this.gear = gear;
-    }
-
-    public Space(Board board, int x, int y, ConveyorBelt conveyorBelt, Heading heading) {
-        this.board = board;
-        this.x = x;
-        this.y = y;
-        conveyorBelt.setHeading(heading);
-        this.conveyorBelt = conveyorBelt;
-    }
-
-
-    public Wall getWall() {
-        return wall;
-    }
-
-    public Gear getTransportField() {
-        return gear;
     }
 
     public Player getPlayer() {

@@ -225,6 +225,28 @@ public class GameController {
             }
         }
     }
+    boolean canMoveThroughWall = true;
+
+    public void canMoveOntoWalls(Player player) {
+
+        Heading heading = player.getHeading();
+        Space space = player.getSpace();
+
+        Space target = board.getNeighbour(space, heading);
+
+        if (!target.getWalls().isEmpty()) {
+            for (Heading wallHeading : target.getWalls()) {
+
+                if ((wallHeading == Heading.SOUTH && player.getHeading() == Heading.NORTH)
+                || (wallHeading == Heading.NORTH && player.getHeading() == Heading.SOUTH)) {
+                    canMoveThroughWall = false;
+                }else if((wallHeading == Heading.EAST && player.getHeading() == Heading.WEST)
+                        || (wallHeading == Heading.WEST && player.getHeading() == Heading.EAST)){
+                    canMoveThroughWall = false;
+                }
+            }
+        }
+    }
 
 
     // TODO: V2
@@ -241,6 +263,8 @@ public class GameController {
                 //     is another player on the target. Eventually, this needs to be
                 //     implemented in a way so that other players are pushed away!
 
+                canMoveOntoWalls(player);
+
                 Player targetedPlayer = null;
 
                 Space otherSpace = board.getNeighbour(space, heading);
@@ -249,7 +273,7 @@ public class GameController {
                     otherSpace = board.getNeighbour(otherSpace.getPlayer().getSpace(), heading);
                 }
 
-                if (target.getPlayer() != null && otherSpace.getPlayer() == null) {
+                if (target.getPlayer() != null && otherSpace.getPlayer() == null && canMoveThroughWall) {
                     targetedPlayer = target.getPlayer();
 
                     boolean again = true;
@@ -273,12 +297,13 @@ public class GameController {
 
                     space = cp.getSpace();
 
-                    Space targetNew = board.getNeighbour(space, heading);
-                    targetNew.setPlayer(targetedPlayer);
+                    //Space targetNew = board.getNeighbour(space, heading);
+                    //targetNew.setPlayer(targetedPlayer);
                 }
             }
 
-            if (target.getPlayer() == null) {
+            if (target.getPlayer() == null && canMoveThroughWall) {
+
                 target.setPlayer(player);
             }
 
@@ -300,6 +325,10 @@ public class GameController {
                 }
             }
         }
+        if(!canMoveThroughWall){
+            canMoveThroughWall = true;
+        }
+
     }
 
     // TODO: V2

@@ -147,18 +147,11 @@ public class AppController implements Observer {
             Optional<String> result = dialog.showAndWait();
 
 
-
             result.ifPresent(choice->{
                 board = LoadBoard.loadBoard(choice);
-
-
-                // load players her
-
-
                 gameController = new GameController(board);
                 gameController.startProgrammingPhase();
                 roboRally.createBoardView(gameController);
-                System.out.println("test");
             });
         }
     }
