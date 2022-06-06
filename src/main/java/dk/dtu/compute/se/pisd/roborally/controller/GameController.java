@@ -282,6 +282,7 @@ public class GameController {
                     // System.err.println("You can't go through walls!");
                 }
 
+
                 Player targetedPlayer = null;
 
                 Space otherSpace = board.getNeighbour(space, heading);
