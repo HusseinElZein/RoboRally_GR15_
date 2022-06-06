@@ -231,8 +231,19 @@ public class GameController {
         Heading heading = player.getHeading();
         Space space = player.getSpace();
 
+        if (!space.getWalls().isEmpty()) {
+            for (Heading wallHeading : space.getWalls()) {
+
+                if (wallHeading == player.getHeading()) {
+                    canMoveThroughWall = false;
+                }
+            }
+        }
+
+
         Space target = board.getNeighbour(space, heading);
 
+        //Checking if player can move into the other field
         if (!target.getWalls().isEmpty()) {
             for (Heading wallHeading : target.getWalls()) {
 
