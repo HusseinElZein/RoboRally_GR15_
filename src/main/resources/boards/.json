@@ -1,6 +1,26 @@
 {
-  "width": 8,
+  "width": 10,
   "height": 8,
+  "players": [
+    {
+      "x": 9,
+      "y": 0,
+      "isCurrent": false,
+      "CheckpointAmount": 0,
+      "heading": "NORTH",
+      "name": "Player 1",
+      "color": "red"
+    },
+    {
+      "x": 4,
+      "y": 7,
+      "isCurrent": true,
+      "CheckpointAmount": 0,
+      "heading": "SOUTH",
+      "name": "Player 2",
+      "color": "green"
+    }
+  ],
   "spaces": [
     {
       "walls": [
@@ -133,7 +153,7 @@
       ],
       "actions": [
         {
-          "CLASSNAME": "dk.dtu.compute.se.pisd.roborally.model.SpaceComponents.ConveyorBelt",
+          "CLASSNAME": "dk.dtu.compute.se.pisd.roborally.model.SpaceComponents.BlueConveyorBelt",
           "INSTANCE": {
             "heading": "SOUTH"
           }
@@ -141,6 +161,32 @@
       ],
       "x": 3,
       "y": 3
+    },
+    {
+      "walls": [],
+      "actions": [
+        {
+          "CLASSNAME": "dk.dtu.compute.se.pisd.roborally.model.SpaceComponents.Checkpoint",
+          "INSTANCE": {
+            "checkpoint": 1
+          }
+        }
+      ],
+      "x": 3,
+      "y": 6
+    },
+    {
+      "walls": [],
+      "actions": [
+        {
+          "CLASSNAME": "dk.dtu.compute.se.pisd.roborally.model.SpaceComponents.Gear",
+          "INSTANCE": {
+            "heading": "WEST"
+          }
+        }
+      ],
+      "x": 4,
+      "y": 1
     },
     {
       "walls": [
@@ -173,12 +219,38 @@
       "y": 5
     },
     {
+      "walls": [],
+      "actions": [
+        {
+          "CLASSNAME": "dk.dtu.compute.se.pisd.roborally.model.SpaceComponents.Checkpoint",
+          "INSTANCE": {
+            "checkpoint": 2
+          }
+        }
+      ],
+      "x": 6,
+      "y": 2
+    },
+    {
+      "walls": [],
+      "actions": [
+        {
+          "CLASSNAME": "dk.dtu.compute.se.pisd.roborally.model.SpaceComponents.Gear",
+          "INSTANCE": {
+            "heading": "EAST"
+          }
+        }
+      ],
+      "x": 6,
+      "y": 4
+    },
+    {
       "walls": [
         "NORTH"
       ],
       "actions": [
         {
-          "CLASSNAME": "dk.dtu.compute.se.pisd.roborally.model.SpaceComponents.ConveyorBelt",
+          "CLASSNAME": "dk.dtu.compute.se.pisd.roborally.model.SpaceComponents.BlueConveyorBelt",
           "INSTANCE": {
             "heading": "EAST"
           }

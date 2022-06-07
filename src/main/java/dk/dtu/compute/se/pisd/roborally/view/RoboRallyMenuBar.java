@@ -37,6 +37,7 @@ public class RoboRallyMenuBar extends MenuBar {
     private AppController appController;
 
     private Menu controlMenu;
+    private Menu serverMenu;
 
     private MenuItem saveGame;
 
@@ -74,8 +75,14 @@ public class RoboRallyMenuBar extends MenuBar {
         exitApp.setOnAction( e -> this.appController.exit());
         controlMenu.getItems().add(exitApp);
 
+        serverMenu = new Menu("Multiplayer");
+        this.getMenus().add(serverMenu);
+
         controlMenu.setOnShowing(e -> update());
         controlMenu.setOnShown(e -> this.updateBounds());
+
+        serverMenu = new Menu("Multiplayer");
+
         update();
     }
 

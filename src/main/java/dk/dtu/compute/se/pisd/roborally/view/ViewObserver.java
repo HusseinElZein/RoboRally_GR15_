@@ -46,5 +46,4 @@ public interface ViewObserver extends Observer {
             Platform.runLater(() -> updateView(subject));
         }
     }
-
 }

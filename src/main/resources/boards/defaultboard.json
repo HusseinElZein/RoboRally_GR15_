@@ -133,7 +133,7 @@
       ],
       "actions": [
         {
-          "CLASSNAME": "dk.dtu.compute.se.pisd.roborally.model.SpaceComponents.ConveyorBelt",
+          "CLASSNAME": "dk.dtu.compute.se.pisd.roborally.model.SpaceComponents.BlueConveyorBelt",
           "INSTANCE": {
             "heading": "SOUTH"
           }
@@ -178,7 +178,7 @@
       ],
       "actions": [
         {
-          "CLASSNAME": "dk.dtu.compute.se.pisd.roborally.model.SpaceComponents.ConveyorBelt",
+          "CLASSNAME": "dk.dtu.compute.se.pisd.roborally.model.SpaceComponents.BlueConveyorBelt",
           "INSTANCE": {
             "heading": "EAST"
           }

@@ -15,19 +15,19 @@ public class ViewConveyorBelt {
         Heading heading = conveyorBelt.getHeading();
         spaceView.getChildren().clear();
         try {
-            Image conveyorPointRight = new Image("Images/conveyorRight.png", 50, 50, true, true);
-            Image conveyorPointLeft = new Image("Images/conveyorLeft.png", 50, 50, true, true);
-            Image conveyorPointUp = new Image("Images/conveyorUp.png", 50, 50, true, true);
-            Image conveyorPointDown = new Image("Images/conveyorDown.png", 50, 50, true, true);
+            Image conveyorPointRight = new Image("Images/conveyorRight.png", 64, 64, true, true);
+            Image conveyorPointLeft = new Image("Images/conveyorLeft.png", 64, 64, true, true);
+            Image conveyorPointUp = new Image("Images/conveyorUp.png", 64.5, 60, true, true);
+            Image conveyorPointDown = new Image("Images/conveyorDown.png", 64.5, 60, true, true);
 
             Canvas canvas = new Canvas(SpaceView.SPACE_WIDTH, SpaceView.SPACE_HEIGHT);
             GraphicsContext GraphicsContext = canvas.getGraphicsContext2D();
 
             switch (heading) {
                 case EAST -> GraphicsContext.drawImage(conveyorPointRight, 0, 0);
-                case WEST -> GraphicsContext.drawImage(conveyorPointLeft, 0, 0);
-                case NORTH -> GraphicsContext.drawImage(conveyorPointUp, 0, 0);
-                case SOUTH -> GraphicsContext.drawImage(conveyorPointDown, 0, 0);
+                case WEST -> GraphicsContext.drawImage(conveyorPointLeft, 1, 0);
+                case NORTH -> GraphicsContext.drawImage(conveyorPointUp, -3, 0);
+                case SOUTH -> GraphicsContext.drawImage(conveyorPointDown, -3, 0);
             }
 
             spaceView.getChildren().add(canvas);

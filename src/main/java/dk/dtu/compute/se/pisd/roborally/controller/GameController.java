@@ -22,9 +22,11 @@
 package dk.dtu.compute.se.pisd.roborally.controller;
 
 import dk.dtu.compute.se.pisd.roborally.model.*;
+import dk.dtu.compute.se.pisd.roborally.model.SpaceComponents.BlueConveyorBelt;
 import dk.dtu.compute.se.pisd.roborally.model.SpaceComponents.Checkpoint;
 import dk.dtu.compute.se.pisd.roborally.model.SpaceComponents.ConveyorBelt;
 import dk.dtu.compute.se.pisd.roborally.model.SpaceComponents.Gear;
+import dk.dtu.compute.se.pisd.roborally.view.SpaceView;
 import javafx.scene.control.Alert;
 import org.jetbrains.annotations.NotNull;
 
@@ -41,7 +43,6 @@ import java.util.concurrent.TimeUnit;
 public class GameController {
 
     final public Board board;
-    private boolean checkWinner = false;
 
     public GameController(@NotNull Board board) {
         this.board = board;
@@ -177,7 +178,6 @@ public class GameController {
                         Player player = board.getPlayer(i);
                         if (player.getSpace().getActions() != null && player.getSpace() != null) {
                             for (FieldAction field : player.getSpace().getActions()) {
-                                // if (checkWinner) break;
                                 field.doAction(this, player.getSpace());
                             }
                         }
@@ -226,6 +226,41 @@ public class GameController {
             }
         }
     }
+    boolean canMoveThroughWall = true;
+
+    public void canMoveOntoWalls(Player player) throws cantMoveTroughWallExeption {
+
+        Heading heading = player.getHeading();
+        Space space = player.getSpace();
+
+        if (!space.getWalls().isEmpty()) {
+            for (Heading wallHeading : space.getWalls()) {
+
+                if (wallHeading == player.getHeading()) {
+                    canMoveThroughWall = false;
+                    throw new cantMoveTroughWallExeption(player);
+                }
+            }
+        }
+
+        Space target = board.getNeighbour(space, heading);
+
+        //Checking if player can move into the other field
+        if (!target.getWalls().isEmpty()) {
+            for (Heading wallHeading : target.getWalls()) {
+
+                if ((wallHeading == Heading.SOUTH && player.getHeading() == Heading.NORTH)
+                || (wallHeading == Heading.NORTH && player.getHeading() == Heading.SOUTH)) {
+                    canMoveThroughWall = false;
+                    throw new cantMoveTroughWallExeption(player);
+                } else if((wallHeading == Heading.EAST && player.getHeading() == Heading.WEST)
+                        || (wallHeading == Heading.WEST && player.getHeading() == Heading.EAST)){
+                    canMoveThroughWall = false;
+                    throw new cantMoveTroughWallExeption(player);
+                }
+            }
+        }
+    }
 
 
     // TODO: V2
@@ -242,6 +277,13 @@ public class GameController {
                 //     is another player on the target. Eventually, this needs to be
                 //     implemented in a way so that other players are pushed away!
 
+                try {
+                    canMoveOntoWalls(player);
+                } catch (cantMoveTroughWallExeption e) {
+                    // Empty catch statement.
+                }
+
+
                 Player targetedPlayer = null;
 
                 Space otherSpace = board.getNeighbour(space, heading);
@@ -250,13 +292,16 @@ public class GameController {
                     otherSpace = board.getNeighbour(otherSpace.getPlayer().getSpace(), heading);
                 }
 
-                if (target.getPlayer() != null && otherSpace.getPlayer() == null) {
+                if (target.getPlayer() != null && otherSpace.getPlayer() == null && canMoveThroughWall) {
                     targetedPlayer = target.getPlayer();
 
                     boolean again = true;
                     while(targetedPlayer.getSpace().getActions().size() > 0 && again) {
                         for (FieldAction fieldAction : player.getSpace().getActions()) {
                             if (fieldAction instanceof ConveyorBelt) {
+                                fieldAction.doAction(this, targetedPlayer.getSpace());
+                            } else if (fieldAction instanceof BlueConveyorBelt) {
+                                fieldAction.doAction(this, targetedPlayer.getSpace());
                                 fieldAction.doAction(this, targetedPlayer.getSpace());
                             } else if (fieldAction instanceof Gear) {
                                 fieldAction.doAction(this, targetedPlayer.getSpace());
@@ -274,12 +319,13 @@ public class GameController {
 
                     space = cp.getSpace();
 
-                    Space targetNew = board.getNeighbour(space, heading);
-                    targetNew.setPlayer(targetedPlayer);
+                    //Space targetNew = board.getNeighbour(space, heading);
+                    //targetNew.setPlayer(targetedPlayer);
                 }
             }
 
-            if (target.getPlayer() == null) {
+            if (target.getPlayer() == null && canMoveThroughWall) {
+
                 target.setPlayer(player);
             }
 
@@ -287,20 +333,29 @@ public class GameController {
 
             while(player.getSpace().getActions().size() > 0 && again){
                 for (FieldAction fieldAction : player.getSpace().getActions()) {
+
                     if (fieldAction instanceof ConveyorBelt) {
                         fieldAction.doAction(this, player.getSpace());
-                    }else if(fieldAction instanceof Gear){
+                    } else if (fieldAction instanceof BlueConveyorBelt) {
+                        fieldAction.doAction(this, player.getSpace());
+                        fieldAction.doAction(this, player.getSpace());
+                    } else if(fieldAction instanceof Gear){
                         fieldAction.doAction(this, player.getSpace());
                         again = false;
                         break;
-                    }else if(fieldAction instanceof Checkpoint){
+                    } else if(fieldAction instanceof Checkpoint){
                         fieldAction.doAction(this, player.getSpace());
                         again = false;
                         break;
                     }
                 }
             }
+
         }
+        if(!canMoveThroughWall){
+            canMoveThroughWall = true;
+        }
+
     }
 
     // TODO: V2
@@ -365,11 +420,9 @@ public class GameController {
         }
     }
 
-    /*
     public void findWinner(Player player) {
-        Alert winMessage = new Alert(Alert.AlertType.INFORMATION, "Player \"" + player.getName() + "\" won.");
-        this.checkWinner = true;
+        Alert winMessage = new Alert(Alert.AlertType.INFORMATION, player.getName() + " won.");
         winMessage.showAndWait();
+        System.exit(0);
     }
-     */
 }

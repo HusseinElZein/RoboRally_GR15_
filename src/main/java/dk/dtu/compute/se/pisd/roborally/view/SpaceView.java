@@ -25,10 +25,12 @@ import dk.dtu.compute.se.pisd.designpatterns.observer.Subject;
 import dk.dtu.compute.se.pisd.roborally.controller.FieldAction;
 import dk.dtu.compute.se.pisd.roborally.model.SpaceComponents.*;
 import dk.dtu.compute.se.pisd.roborally.model.*;
+import dk.dtu.compute.se.pisd.roborally.view.ViewComponents.ViewBlueConveyorBelt;
 import dk.dtu.compute.se.pisd.roborally.view.ViewComponents.ViewCheckpoint;
 import dk.dtu.compute.se.pisd.roborally.view.ViewComponents.ViewConveyorBelt;
 import dk.dtu.compute.se.pisd.roborally.view.ViewComponents.ViewGear;
 import dk.dtu.compute.se.pisd.roborally.view.ViewComponents.ViewPushpanel;
+import dk.dtu.compute.se.pisd.roborally.view.ViewComponents.ViewWall;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
@@ -65,14 +67,6 @@ public class SpaceView extends StackPane implements ViewObserver {
         this.setMinHeight(SPACE_HEIGHT);
         this.setMaxHeight(SPACE_HEIGHT);
 
-        /*
-        if ((space.x + space.y) % 2 == 0) {
-            this.setStyle("-fx-background-color: white;");
-        } else {
-            this.setStyle("-fx-background-color: black;");
-        }
-         */
-
         // This space view should listen to changes of the space
         space.attach(this);
         update(space);
@@ -80,7 +74,7 @@ public class SpaceView extends StackPane implements ViewObserver {
 
     private void updatePlayer() {
 
-        if(this.getShape() instanceof Polygon){
+        if (this.getShape() instanceof Polygon) {
             this.getChildren().clear();
         }
 
@@ -90,76 +84,14 @@ public class SpaceView extends StackPane implements ViewObserver {
 
             Polygon arrow = new Polygon(0.0, 0.0,
                     10.0, 20.0,
-                    20.0, 0.0 );
+                    20.0, 0.0);
             try {
                 arrow.setFill(Color.valueOf(player.getColor()));
             } catch (Exception e) {
                 arrow.setFill(Color.MEDIUMPURPLE);
             }
 
-            arrow.setRotate((90*player.getHeading().ordinal())%360);
-            this.getChildren().add(arrow);
-        }
-    }
-
-    private void updateWall(){
-
-        Wall wall = space.getWall();
-        if (wall != null) {
-            Rectangle squareWall = new Rectangle(30, 30);
-            try {
-                squareWall.setFill(Color.DARKGRAY);
-            } catch (Exception e) {
-                squareWall.setFill(Color.DARKGRAY);
-            }
-            this.getChildren().add(squareWall);
-        }
-    }
-
-    private void updateTransportField(){
-
-        Gear gear = space.getTransportField();
-
-        if (gear != null) {
-
-            Circle circle = new Circle(10);
-
-            try {
-                circle.setFill(Color.GOLD);
-            } catch (Exception e) {
-                circle.setFill(Color.GOLD);
-            }
-            this.getChildren().add(circle);
-        }
-    }
-
-    private void updateConveyorField(){
-        ConveyorBelt conveyorBelt = space.conveyorBelt;
-
-        if(conveyorBelt != null){
-            Rectangle rectangle = new Rectangle(50, 50);
-            Polygon arrow = new Polygon(0.0, 0.0,
-                    15.0, 30.0,
-                    30.0, 0.0);
-            double v = 0;
-
-            switch (conveyorBelt.getHeading()){
-                case SOUTH -> v = 0;
-                case WEST -> v = 90;
-                case NORTH -> v = 180;
-                case EAST -> v = 270;
-            }
-
-            arrow.setRotate(v);
-
-            try {
-                arrow.setFill(Color.BLACK);
-                rectangle.setFill(Color.GREEN);
-            } catch (Exception e) {
-                arrow.setFill(Color.BLACK);
-                rectangle.setFill(Color.GREEN);
-            }
-            this.getChildren().add(rectangle);
+            arrow.setRotate((90 * player.getHeading().ordinal()) % 360);
             this.getChildren().add(arrow);
         }
     }
@@ -170,25 +102,14 @@ public class SpaceView extends StackPane implements ViewObserver {
         if (subject == this.space) {
 
             updateSpaceView();
-
-            /*if(!this.space.getWalls().isEmpty()){
-                WallView.drawWall(this, this.space);
-            }
-
-             */
-            for(FieldAction fieldAction : space.getActions()) {
-
-               /* else if (fieldAction instanceof Gear) {
-                    GearView.drawGear(this, fieldAction);
-                }
-                else if (fa instanceof Checkpoint) {
-                    CheckpointView.drawCheckpoint(this, fieldAction);
-                }
-
-                */
+            for (FieldAction fieldAction : space.getActions()) {
 
                 if (fieldAction instanceof ConveyorBelt) {
                     ViewConveyorBelt.insertConveyorBeltView(this, fieldAction);
+                }
+
+                if (fieldAction instanceof BlueConveyorBelt) {
+                    ViewBlueConveyorBelt.insertBlueConveyorBelt(this, fieldAction);
                 }
 
                 if (fieldAction instanceof Checkpoint) {
@@ -202,16 +123,20 @@ public class SpaceView extends StackPane implements ViewObserver {
                     ViewPushpanel.insertPushPanelView(this, fieldAction);
                 }
 
+                if (this.space.getWalls().size() > 0) {
+                    ViewWall.drawWall(this, this.space);
+                }
+
             }
             updatePlayer();
         }
     }
 
     public void updateSpaceView() {
-        Image image = new Image("Images/Space.png", 50, 50, true, true);
+        Image image = new Image("Images/Space.png", 60, 60, true, true);
         Canvas canvas = new Canvas(SpaceView.SPACE_WIDTH, SpaceView.SPACE_HEIGHT);
         GraphicsContext gc = canvas.getGraphicsContext2D();
-        gc.drawImage(image, 0,0);
+        gc.drawImage(image, 0, 0);
         this.getChildren().add(canvas);
     }
 }

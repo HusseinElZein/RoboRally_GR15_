@@ -118,7 +118,6 @@ public class CardFieldView extends GridPane implements ViewObserver {
             }
         }
         return null;
-
     }
 
     private CommandCardField cardFieldFromRepresentation(String rep) {
@@ -178,7 +177,6 @@ public class CardFieldView extends GridPane implements ViewObserver {
             }
             event.consume();
         }
-
     }
 
     private class OnDragOverHandler implements EventHandler<DragEvent> {
@@ -200,7 +198,6 @@ public class CardFieldView extends GridPane implements ViewObserver {
             }
             event.consume();
         }
-
     }
 
     private class OnDragEnteredHandler implements EventHandler<DragEvent> {
@@ -223,7 +220,6 @@ public class CardFieldView extends GridPane implements ViewObserver {
             }
             event.consume();
         }
-
     }
 
     private class OnDragExitedHandler implements EventHandler<DragEvent> {
@@ -246,7 +242,6 @@ public class CardFieldView extends GridPane implements ViewObserver {
             }
             event.consume();
         }
-
     }
 
     private class OnDragDroppedHandler implements EventHandler<DragEvent> {
@@ -285,7 +280,6 @@ public class CardFieldView extends GridPane implements ViewObserver {
             }
             event.consume();
         }
-
     }
 
     private class OnDragDoneHandler implements EventHandler<DragEvent> {
@@ -299,9 +293,7 @@ public class CardFieldView extends GridPane implements ViewObserver {
             }
             event.consume();
         }
-
     }
-
 }
 
 

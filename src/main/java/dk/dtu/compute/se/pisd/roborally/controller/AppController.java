@@ -127,7 +127,7 @@ public class AppController implements Observer {
     }
 
     public void loadGame() {
-        // XXX needs to be implememted eventually
+        // XXX needs to be implemented eventually
         // for now, we just create a new game
         if (gameController == null) {
             String path = "src/main/resources/boards";
@@ -146,12 +146,12 @@ public class AppController implements Observer {
             dialog.setHeaderText("Select a game to load");
             Optional<String> result = dialog.showAndWait();
 
+
             result.ifPresent(choice->{
                 board = LoadBoard.loadBoard(choice);
                 gameController = new GameController(board);
                 gameController.startProgrammingPhase();
                 roboRally.createBoardView(gameController);
-                System.out.println("test");
             });
         }
     }

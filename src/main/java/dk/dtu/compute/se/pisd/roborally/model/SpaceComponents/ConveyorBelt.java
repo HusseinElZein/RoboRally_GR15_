@@ -20,7 +20,6 @@
  *
  */
 package dk.dtu.compute.se.pisd.roborally.model.SpaceComponents;
-
 import dk.dtu.compute.se.pisd.roborally.controller.FieldAction;
 import dk.dtu.compute.se.pisd.roborally.controller.GameController;
 import dk.dtu.compute.se.pisd.roborally.model.Heading;
@@ -34,7 +33,7 @@ import org.jetbrains.annotations.NotNull;
  * @author Ekkart Kindler, ekki@dtu.dk
  *
  */
-public class ConveyorBelt extends FieldAction {
+public class ConveyorBelt extends FieldAction{
 
     private Heading heading;
 

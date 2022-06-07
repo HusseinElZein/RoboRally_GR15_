@@ -20,7 +20,6 @@
  *
  */
 package dk.dtu.compute.se.pisd.roborally.fileaccess;
-
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.stream.JsonReader;
@@ -30,11 +29,11 @@ import dk.dtu.compute.se.pisd.roborally.fileaccess.model.SpaceTemplate;
 import dk.dtu.compute.se.pisd.roborally.controller.FieldAction;
 import dk.dtu.compute.se.pisd.roborally.fileaccess.model.TemplateForPlayer;
 import dk.dtu.compute.se.pisd.roborally.model.Board;
-import dk.dtu.compute.se.pisd.roborally.model.CommandCard;
+import dk.dtu.compute.se.pisd.roborally.model.Player;
 import dk.dtu.compute.se.pisd.roborally.model.Space;
+import dk.dtu.compute.se.pisd.roborally.model.SpaceComponents.Checkpoint;
 
 import java.io.*;
-import java.util.Objects;
 
 /**
  * ...
@@ -44,7 +43,6 @@ import java.util.Objects;
 public class LoadBoard {
 
     private static final String BOARDSFOLDER = "boards";
-    private static final String SAVEDBOARDS = "savedboards";
     private static final String DEFAULTBOARD = "defaultboard";
     private static final String JSON_EXT = "json";
 
@@ -79,8 +77,28 @@ public class LoadBoard {
                 if (space != null) {
                     space.getActions().addAll(spaceTemplate.actions);
                     space.getWalls().addAll(spaceTemplate.walls);
+
+                    if(space.getActions().size() != 0){
+                        if(space.getActions().get(0) instanceof Checkpoint){
+                            result.setCheckpointCounter(1);
+                        }
+                    }
                 }
             }
+
+            for (TemplateForPlayer templateForPlayer : template.players) {
+                Player player = new Player(result, templateForPlayer.color, templateForPlayer.name);
+
+                if(templateForPlayer.isCurrent) {
+                    result.setCurrentPlayer(player);
+                }
+
+                player.setHeading(player.getHeading());
+                player.setSpace(result.getSpace(templateForPlayer.x, templateForPlayer.y));
+                player.setCheckpoints(templateForPlayer.CheckpointAmount);
+                result.getPlayers().add(player);
+            }
+
             reader.close();
             return result;
         } catch (IOException e1) {
@@ -120,8 +138,24 @@ public class LoadBoard {
             }
         }
 
+        for (int i = 0; i < board.getPlayers().size(); i++) {
+            TemplateForPlayer playerTemplate = new TemplateForPlayer();
+            playerTemplate.heading = board.getPlayers().get(i).getHeading();
+            playerTemplate.x = board.getPlayers().get(i).getSpace().x;
+            playerTemplate.y = board.getPlayers().get(i).getSpace().y;
+            playerTemplate.CheckpointAmount = board.getPlayers().get(i).getCheckpoints();
+            playerTemplate.color = board.getPlayers().get(i).getColor();
+            playerTemplate.name = board.getPlayers().get(i).getName();
 
-        ClassLoader classLoader = LoadBoard.class.getClassLoader();
+            if (board.getPlayers().get(i).equals(board.getCurrentPlayer())) {
+                playerTemplate.isCurrent = true;
+            } else {
+                playerTemplate.isCurrent = false;
+            }
+            template.players.add(playerTemplate);
+        }
+
+
         // TODO: this is not very defensive, and will result in a NullPointerException
         //       when the folder "resources" does not exist! But, it does not need
         //       the file "simpleCards.json" to exist!
@@ -129,7 +163,7 @@ public class LoadBoard {
                 //Objects.requireNonNull(classLoader.getResource(SAVEDBOARDS).getPath()) + "/" + name + "." + JSON_EXT;
 
         //Skulle se sådan her ud hvis man printer filename med classlaoder:
-        // /Users/ahmadsandhu/eclipse-workspace/RoboRally/Game/target/classes/savedBoards/j.json
+        // /Users/Hussein-Elzein/eclipse-workspace/RoboRally/Game/target/classes/savedBoards/j.json
 
 
         // In simple cases, we can create a Gson object with new:
