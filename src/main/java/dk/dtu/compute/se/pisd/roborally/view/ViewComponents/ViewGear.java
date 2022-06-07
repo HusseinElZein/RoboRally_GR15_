@@ -1,5 +1,4 @@
 package dk.dtu.compute.se.pisd.roborally.view.ViewComponents;
-
 import dk.dtu.compute.se.pisd.roborally.controller.FieldAction;
 import dk.dtu.compute.se.pisd.roborally.model.Heading;
 import dk.dtu.compute.se.pisd.roborally.model.SpaceComponents.Gear;
