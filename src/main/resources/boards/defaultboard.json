@@ -17,6 +17,23 @@
       "x": 0,
       "y": 0
     },
+
+    {
+      "PushPanels": [
+        "North"
+      ],
+      "actions": [
+        {
+          "CLASSNAME": "dk.dtu.compute.se.pisd.roborally.model.SpaceComponents.PushPanel",
+          "INSTANCE": {
+            "heading": "NORTH"
+          }
+        }
+      ],
+      "x": 7,
+      "y": 2
+    },
+
     {
       "walls": [
         "NORTH"

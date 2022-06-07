@@ -18,7 +18,14 @@ public class PushPanel extends FieldAction {
 
         Space neighbourSpace = gameController.board.getNeighbour(space, heading);
 
+        if(neighbourSpace.getPlayer() != null){
+            Space otherSpace = gameController.board.getNeighbour(neighbourSpace, heading);
+            otherSpace.setPlayer(neighbourSpace.getPlayer());
+        }
+
         neighbourSpace.setPlayer(space.getPlayer());
+
+
 
         return false;
     }
