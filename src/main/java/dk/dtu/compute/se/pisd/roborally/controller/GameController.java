@@ -310,6 +310,8 @@ public class GameController {
                                 break;
                             } else if (fieldAction instanceof PushPanel){
                                 fieldAction.doAction(this, targetedPlayer.getSpace());
+                                again = false;
+                                break;
                             }
                         }
                     }
@@ -348,6 +350,8 @@ public class GameController {
                         break;
                     }else if (fieldAction instanceof PushPanel){
                         fieldAction.doAction(this, player.getSpace());
+                        again = false;
+                        break;
                     }
                 }
             }

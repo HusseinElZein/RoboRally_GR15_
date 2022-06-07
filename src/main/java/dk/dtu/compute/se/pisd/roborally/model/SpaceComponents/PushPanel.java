@@ -9,25 +9,24 @@ public class PushPanel extends FieldAction {
     private Heading heading;
 
 
-    public Heading getHeading(){
+    public Heading getHeading() {
         return heading;
     }
 
     @Override
-    public boolean doAction (GameController gameController, Space space){
+    public boolean doAction(GameController gameController, Space space) {
 
-        Space neighbourSpace = gameController.board.getNeighbour(space, heading);
+        if (gameController.board.getStep() == 1 || gameController.board.getStep() == 3) {
 
-        if(neighbourSpace.getPlayer() != null){
-            Space otherSpace = gameController.board.getNeighbour(neighbourSpace, heading);
-            otherSpace.setPlayer(neighbourSpace.getPlayer());
+            Space neighbourSpace = gameController.board.getNeighbour(space, heading);
+
+            if (neighbourSpace.getPlayer() != null) {
+                Space otherSpace = gameController.board.getNeighbour(neighbourSpace, heading);
+                otherSpace.setPlayer(neighbourSpace.getPlayer());
+            }
+
+            neighbourSpace.setPlayer(space.getPlayer());
         }
-
-        neighbourSpace.setPlayer(space.getPlayer());
-
-
-
         return false;
     }
-
 }
