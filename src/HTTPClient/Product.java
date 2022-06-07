@@ -1,5 +1,3 @@
-package exercise12;
-
 public class Product
 {
     private int id;
