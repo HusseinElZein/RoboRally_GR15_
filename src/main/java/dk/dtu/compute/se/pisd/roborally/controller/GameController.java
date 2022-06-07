@@ -23,13 +23,8 @@ package dk.dtu.compute.se.pisd.roborally.controller;
 
 import dk.dtu.compute.se.pisd.roborally.model.*;
 import dk.dtu.compute.se.pisd.roborally.model.SpaceComponents.*;
-import dk.dtu.compute.se.pisd.roborally.view.SpaceView;
 import javafx.scene.control.Alert;
 import org.jetbrains.annotations.NotNull;
-
-import java.awt.*;
-import java.lang.reflect.Field;
-import java.util.concurrent.TimeUnit;
 
 /**
  * ...
@@ -206,20 +201,13 @@ public class GameController {
             //     (this concerns the way cards are modelled as well as the way they are executed).
 
             switch (command) {
-                case FORWARD:
-                    this.moveForward(player);
-                    break;
-                case RIGHT:
-                    this.turnRight(player);
-                    break;
-                case LEFT:
-                    this.turnLeft(player);
-                    break;
-                case FAST_FORWARD:
-                    this.fastForward(player);
-                    break;
-                default:
-                    // DO NOTHING (for now)
+                case FORWARD -> this.moveForward(player);
+                case RIGHT -> this.turnRight(player);
+                case LEFT -> this.turnLeft(player);
+                case FAST_FORWARD -> this.fastForward(player);
+                default -> {
+                }
+                // DO NOTHING (for now)
             }
         }
     }
