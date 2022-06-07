@@ -205,6 +205,9 @@ public class GameController {
                 case RIGHT -> this.turnRight(player);
                 case LEFT -> this.turnLeft(player);
                 case FAST_FORWARD -> this.fastForward(player);
+                case TRIPPLE_FORWARD -> this.tripleForward(player);
+                case U_TURN -> this.uTurn(player);
+                case BACK_UP -> this.backUp(player);
                 default -> {
                 }
                 // DO NOTHING (for now)
@@ -370,6 +373,28 @@ public class GameController {
             player.setHeading(player.getHeading().prev());
         }
     }
+
+    public void tripleForward (@NotNull Player player){
+        moveForward(player);
+        moveForward(player);
+        moveForward(player);
+    }
+
+    public void uTurn (@NotNull Player player){
+        switch (player.getHeading()) {
+            case NORTH -> player.setHeading(Heading.SOUTH);
+            case EAST -> player.setHeading(Heading.WEST);
+            case WEST -> player.setHeading(Heading.EAST);
+            case SOUTH -> player.setHeading(Heading.NORTH);
+        }
+    }
+
+    public void backUp(@NotNull Player player){
+        uTurn(player);
+        moveForward(player);
+        uTurn(player);
+    }
+
 
     public boolean moveCards(@NotNull CommandCardField source, @NotNull CommandCardField target) {
         CommandCard sourceCard = source.getCard();
