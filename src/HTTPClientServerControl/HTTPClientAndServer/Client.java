@@ -21,7 +21,8 @@ public class Client implements IRoboRallyService {
     private String serverId;
 
     /**
-     * This method hosts a new game on a server and prepares the program for future updates and stuff
+     * This method hosts a new game on a server and prepares
+     * the program for future updates and stuff
      */
     @Override
     public String hostServer(String title) throws ExecutionException, InterruptedException, TimeoutException {
