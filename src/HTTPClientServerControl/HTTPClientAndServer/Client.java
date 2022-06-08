@@ -17,12 +17,13 @@ public class Client implements IRoboRallyService {
     private static final HttpClient HTTP_CLIENT = HttpClient.newBuilder().version(HttpClient.Version.HTTP_2)
             .connectTimeout(Duration.ofSeconds(10)).build();
 
-    private boolean connectedOrNot = false;
     private String urlUri = "http://localhost:8080";
     private String serverId;
 
     /**
-     * This method will update the game state on the game server with a JSON string
+     * This method will update the game state on the game server with a JSON string.
+     * This method throws exceptions from the request and response. They get catched in
+     * RoborallyMenyBar in case I would want it in there
      */
 
     @Override
@@ -33,9 +34,13 @@ public class Client implements IRoboRallyService {
                 .setHeader("User-Agent", "RoboRally Client")
                 .setHeader("Content-Type", "application/json")
                 .build();
+
+        //This is the completable future, it sends an async, and can in the future get a response
         CompletableFuture<HttpResponse<String>> response =
                 HTTP_CLIENT.sendAsync(request, HttpResponse.BodyHandlers.ofString());
 
+        //In case i would want the result, i have it here, it can throw a message! Thats
+        //Why I have it in here
             String result = response.thenApply(HttpResponse::body).get(5, HOURS);
     }
 
@@ -58,7 +63,6 @@ public class Client implements IRoboRallyService {
             if (response.get().statusCode() == 500) {
                 return response.get().body();
             }
-            connectedOrNot = true;
 
         return "success";
     }
