@@ -8,7 +8,9 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 
-
+/**
+ * The visual representation of the PushPanelView is implemented below
+ */
 public class ViewPushpanel {
 
     public static void insertPushPanelView (SpaceView spaceview, FieldAction fieldAction) {

@@ -7,7 +7,9 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import java.util.List;
-
+/**
+ * The visual representation of the drawaWall is implemented below
+ */
 public class ViewWall {
 
     public static void drawWall(SpaceView spaceView, Space space) {

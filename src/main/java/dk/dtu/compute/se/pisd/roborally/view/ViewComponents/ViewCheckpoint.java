@@ -7,6 +7,9 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 
+/**
+ * The visual representation of the CheckpointView is implemented below
+ */
 public class ViewCheckpoint {
     public static void insertCheckpointView(SpaceView spaceView, FieldAction fieldAction){
         Checkpoint checkpoint = (Checkpoint) fieldAction;

@@ -7,6 +7,9 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
+/**
+ * The visual representation of the GearView is implemented below
+ */
 
 public class ViewGear {
     public static void insertGearView(SpaceView spaceView, FieldAction fieldAction) {

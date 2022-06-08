@@ -8,6 +8,10 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 
+/**
+ * The visual representation of the blueconveyerbelt is implemented below
+ */
+
 public class ViewBlueConveyorBelt {
 
     public static void insertBlueConveyorBelt(SpaceView spaceView, FieldAction fieldAction) {
