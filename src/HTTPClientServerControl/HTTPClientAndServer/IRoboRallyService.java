@@ -11,4 +11,8 @@ public interface IRoboRallyService {
 
     String getServer();
     void setServer(String server);
+
+    String getGameState();
+
+    void updateWholeGame() throws ExecutionException, InterruptedException, TimeoutException;
 }

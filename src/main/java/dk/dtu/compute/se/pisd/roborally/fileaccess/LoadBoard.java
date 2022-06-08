@@ -154,6 +154,43 @@ public class LoadBoard {
             }
             template.players.add(playerTemplate);
         }
+    }
+
+        public static String saveBoardToString(Board board, String name) {
+            BoardTemplate template = new BoardTemplate();
+            template.width = board.width;
+            template.height = board.height;
+
+            for (int i = 0; i < board.width; i++) {
+                for (int j = 0; j < board.height; j++) {
+                    Space space = board.getSpace(i, j);
+                    if (!space.getWalls().isEmpty() || !space.getActions().isEmpty()) {
+                        SpaceTemplate spaceTemplate = new SpaceTemplate();
+                        spaceTemplate.x = space.x;
+                        spaceTemplate.y = space.y;
+                        spaceTemplate.actions.addAll(space.getActions());
+                        spaceTemplate.walls.addAll(space.getWalls());
+                        template.spaces.add(spaceTemplate);
+                    }
+                }
+            }
+
+            for (int i = 0; i < board.getPlayers().size(); i++) {
+                TemplateForPlayer playerTemplate = new TemplateForPlayer();
+                playerTemplate.heading = board.getPlayers().get(i).getHeading();
+                playerTemplate.x = board.getPlayers().get(i).getSpace().x;
+                playerTemplate.y = board.getPlayers().get(i).getSpace().y;
+                playerTemplate.CheckpointAmount = board.getPlayers().get(i).getCheckpoints();
+                playerTemplate.color = board.getPlayers().get(i).getColor();
+                playerTemplate.name = board.getPlayers().get(i).getName();
+
+                if (board.getPlayers().get(i).equals(board.getCurrentPlayer())) {
+                    playerTemplate.isCurrent = true;
+                } else {
+                    playerTemplate.isCurrent = false;
+                }
+                template.players.add(playerTemplate);
+            }
 
 
         // TODO: this is not very defensive, and will result in a NullPointerException
@@ -200,5 +237,6 @@ public class LoadBoard {
                 }
             }
         }
+        return gson.toJson(template);
     }
 }

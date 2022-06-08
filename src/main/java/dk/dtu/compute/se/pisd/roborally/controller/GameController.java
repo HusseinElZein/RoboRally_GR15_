@@ -21,10 +21,14 @@
  */
 package dk.dtu.compute.se.pisd.roborally.controller;
 
+import HTTPClientAndServer.Client;
 import dk.dtu.compute.se.pisd.roborally.model.*;
 import dk.dtu.compute.se.pisd.roborally.model.SpaceComponents.*;
 import javafx.scene.control.Alert;
 import org.jetbrains.annotations.NotNull;
+
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.TimeoutException;
 
 /**
  * ...
@@ -193,6 +197,7 @@ public class GameController {
         }
     }
 
+    private Client client = new Client();
     // XXX: V2
     private void executeCommand(@NotNull Player player, Command command) {
         if (player != null && player.board == board && command != null) {
@@ -211,6 +216,15 @@ public class GameController {
                 default -> {
                 }
                 // DO NOTHING (for now)
+            }
+            try {
+                client.updateWholeGame();
+            } catch (ExecutionException e) {
+                e.printStackTrace();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            } catch (TimeoutException e) {
+                e.printStackTrace();
             }
         }
     }

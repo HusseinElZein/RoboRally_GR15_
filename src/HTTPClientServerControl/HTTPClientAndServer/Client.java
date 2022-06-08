@@ -1,4 +1,7 @@
 package HTTPClientAndServer;
+import dk.dtu.compute.se.pisd.roborally.controller.AppController;
+import dk.dtu.compute.se.pisd.roborally.fileaccess.LoadBoard;
+
 import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
@@ -7,6 +10,8 @@ import java.time.Duration;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeoutException;
+import java.util.regex.Pattern;
+
 import static java.util.concurrent.TimeUnit.*;
 
 /**
@@ -40,7 +45,6 @@ public class Client implements IRoboRallyService {
         if (response.get().statusCode() == 500) {
             return response.get().body();
         }
-
         return "success";
     }
 
@@ -72,12 +76,57 @@ public class Client implements IRoboRallyService {
      * This method sets the overall address of the server that has just been started
      */
     public void setServer(String server) {
+
+        Pattern pattern = Pattern.compile("^(?:\\d{1,3}\\.){3}\\d{1,3}$");
+
         this.serverId = "http://" + server + ":8080";
     }
 
     public String getServer() {
         return urlUri;
     }
+
+    @Override
+    public String getGameState() {
+        HttpRequest request = HttpRequest.newBuilder()
+                .GET()
+                .uri(URI.create(urlUri + "/gameState/" + urlUri))
+                .setHeader("User-Agent", "RoboRally Client")
+                .header("Content-Type", "application/json")
+                .build();
+        CompletableFuture<HttpResponse<String>> response =
+                HTTP_CLIENT.sendAsync(request, HttpResponse.BodyHandlers.ofString());
+        String result;
+        try {
+            result = response.thenApply(HttpResponse::body).get(5, SECONDS);
+        } catch (InterruptedException | ExecutionException | TimeoutException e) {
+            throw new RuntimeException(e);
+        }
+
+        return result;
+    }
+
+    @Override
+    public void updateWholeGame() throws ExecutionException, InterruptedException, TimeoutException {
+
+        String jsonBoard = LoadBoard.saveBoardToString(AppController.getBoard(), "name");
+        HttpRequest request = HttpRequest.newBuilder()
+                .POST(HttpRequest.BodyPublishers.ofString(jsonBoard))
+                .uri(URI.create(urlUri + "/board"))
+                .setHeader("User-Agent", "RoboRally Client")
+                .setHeader("Content-Type", "application/json")
+                .build();
+
+        //This is the completable future, it sends an async, and can in the future get a response
+        CompletableFuture<HttpResponse<String>> response =
+                HTTP_CLIENT.sendAsync(request, HttpResponse.BodyHandlers.ofString());
+
+        //In case i would want the result, i have it here, it can throw a message! Thats
+        //Why I have it in here
+        String result = response.thenApply(HttpResponse::body).get(5, HOURS);
+    }
+
+
 
 
 }

@@ -62,7 +62,11 @@ public class AppController implements Observer {
     final private RoboRally roboRally;
 
     private GameController gameController;
-    Board board;
+    static Board board;
+
+    public static Board getBoard(){
+        return board;
+    }
 
     public AppController(@NotNull RoboRally roboRally) {
         this.roboRally = roboRally;
