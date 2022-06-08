@@ -23,10 +23,9 @@ public class Client implements IRoboRallyService {
     private static final HttpClient HTTP_CLIENT = HttpClient.newBuilder().version(HttpClient.Version.HTTP_2)
             .connectTimeout(Duration.ofSeconds(10)).build();
 
-    private String server = "http://localhost:8080";
-    private String serverID = "";
     private boolean connectedToServer = false;
-    private int robotNumber;
+    private String urlUri = "http://localhost:8080";
+    private String serverId;
 
     public boolean isConnectedToServer(){
         return connectedToServer;
@@ -42,7 +41,7 @@ public class Client implements IRoboRallyService {
     public void updateGame(String gameState) {
         HttpRequest request = HttpRequest.newBuilder()
                 .PUT(HttpRequest.BodyPublishers.ofString(gameState))
-                .uri(URI.create(server + "/gameState/" + serverID))
+                .uri(URI.create(urlUri + "/gameState/" + urlUri))
                 .setHeader("User-Agent", "RoboRally Client")
                 .setHeader("Content-Type", "application/json")
                 .build();
@@ -65,7 +64,7 @@ public class Client implements IRoboRallyService {
     public String getGameState() {
         HttpRequest request = HttpRequest.newBuilder()
                 .GET()
-                .uri(URI.create(server + "/gameState/" + serverID))
+                .uri(URI.create(urlUri + "/gameState/" + urlUri))
                 .setHeader("User-Agent", "RoboRally Client")
                 .header("Content-Type", "application/json")
                 .build();
@@ -92,7 +91,7 @@ public class Client implements IRoboRallyService {
 
         HttpRequest request = HttpRequest.newBuilder()
                 .POST(HttpRequest.BodyPublishers.ofString(title))
-                .uri(URI.create(server + "/game"))
+                .uri(URI.create(urlUri + "/game"))
                 .setHeader("User-Agent", "RoboRally Client")
                 .header("Content-Type", "text/plain")
                 .build();
@@ -100,12 +99,11 @@ public class Client implements IRoboRallyService {
                 HTTP_CLIENT.sendAsync(request, HttpResponse.BodyHandlers.ofString());
 
 
-            serverID = response.thenApply(HttpResponse::body).get(5, SECONDS);
+            serverId = response.thenApply(HttpResponse::body).get(5, SECONDS);
             if (response.get().statusCode() == 500) {
                 return response.get().body();
             }
             connectedToServer = true;
-            robotNumber = 0;
 
 
         return "success";
@@ -120,7 +118,7 @@ public class Client implements IRoboRallyService {
     public String listOfSavedGames() {
         HttpRequest request = HttpRequest.newBuilder()
                 .GET()
-                .uri(URI.create(server + "/game"))
+                .uri(URI.create(urlUri + "/game"))
                 .setHeader("User-Agent", "RoboRally Client")
                 .header("Content-Type", "application/json")
                 .build();
@@ -156,7 +154,7 @@ public class Client implements IRoboRallyService {
 
         HttpRequest request = HttpRequest.newBuilder()
                 .PUT(HttpRequest.BodyPublishers.ofString(""))
-                .uri(URI.create(server + "/game/" + serverToJoin))
+                .uri(URI.create(urlUri + "/game/" + serverToJoin))
                 .header("User-Agent", "RoboRally Client")
                 .header("Content-Type", "text/plain")
                 .build();
@@ -170,8 +168,7 @@ public class Client implements IRoboRallyService {
                 return message.body();
             if (message.statusCode() == 404)
                 return message.body();
-            robotNumber = Integer.parseInt(message.body());
-            serverID = serverToJoin;
+            urlUri = serverToJoin;
 
         } catch (InterruptedException | ExecutionException | TimeoutException e) {
             return "service timeout";
@@ -180,28 +177,17 @@ public class Client implements IRoboRallyService {
     }
 
     public String getServer() {
-        return server;
+        return urlUri;
     }
 
     /**
-     * Sets the ip address of the server
-     *
-     * @param server ip of server to communicate with
-     * @throws IllegalIPExeception throws illegal ip exception if ip is not valid
+     * This method sets the ip address of the server
      */
-    public void setServer(String server) throws IllegalIPExeception {
-        // Simple regex pattern to check for string contains ip
+    public void setServer(String server) {
         Pattern pattern = Pattern.compile("^(?:\\d{1,3}\\.){3}\\d{1,3}$");
-        Matcher matcher = pattern.matcher(server);
-        if (matcher.find())
-            this.server = "http://" + server + ":8080";
-        else
-            throw new IllegalIPExeception();
+
+        this.serverId = "http://" + server + ":8080";
+
     }
 
-    public class IllegalIPExeception extends Exception {
-        public IllegalIPExeception() {
-            super("Not a valid IP");
-        }
-    }
 }
