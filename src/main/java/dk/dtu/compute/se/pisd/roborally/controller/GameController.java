@@ -228,7 +228,22 @@ public class GameController {
                 e.printStackTrace();
             }
         }
+
+
+
+        String stateOfGame = "Current player: " + board.getCurrentPlayer().getName() + "\nGame ended: " + "NO"
+                + "\nPhase " + board.getPhase() + "\nAmount of checkpoints in game: " + board.getCheckpointCounter();
+        try {
+            client.setStateOfGame(stateOfGame);
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (TimeoutException e) {
+            e.printStackTrace();
+        }
     }
+
     boolean canMoveThroughWall = true;
 
     public void canMoveOntoWalls(Player player) throws cantMoveThroughWallExeption {

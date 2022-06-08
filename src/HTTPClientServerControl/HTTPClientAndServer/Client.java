@@ -10,7 +10,6 @@ import java.time.Duration;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeoutException;
-import java.util.regex.Pattern;
 
 import static java.util.concurrent.TimeUnit.*;
 
@@ -77,8 +76,6 @@ public class Client implements IRoboRallyService {
      */
     public void setServer(String server) {
 
-        Pattern pattern = Pattern.compile("^(?:\\d{1,3}\\.){3}\\d{1,3}$");
-
         this.serverId = "http://" + server + ":8080";
     }
 
@@ -87,10 +84,10 @@ public class Client implements IRoboRallyService {
     }
 
     @Override
-    public String getGameState() {
+    public String getStateOfGame() {
         HttpRequest request = HttpRequest.newBuilder()
                 .GET()
-                .uri(URI.create(urlUri + "/gameState/" + urlUri))
+                .uri(URI.create(urlUri + "/stateOfGame"))
                 .setHeader("User-Agent", "RoboRally Client")
                 .header("Content-Type", "application/json")
                 .build();
@@ -102,14 +99,32 @@ public class Client implements IRoboRallyService {
         } catch (InterruptedException | ExecutionException | TimeoutException e) {
             throw new RuntimeException(e);
         }
-
         return result;
+    }
+
+    @Override
+    public void setStateOfGame(String stringForStateOfGame) throws ExecutionException, InterruptedException, TimeoutException {
+
+        HttpRequest request = HttpRequest.newBuilder()
+                .POST(HttpRequest.BodyPublishers.ofString(stringForStateOfGame))
+                .uri(URI.create(urlUri + "/stateOfGame"))
+                .setHeader("User-Agent", "RoboRally Client")
+                .setHeader("Content-Type", "application/json")
+                .build();
+
+        //This is the completable future, it sends an async, and can in the future get a response
+        CompletableFuture<HttpResponse<String>> response =
+                HTTP_CLIENT.sendAsync(request, HttpResponse.BodyHandlers.ofString());
+
+        //In case i would want the result, i have it here, it can throw a message! Thats
+        //Why I have it in here
+        String result = response.thenApply(HttpResponse::body).get(5, HOURS);
     }
 
     @Override
     public void updateWholeGame() throws ExecutionException, InterruptedException, TimeoutException {
 
-        String jsonBoard = LoadBoard.saveBoardToString(AppController.getBoard(), "name");
+        String jsonBoard = LoadBoard.saveBoardToString(AppController.getBoard(), "temporary");
         HttpRequest request = HttpRequest.newBuilder()
                 .POST(HttpRequest.BodyPublishers.ofString(jsonBoard))
                 .uri(URI.create(urlUri + "/board"))
@@ -124,6 +139,29 @@ public class Client implements IRoboRallyService {
         //In case i would want the result, i have it here, it can throw a message! Thats
         //Why I have it in here
         String result = response.thenApply(HttpResponse::body).get(5, HOURS);
+    }
+
+    /**
+     * This is the getter method that gets all the updates
+     **/
+    @Override
+    public String getUpdateWholeGame() throws ExecutionException, InterruptedException, TimeoutException {
+
+        HttpRequest request = HttpRequest.newBuilder()
+                .GET()
+                .uri(URI.create(urlUri + "/board"))
+                .setHeader("User-Agent", "RoboRally Client")
+                .header("Content-Type", "application/json")
+                .build();
+        CompletableFuture<HttpResponse<String>> response =
+                HTTP_CLIENT.sendAsync(request, HttpResponse.BodyHandlers.ofString());
+        String result;
+        try {
+            result = response.thenApply(HttpResponse::body).get(5, SECONDS);
+        } catch (InterruptedException | ExecutionException | TimeoutException e) {
+            throw new RuntimeException(e);
+        }
+        return result;
     }
 
 
