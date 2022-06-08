@@ -21,6 +21,29 @@ public class Client implements IRoboRallyService {
     private String serverId;
 
     /**
+     * This method hosts a new game on a server and prepares the program for future updates and stuff
+     */
+    @Override
+    public String hostServer(String title) throws ExecutionException, InterruptedException, TimeoutException {
+
+        HttpRequest request = HttpRequest.newBuilder()
+                .POST(HttpRequest.BodyPublishers.ofString(title))
+                .uri(URI.create(urlUri + "/game"))
+                .setHeader("User-Agent", "RoboRally Client")
+                .header("Content-Type", "text/plain")
+                .build();
+        CompletableFuture<HttpResponse<String>> response =
+                HTTP_CLIENT.sendAsync(request, HttpResponse.BodyHandlers.ofString());
+
+        serverId = response.thenApply(HttpResponse::body).get(5, SECONDS);
+        if (response.get().statusCode() == 500) {
+            return response.get().body();
+        }
+
+        return "success";
+    }
+
+    /**
      * This method will update the game state on the game server with a JSON string.
      * This method throws exceptions from the request and response. They get catched in
      * RoborallyMenyBar in case I would want it in there
@@ -45,36 +68,15 @@ public class Client implements IRoboRallyService {
     }
 
     /**
-     * This method hosts a new game on a server and prepares the program for future updates and stuff
+     * This method sets the overall address of the server that has just been started
      */
-    @Override
-    public String hostServer(String title) throws ExecutionException, InterruptedException, TimeoutException {
-
-        HttpRequest request = HttpRequest.newBuilder()
-                .POST(HttpRequest.BodyPublishers.ofString(title))
-                .uri(URI.create(urlUri + "/game"))
-                .setHeader("User-Agent", "RoboRally Client")
-                .header("Content-Type", "text/plain")
-                .build();
-        CompletableFuture<HttpResponse<String>> response =
-                HTTP_CLIENT.sendAsync(request, HttpResponse.BodyHandlers.ofString());
-
-            serverId = response.thenApply(HttpResponse::body).get(5, SECONDS);
-            if (response.get().statusCode() == 500) {
-                return response.get().body();
-            }
-
-        return "success";
+    public void setServer(String server) {
+        this.serverId = "http://" + server + ":8080";
     }
 
     public String getServer() {
         return urlUri;
     }
 
-    /**
-     * This method sets the overall address of the server that has just been started
-     */
-    public void setServer(String server) {
-        this.serverId = "http://" + server + ":8080";
-    }
+
 }
