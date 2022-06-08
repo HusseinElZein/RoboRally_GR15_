@@ -22,6 +22,7 @@
 package dk.dtu.compute.se.pisd.roborally.controller;
 
 import HTTPClientAndServer.Client;
+import dk.dtu.compute.se.pisd.roborally.Exception.cantMoveThroughWallExeption;
 import dk.dtu.compute.se.pisd.roborally.model.*;
 import dk.dtu.compute.se.pisd.roborally.model.SpaceComponents.*;
 import javafx.scene.control.Alert;
@@ -230,7 +231,7 @@ public class GameController {
     }
     boolean canMoveThroughWall = true;
 
-    public void canMoveOntoWalls(Player player) throws cantMoveTroughWallExeption {
+    public void canMoveOntoWalls(Player player) throws cantMoveThroughWallExeption {
 
         Heading heading = player.getHeading();
         Space space = player.getSpace();
@@ -240,7 +241,7 @@ public class GameController {
 
                 if (wallHeading == player.getHeading()) {
                     canMoveThroughWall = false;
-                    throw new cantMoveTroughWallExeption(player);
+                    throw new cantMoveThroughWallExeption(player);
                 }
             }
         }
@@ -254,11 +255,11 @@ public class GameController {
                 if ((wallHeading == Heading.SOUTH && player.getHeading() == Heading.NORTH)
                 || (wallHeading == Heading.NORTH && player.getHeading() == Heading.SOUTH)) {
                     canMoveThroughWall = false;
-                    throw new cantMoveTroughWallExeption(player);
+                    throw new cantMoveThroughWallExeption(player);
                 } else if((wallHeading == Heading.EAST && player.getHeading() == Heading.WEST)
                         || (wallHeading == Heading.WEST && player.getHeading() == Heading.EAST)){
                     canMoveThroughWall = false;
-                    throw new cantMoveTroughWallExeption(player);
+                    throw new cantMoveThroughWallExeption(player);
                 }
             }
         }
@@ -281,7 +282,7 @@ public class GameController {
 
                 try {
                     canMoveOntoWalls(player);
-                } catch (cantMoveTroughWallExeption e) {
+                } catch (cantMoveThroughWallExeption e) {
                     // Empty catch statement.
                 }
 
