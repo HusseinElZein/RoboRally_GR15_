@@ -21,6 +21,7 @@
  */
 package dk.dtu.compute.se.pisd.roborally.controller;
 
+import HTTPClientAndServer.Client;
 import dk.dtu.compute.se.pisd.designpatterns.observer.Observer;
 import dk.dtu.compute.se.pisd.designpatterns.observer.Subject;
 
@@ -42,7 +43,10 @@ import org.jetbrains.annotations.NotNull;
 import java.io.File;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.TimeoutException;
 
 /**
  * ...
@@ -113,6 +117,30 @@ public class AppController implements Observer {
             gameController.startProgrammingPhase();
 
             roboRally.createBoardView(gameController);
+        }
+    }
+
+    Client client = new Client();
+
+    public void connectToServer() {
+
+    }
+
+    public void hostGame(String... errorMessage) throws ExecutionException, InterruptedException, TimeoutException {
+        TextInputDialog serverCreation = new TextInputDialog();
+        serverCreation.setTitle("Start game server");
+        serverCreation.setHeaderText("Server name:");
+        if (errorMessage.length != 0){
+            serverCreation.setHeaderText(errorMessage[0]);
+        }
+        Optional<String> result = serverCreation.showAndWait();
+        if (result.isEmpty())
+            return;
+        String response = client.hostServer(result.get());
+        if (!Objects.equals(response, "success"))
+            hostGame(response);
+        else {
+            newGame();
         }
     }
 

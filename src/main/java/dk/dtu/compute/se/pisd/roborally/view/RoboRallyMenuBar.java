@@ -26,6 +26,9 @@ import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
 
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.TimeoutException;
+
 /**
  * ...
  *
@@ -37,17 +40,14 @@ public class RoboRallyMenuBar extends MenuBar {
     private AppController appController;
 
     private Menu controlMenu;
+    private MenuItem saveGame, newGame, loadGame, stopGame, exitApp;
+
+    /////////////----------------------
     private Menu serverMenu;
+    private MenuItem hostGame, connectToServer;
 
-    private MenuItem saveGame;
 
-    private MenuItem newGame;
 
-    private MenuItem loadGame;
-
-    private MenuItem stopGame;
-
-    private MenuItem exitApp;
 
     public RoboRallyMenuBar(AppController appController) {
         this.appController = appController;
@@ -78,10 +78,31 @@ public class RoboRallyMenuBar extends MenuBar {
         serverMenu = new Menu("Multiplayer");
         this.getMenus().add(serverMenu);
 
+        hostGame = new MenuItem("Host a new game");
+        hostGame.setOnAction( e -> {
+            try {
+                this.appController.hostGame();
+            } catch (ExecutionException ex) {
+                ex.printStackTrace();
+            } catch (InterruptedException ex) {
+                ex.printStackTrace();
+            } catch (TimeoutException ex) {
+                ex.printStackTrace();
+            }
+        });
+        serverMenu.getItems().add(hostGame);
+
+        connectToServer = new MenuItem("Connect to a server");
+        saveGame.setOnAction( e -> this.appController.connectToServer());
+        serverMenu.getItems().add(connectToServer);
+
+
         controlMenu.setOnShowing(e -> update());
         controlMenu.setOnShown(e -> this.updateBounds());
 
-        serverMenu = new Menu("Multiplayer");
+        serverMenu.setOnShowing(e -> update());
+        serverMenu.setOnShown(e -> this.updateBounds());
+
 
         update();
     }

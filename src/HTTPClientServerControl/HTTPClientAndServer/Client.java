@@ -88,7 +88,7 @@ public class Client implements IRoboRallyService {
      * @return serverId string
      */
     @Override
-    public String hostServer(String title) {
+    public String hostServer(String title) throws ExecutionException, InterruptedException, TimeoutException {
 
         HttpRequest request = HttpRequest.newBuilder()
                 .POST(HttpRequest.BodyPublishers.ofString(title))
@@ -98,16 +98,15 @@ public class Client implements IRoboRallyService {
                 .build();
         CompletableFuture<HttpResponse<String>> response =
                 HTTP_CLIENT.sendAsync(request, HttpResponse.BodyHandlers.ofString());
-        try {
+
+
             serverID = response.thenApply(HttpResponse::body).get(5, SECONDS);
-            if (response.get().statusCode() == 500)
+            if (response.get().statusCode() == 500) {
                 return response.get().body();
+            }
             connectedToServer = true;
             robotNumber = 0;
-        } catch (InterruptedException | ExecutionException | TimeoutException e) {
-            serverID = "";
-            return "Service timeout";
-        }
+
 
         return "success";
     }

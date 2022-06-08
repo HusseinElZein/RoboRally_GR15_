@@ -41,7 +41,6 @@ public class Board extends Subject {
     public final int width;
     public final int height;
     public String boardName;
-    private Integer gameId;
     private final Space[][] spaces;
     private final List<Player> players = new ArrayList<>();
     private Player current;
@@ -72,20 +71,6 @@ public class Board extends Subject {
 
     public Space[][] getSpaces() {
         return spaces;
-    }
-
-    public Integer getGameId() {
-        return gameId;
-    }
-
-    public void setGameId(int gameId) {
-        if (this.gameId == null) {
-            this.gameId = gameId;
-        } else {
-            if (!this.gameId.equals(gameId)) {
-                throw new IllegalStateException("A game with a set id may not be assigned a new id!");
-            }
-        }
     }
 
     public Space getSpace(int x, int y) {
