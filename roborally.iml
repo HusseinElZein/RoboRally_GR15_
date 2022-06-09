@@ -42,10 +42,6 @@
     <orderEntry type="library" scope="TEST" name="Maven: org.junit.platform:junit-platform-engine:1.4.2" level="project" />
     <orderEntry type="library" name="Maven: org.openjfx:javafx-controls:17" level="project" />
     <orderEntry type="library" name="Maven: org.openjfx:javafx-controls:mac:17" level="project" />
-    <orderEntry type="library" name="Maven: org.openjfx:javafx-graphics:17" level="project" />
-    <orderEntry type="library" name="Maven: org.openjfx:javafx-graphics:mac:17" level="project" />
-    <orderEntry type="library" name="Maven: org.openjfx:javafx-base:17" level="project" />
-    <orderEntry type="library" name="Maven: org.openjfx:javafx-base:mac:17" level="project" />
     <orderEntry type="library" name="Maven: org.openjfx:javafx-fxml:17" level="project" />
     <orderEntry type="library" name="Maven: org.openjfx:javafx-fxml:mac:17" level="project" />
     <orderEntry type="library" name="Maven: org.springframework:spring-context:5.3.19" level="project" />
@@ -57,5 +53,9 @@
     <orderEntry type="library" name="Maven: org.springframework:spring-web:5.3.19" level="project" />
     <orderEntry type="library" name="Maven: org.springframework.boot:spring-boot:2.6.7" level="project" />
     <orderEntry type="library" name="Maven: org.springframework.boot:spring-boot-autoconfigure:2.6.7" level="project" />
+    <orderEntry type="library" name="Maven: org.openjfx:javafx-graphics:17" level="project" />
+    <orderEntry type="library" name="Maven: org.openjfx:javafx-graphics:mac:17" level="project" />
+    <orderEntry type="library" name="Maven: org.openjfx:javafx-base:17" level="project" />
+    <orderEntry type="library" name="Maven: org.openjfx:javafx-base:mac:17" level="project" />
   </component>
 </module>
