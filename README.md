@@ -11,3 +11,18 @@ We are a group of students at the Technical University of Denmark, who have been
 3. When the game is running, in the menu choose: Multiplayer -> Host a new game
 
 4. Now you can play, and for each move on the board, a new updated version of the JSON file will be sent from client to server.
+
+
+### Current feautures of the game
+* Checkpoints
+* Two boards
+* Saving and loading the game
+* Walls
+* Conveyor Belts
+* Gears
+* Pushing other robots
+* Push panels. (Only activate when register is 2 or 4)
+* Programming phase, and activation phase 
+* Added more programming cards
+* Visual elements for the board. 
+
