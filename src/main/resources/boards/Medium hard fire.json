@@ -2,7 +2,6 @@
   "width": 10,
   "height": 8,
   "spaces": [
-
     {
       "walls": [
         "NORTH"
@@ -18,7 +17,6 @@
       "x": 2,
       "y": 1
     },
-
     {
       "walls": [
         "NORTH"
@@ -34,7 +32,6 @@
       "x": 3,
       "y": 1
     },
-
     {
       "actions": [
         {
@@ -47,7 +44,6 @@
       "x": 4,
       "y": 1
     },
-
     {
       "actions": [
         {
@@ -60,7 +56,6 @@
       "x": 4,
       "y": 0
     },
-
     {
       "actions": [
         {
@@ -73,7 +68,6 @@
       "x": 4,
       "y": 2
     },
-
     {
       "walls": [],
       "actions": [
@@ -87,7 +81,6 @@
       "x": 6,
       "y": 6
     },
-
     {
       "actions": [
         {
@@ -100,7 +93,6 @@
       "x": 3,
       "y": 2
     },
-
     {
       "actions": [
         {
@@ -113,7 +105,6 @@
       "x": 4,
       "y": 2
     },
-
     {
       "actions": [
         {
@@ -126,7 +117,6 @@
       "x": 0,
       "y": 4
     },
-
     {
       "actions": [
         {
@@ -139,7 +129,6 @@
       "x": 6,
       "y": 7
     },
-
     {
       "actions": [
         {
@@ -152,7 +141,6 @@
       "x": 1,
       "y": 5
     },
-
     {
       "actions": [
         {
@@ -165,7 +153,6 @@
       "x": 7,
       "y": 2
     },
-
     {
       "walls": [
         "NORTH"
@@ -181,7 +168,6 @@
       "x": 2,
       "y": 4
     },
-
     {
       "walls": [
         "NORTH"
@@ -197,7 +183,6 @@
       "x": 3,
       "y": 4
     },
-
     {
       "walls": [
         "NORTH"
@@ -213,7 +198,6 @@
       "x": 4,
       "y": 4
     },
-
     {
       "walls": [
         "NORTH"
@@ -229,7 +213,6 @@
       "x": 5,
       "y": 4
     },
-
     {
       "actions": [
         {
@@ -242,7 +225,6 @@
       "x": 1,
       "y": 6
     },
-
     {
       "actions": [
         {
@@ -255,7 +237,6 @@
       "x": 2,
       "y": 6
     },
-
     {
       "actions": [
         {
@@ -268,7 +249,6 @@
       "x": 3,
       "y": 6
     },
-
     {
       "actions": [
         {
@@ -281,7 +261,6 @@
       "x": 4,
       "y": 6
     },
-
     {
       "actions": [
         {
@@ -294,7 +273,6 @@
       "x": 5,
       "y": 6
     },
-
     {
       "walls": [
       ],
@@ -302,14 +280,13 @@
         {
           "CLASSNAME": "dk.dtu.compute.se.pisd.roborally.model.SpaceComponents.Checkpoint",
           "INSTANCE": {
-            "checkpoint": "1"
+            "checkpoint": "3"
           }
         }
       ],
       "x": 5,
       "y": 1
     },
-
     {
       "walls": [
         "NORTH",
@@ -326,7 +303,6 @@
       "x": 7,
       "y": 4
     },
-
     {
       "walls": [
         "NORTH"
@@ -335,14 +311,13 @@
         {
           "CLASSNAME": "dk.dtu.compute.se.pisd.roborally.model.SpaceComponents.Checkpoint",
           "INSTANCE": {
-            "checkpoint": "3"
+            "checkpoint": "1"
           }
         }
       ],
       "x": 8,
       "y": 7
     },
-
     {
       "actions": [
         {
@@ -354,6 +329,42 @@
       ],
       "x": 8,
       "y": 6
+    },
+    {
+      "walls": [
+        "NORTH"
+      ],
+      "actions": [
+        {
+          "CLASSNAME": "dk.dtu.compute.se.pisd.roborally.model.SpaceComponents.Wall"
+        }
+      ],
+      "x": 6,
+      "y": 4
+    },
+    {
+      "walls": [
+        "NORTH"
+      ],
+      "actions": [
+        {
+          "CLASSNAME": "dk.dtu.compute.se.pisd.roborally.model.SpaceComponents.Wall"
+        }
+      ],
+      "x": 8,
+      "y": 4
+    },
+    {
+      "walls": [
+        "NORTH"
+      ],
+      "actions": [
+        {
+          "CLASSNAME": "dk.dtu.compute.se.pisd.roborally.model.SpaceComponents.Wall"
+        }
+      ],
+      "x": 9,
+      "y": 4
     }
   ]
 }

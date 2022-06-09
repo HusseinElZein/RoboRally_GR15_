@@ -44,7 +44,10 @@ public enum Command {
     BACK_UP("Back Up"),
 
     // XXX Assignment P3
-    OPTION_LEFT_RIGHT("Left OR Right", LEFT, RIGHT);
+    OPTION_LEFT_RIGHT("Left OR Right", LEFT, RIGHT),
+    OPTION_FWD_FAST_FORWARD("Fast fwd or fwd", FAST_FORWARD, FORWARD),
+    THREE_OPT("Turn left or right or u-turn", LEFT, RIGHT, U_TURN);
+
 
     final public String displayName;
 

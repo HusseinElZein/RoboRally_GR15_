@@ -74,6 +74,11 @@ public class LoadBoard {
             result = new Board(template.width, template.height);
             for (SpaceTemplate spaceTemplate : template.spaces) {
                 Space space = result.getSpace(spaceTemplate.x, spaceTemplate.y);
+
+                if(spaceTemplate.walls != null){
+                    space.getWalls().addAll(spaceTemplate.walls);
+                }
+
                 if (space != null) {
                     space.getActions().addAll(spaceTemplate.actions);
                     space.getWalls().addAll(spaceTemplate.walls);
