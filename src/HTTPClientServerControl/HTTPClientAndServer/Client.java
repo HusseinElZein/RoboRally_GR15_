@@ -1,4 +1,7 @@
 package HTTPClientAndServer;
+import dk.dtu.compute.se.pisd.roborally.controller.AppController;
+import dk.dtu.compute.se.pisd.roborally.fileaccess.LoadBoard;
+
 import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
@@ -7,6 +10,7 @@ import java.time.Duration;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeoutException;
+
 import static java.util.concurrent.TimeUnit.*;
 
 /**
@@ -19,6 +23,7 @@ public class Client implements IRoboRallyService {
 
     private String urlUri = "http://localhost:8080";
     private String serverId;
+    public static boolean isStarted = false;
 
     /**
      * This method hosts a new game on a server and prepares
@@ -40,7 +45,7 @@ public class Client implements IRoboRallyService {
         if (response.get().statusCode() == 500) {
             return response.get().body();
         }
-
+        isStarted = true;
         return "success";
     }
 
@@ -68,16 +73,106 @@ public class Client implements IRoboRallyService {
             String result = response.thenApply(HttpResponse::body).get(5, HOURS);
     }
 
+
     /**
      * This method sets the overall address of the server that has just been started
      */
     public void setServer(String server) {
+
         this.serverId = "http://" + server + ":8080";
     }
 
     public String getServer() {
         return urlUri;
     }
+
+    public boolean getIsStarted(){
+        return isStarted;
+    }
+
+
+    @Override
+    public String getStateOfGame() {
+        HttpRequest request = HttpRequest.newBuilder()
+                .GET()
+                .uri(URI.create(urlUri + "/stateOfGame"))
+                .setHeader("User-Agent", "RoboRally Client")
+                .header("Content-Type", "application/json")
+                .build();
+        CompletableFuture<HttpResponse<String>> response =
+                HTTP_CLIENT.sendAsync(request, HttpResponse.BodyHandlers.ofString());
+        String result;
+        try {
+            result = response.thenApply(HttpResponse::body).get(5, SECONDS);
+        } catch (InterruptedException | ExecutionException | TimeoutException e) {
+            throw new RuntimeException(e);
+        }
+        return result;
+    }
+
+    @Override
+    public void setStateOfGame(String stringForStateOfGame) throws ExecutionException, InterruptedException, TimeoutException {
+
+        HttpRequest request = HttpRequest.newBuilder()
+                .POST(HttpRequest.BodyPublishers.ofString(stringForStateOfGame))
+                .uri(URI.create(urlUri + "/stateOfGame"))
+                .setHeader("User-Agent", "RoboRally Client")
+                .setHeader("Content-Type", "application/json")
+                .build();
+
+        //This is the completable future, it sends an async, and can in the future get a response
+        CompletableFuture<HttpResponse<String>> response =
+                HTTP_CLIENT.sendAsync(request, HttpResponse.BodyHandlers.ofString());
+
+        //In case i would want the result, i have it here, it can throw a message! Thats
+        //Why I have it in here
+        String result = response.thenApply(HttpResponse::body).get(5, HOURS);
+    }
+
+    @Override
+    public void updateWholeGame() throws ExecutionException, InterruptedException, TimeoutException {
+
+        String jsonBoard = LoadBoard.saveBoardToString(AppController.getBoard(), "temporary");
+        HttpRequest request = HttpRequest.newBuilder()
+                .POST(HttpRequest.BodyPublishers.ofString(jsonBoard))
+                .uri(URI.create(urlUri + "/board"))
+                .setHeader("User-Agent", "RoboRally Client")
+                .setHeader("Content-Type", "application/json")
+                .build();
+
+        //This is the completable future, it sends an async, and can in the future get a response
+        CompletableFuture<HttpResponse<String>> response =
+                HTTP_CLIENT.sendAsync(request, HttpResponse.BodyHandlers.ofString());
+
+        //In case i would want the result, i have it here, it can throw a message! Thats
+        //Why I have it in here
+        String result = response.thenApply(HttpResponse::body).get(5, HOURS);
+    }
+
+    /**
+     * This is the getter method that gets all the updates
+     **/
+    @Override
+    public String getUpdateWholeGame() throws ExecutionException, InterruptedException, TimeoutException {
+
+        HttpRequest request = HttpRequest.newBuilder()
+                .GET()
+                .uri(URI.create(urlUri + "/board"))
+                .setHeader("User-Agent", "RoboRally Client")
+                .header("Content-Type", "application/json")
+                .build();
+        CompletableFuture<HttpResponse<String>> response =
+                HTTP_CLIENT.sendAsync(request, HttpResponse.BodyHandlers.ofString());
+        String result;
+        try {
+            result = response.thenApply(HttpResponse::body).get(5, SECONDS);
+        } catch (InterruptedException | ExecutionException | TimeoutException e) {
+            throw new RuntimeException(e);
+        }
+        return result;
+    }
+
+
 
 
 }

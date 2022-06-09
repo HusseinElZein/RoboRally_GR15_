@@ -29,7 +29,7 @@ public class ViewBlueConveyorBelt {
 
             switch (heading) {
                 case EAST -> GraphicsContext.drawImage(conveyorPointRight, 0, 7);
-                case WEST -> GraphicsContext.drawImage(conveyorPointLeft, 0, 7);
+                case WEST -> GraphicsContext.drawImage(conveyorPointLeft, 0, 3);
                 case NORTH -> GraphicsContext.drawImage(conveyorPointUp, 0, 0);
                 case SOUTH -> GraphicsContext.drawImage(conveyorPointDown, 0, 0);
             }

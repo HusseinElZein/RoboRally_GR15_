@@ -21,11 +21,15 @@
  */
 package dk.dtu.compute.se.pisd.roborally.controller;
 
+import HTTPClientAndServer.Client;
 import dk.dtu.compute.se.pisd.roborally.Exception.cantMoveThroughWallExeption;
 import dk.dtu.compute.se.pisd.roborally.model.*;
 import dk.dtu.compute.se.pisd.roborally.model.SpaceComponents.*;
 import javafx.scene.control.Alert;
 import org.jetbrains.annotations.NotNull;
+
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.TimeoutException;
 
 /**
  * ...
@@ -194,6 +198,7 @@ public class GameController {
         }
     }
 
+    private Client client = new Client();
     // XXX: V2
     private void executeCommand(@NotNull Player player, Command command) {
         if (player != null && player.board == board && command != null) {
@@ -213,8 +218,37 @@ public class GameController {
                 }
                 // DO NOTHING (for now)
             }
+
+            if (client.getIsStarted()) {
+                try {
+                    client.updateWholeGame();
+                } catch (ExecutionException e) {
+                    e.printStackTrace();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                } catch (TimeoutException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+
+
+        String stateOfGame = "Current player: " + board.getCurrentPlayer().getName() + "\nGame ended: " + "NO"
+                + "\nPhase " + board.getPhase() + "\nAmount of checkpoints in game: " + board.getCheckpointCounter();
+
+        if (client.getIsStarted()) {
+            try {
+                client.setStateOfGame(stateOfGame);
+            } catch (ExecutionException e) {
+                e.printStackTrace();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            } catch (TimeoutException e) {
+                e.printStackTrace();
+            }
         }
     }
+
     boolean canMoveThroughWall = true;
 
     public void canMoveOntoWalls(Player player) throws cantMoveThroughWallExeption {
