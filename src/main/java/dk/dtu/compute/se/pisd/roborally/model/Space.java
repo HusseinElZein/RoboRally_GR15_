@@ -42,6 +42,14 @@ public class Space extends Subject {
     public final int x;
     public final int y;
 
+    public int getX() {
+        return x;
+    }
+
+    public int getY() {
+        return y;
+    }
+
     private Player player;
 
     public Space(Board board, int x, int y) {

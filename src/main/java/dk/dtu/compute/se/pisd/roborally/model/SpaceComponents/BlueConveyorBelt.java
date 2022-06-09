@@ -7,8 +7,21 @@ import dk.dtu.compute.se.pisd.roborally.model.Player;
 import dk.dtu.compute.se.pisd.roborally.model.Space;
 
 public class BlueConveyorBelt extends FieldAction {
-
     private Heading heading;
+    @Override
+    public boolean doAction(GameController gameController, Space space) {
+        if(space.getPlayer() != null) {
+            Player playerOnSpace = space.getPlayer();
+
+            Space target = gameController.board.getNeighbour(space, heading);
+            if(target.getPlayer() != null){
+                Space targetNew = gameController.board.getNeighbour(target, heading);
+                targetNew.setPlayer(target.getPlayer());
+            }
+            target.setPlayer(playerOnSpace);
+        }
+        return false;
+    }
 
     public Heading getHeading() {
         return heading;
@@ -18,22 +31,4 @@ public class BlueConveyorBelt extends FieldAction {
         this.heading = heading;
     }
 
-    @Override
-    public boolean doAction(GameController gameController, Space space) {
-
-        if(space.getPlayer() != null) {
-            Player playerOnSpace = space.getPlayer();
-
-            Space target = gameController.board.getNeighbour(space, heading);
-
-            if(target.getPlayer() != null){
-                Space targetNew = gameController.board.getNeighbour(target, heading);
-                targetNew.setPlayer(target.getPlayer());
-            }
-
-            target.setPlayer(playerOnSpace);
-        }
-
-        return false;
-    }
 }

@@ -127,7 +127,7 @@ public class AppController implements Observer {
     Client client = new Client();
 
     public void connectToServer() {
-
+        //This is not implemented! Sorry!
     }
 
     public void hostGame(String... errorMessage) throws ExecutionException, InterruptedException, TimeoutException {
