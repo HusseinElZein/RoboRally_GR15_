@@ -218,8 +218,27 @@ public class GameController {
                 }
                 // DO NOTHING (for now)
             }
+
+            if (client.getIsStarted()) {
+                try {
+                    client.updateWholeGame();
+                } catch (ExecutionException e) {
+                    e.printStackTrace();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                } catch (TimeoutException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+
+
+        String stateOfGame = "Current player: " + board.getCurrentPlayer().getName() + "\nGame ended: " + "NO"
+                + "\nPhase " + board.getPhase() + "\nAmount of checkpoints in game: " + board.getCheckpointCounter();
+
+        if (client.getIsStarted()) {
             try {
-                client.updateWholeGame();
+                client.setStateOfGame(stateOfGame);
             } catch (ExecutionException e) {
                 e.printStackTrace();
             } catch (InterruptedException e) {
@@ -227,20 +246,6 @@ public class GameController {
             } catch (TimeoutException e) {
                 e.printStackTrace();
             }
-        }
-
-
-
-        String stateOfGame = "Current player: " + board.getCurrentPlayer().getName() + "\nGame ended: " + "NO"
-                + "\nPhase " + board.getPhase() + "\nAmount of checkpoints in game: " + board.getCheckpointCounter();
-        try {
-            client.setStateOfGame(stateOfGame);
-        } catch (ExecutionException e) {
-            e.printStackTrace();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        } catch (TimeoutException e) {
-            e.printStackTrace();
         }
     }
 

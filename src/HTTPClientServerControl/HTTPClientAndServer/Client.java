@@ -23,6 +23,7 @@ public class Client implements IRoboRallyService {
 
     private String urlUri = "http://localhost:8080";
     private String serverId;
+    public static boolean isStarted = false;
 
     /**
      * This method hosts a new game on a server and prepares
@@ -44,6 +45,7 @@ public class Client implements IRoboRallyService {
         if (response.get().statusCode() == 500) {
             return response.get().body();
         }
+        isStarted = true;
         return "success";
     }
 
@@ -71,6 +73,7 @@ public class Client implements IRoboRallyService {
             String result = response.thenApply(HttpResponse::body).get(5, HOURS);
     }
 
+
     /**
      * This method sets the overall address of the server that has just been started
      */
@@ -82,6 +85,11 @@ public class Client implements IRoboRallyService {
     public String getServer() {
         return urlUri;
     }
+
+    public boolean getIsStarted(){
+        return isStarted;
+    }
+
 
     @Override
     public String getStateOfGame() {
