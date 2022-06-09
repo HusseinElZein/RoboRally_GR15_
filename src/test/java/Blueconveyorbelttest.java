@@ -4,7 +4,7 @@ import dk.dtu.compute.se.pisd.roborally.model.Heading;
 import dk.dtu.compute.se.pisd.roborally.model.Player;
 import dk.dtu.compute.se.pisd.roborally.model.SpaceComponents.BlueConveyorBelt;
 
-class blueconveyorbeltTest {
+class Blueconveyorbelttest {
 
     public static void main(String[] args) {
 
