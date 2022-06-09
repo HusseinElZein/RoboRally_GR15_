@@ -155,7 +155,7 @@ public class AppController implements Observer {
         Optional<String> boardName = input.showAndWait();
         input.setTitle("Save state of game");
 
-        boardName.ifPresent(end ->{LoadBoard.saveBoard(board, end);}); //Lambda expression that
+        boardName.ifPresent(end ->{LoadBoard.saveBoard(board, end);});
     }
 
     public void loadGame() {
@@ -196,7 +196,7 @@ public class AppController implements Observer {
      * there is no current game, false is returned.
      *
      * @return true if the current game was stopped, false otherwise
-     */
+     ***/
     public boolean stopGame() {
         if (gameController != null) {
 
