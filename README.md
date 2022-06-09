@@ -17,12 +17,13 @@ We are a group of students at the Technical University of Denmark, who have been
 * Checkpoints
 * Two boards
 * Saving and loading the game
+* Saving and loading game on a server using REST API
 * Walls
-* Conveyor Belts
-* Gears
+* Blue and green Conveyor Belts
+* Red and green gears
 * Pushing other robots
 * Push panels. (Only activate when register is 2 or 4)
 * Programming phase, and activation phase 
 * Added more programming cards
 * Visual elements for the board. 
-
+* Winning the game
