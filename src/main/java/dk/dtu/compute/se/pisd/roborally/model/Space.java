@@ -32,6 +32,10 @@ import java.util.List;
  * @author Ekkart Kindler, ekki@dtu.dk
  *
  */
+
+/**
+ * This class makes it possible to move the player around
+ */
 public class Space extends Subject {
 
     private List<FieldAction> actions = new ArrayList<>();
@@ -90,6 +94,9 @@ public class Space extends Subject {
         notifyChange();
     }
 
+    /**
+     * methods for returning walls and actions
+     */
     public List<Heading> getWalls() {
         return walls;
     }

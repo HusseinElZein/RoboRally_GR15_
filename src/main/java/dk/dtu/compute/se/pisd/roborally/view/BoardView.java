@@ -39,7 +39,15 @@ import org.jetbrains.annotations.NotNull;
  * @author Ekkart Kindler, ekki@dtu.dk
  *
  */
+
+/**
+ * Visual representation of the Board
+ */
 public class BoardView extends VBox implements ViewObserver {
+
+    /**
+     * Creating the board and making it interactive
+     */
 
     private Board board;
 
@@ -68,6 +76,7 @@ public class BoardView extends VBox implements ViewObserver {
 
         spaceEventHandler = new SpaceEventHandler(gameController);
 
+
         for (int x = 0; x < board.width; x++) {
             for (int y = 0; y < board.height; y++) {
                 Space space = board.getSpace(x, y);
@@ -83,6 +92,9 @@ public class BoardView extends VBox implements ViewObserver {
     }
 
     @Override
+    /**
+     * Updates the view/board
+     */
     public void updateView(Subject subject) {
         if (subject == board) {
             Phase phase = board.getPhase();
@@ -92,6 +104,10 @@ public class BoardView extends VBox implements ViewObserver {
 
     // XXX this handler and its uses should eventually be deleted! This is just to help test the
     //     behaviour of the game by being able to explicitly move the players on the board!
+
+    /**
+     * These methods makes the board interactive and takes the input from the mouse
+     */
     private class SpaceEventHandler implements EventHandler<MouseEvent> {
 
         final public GameController gameController;
