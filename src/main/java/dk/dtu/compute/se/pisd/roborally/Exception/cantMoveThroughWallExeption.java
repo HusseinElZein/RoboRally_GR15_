@@ -14,3 +14,4 @@ public class cantMoveThroughWallExeption extends Exception {
         hitWall.showAndWait();
     }
 }
+
