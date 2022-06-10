@@ -29,7 +29,6 @@ public class Client implements IRoboRallyService {
      */
     @Override
     public String hostServer(String title) throws ExecutionException, InterruptedException, TimeoutException {
-
         HttpRequest request = HttpRequest.newBuilder()
                 .POST(HttpRequest.BodyPublishers.ofString(title))
                 .uri(URI.create(urlUri + "/game"))
@@ -46,30 +45,6 @@ public class Client implements IRoboRallyService {
         isStarted = true;
         return "success";
     }
-
-    /**
-     * This method will update the game state on the game server with a JSON string.
-     * This method throws exceptions from the request and response. They get catched in
-     * RoborallyMenyBar in case I would want it in there.
-     */
-    @Override
-    public void updateGame(String gameState) throws ExecutionException, InterruptedException, TimeoutException {
-        HttpRequest request = HttpRequest.newBuilder()
-                .PUT(HttpRequest.BodyPublishers.ofString(gameState))
-                .uri(URI.create(urlUri + "/gameState/" + urlUri))
-                .setHeader("User-Agent", "RoboRally Client")
-                .setHeader("Content-Type", "application/json")
-                .build();
-
-        //This is the completable future, it sends an async, and can in the future get a response
-        CompletableFuture<HttpResponse<String>> response =
-                HTTP_CLIENT.sendAsync(request, HttpResponse.BodyHandlers.ofString());
-
-        //In case i would want the result, i have it here, it can throw a message! Thats
-        //Why I have it in here
-        String result = response.thenApply(HttpResponse::body).get(5, HOURS);
-    }
-
 
     /**
      * This method sets the overall address of the server that has just been started.
