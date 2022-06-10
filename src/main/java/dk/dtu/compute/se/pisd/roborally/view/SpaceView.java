@@ -27,7 +27,7 @@ import dk.dtu.compute.se.pisd.roborally.model.SpaceComponents.*;
 import dk.dtu.compute.se.pisd.roborally.model.*;
 import dk.dtu.compute.se.pisd.roborally.view.ViewComponents.ViewBlueConveyorBelt;
 import dk.dtu.compute.se.pisd.roborally.view.ViewComponents.ViewCheckpoint;
-import dk.dtu.compute.se.pisd.roborally.view.ViewComponents.ViewConveyorBelt;
+import dk.dtu.compute.se.pisd.roborally.view.ViewComponents.ViewGreenConveyorBelt;
 import dk.dtu.compute.se.pisd.roborally.view.ViewComponents.ViewGear;
 import dk.dtu.compute.se.pisd.roborally.view.ViewComponents.ViewPushpanel;
 import dk.dtu.compute.se.pisd.roborally.view.ViewComponents.ViewWall;
@@ -36,9 +36,7 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.Circle;
 import javafx.scene.shape.Polygon;
-import javafx.scene.shape.Rectangle;
 import org.jetbrains.annotations.NotNull;
 
 /**
@@ -105,7 +103,7 @@ public class SpaceView extends StackPane implements ViewObserver {
             for (FieldAction fieldAction : space.getActions()) {
 
                 if (fieldAction instanceof ConveyorBelt) {
-                    ViewConveyorBelt.insertConveyorBeltView(this, fieldAction);
+                    ViewGreenConveyorBelt.insertConveyorBeltView(this, fieldAction);
                 }
 
                 if (fieldAction instanceof BlueConveyorBelt) {

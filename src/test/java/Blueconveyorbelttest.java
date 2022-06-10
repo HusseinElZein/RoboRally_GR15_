@@ -4,9 +4,15 @@ import dk.dtu.compute.se.pisd.roborally.model.Heading;
 import dk.dtu.compute.se.pisd.roborally.model.Player;
 import dk.dtu.compute.se.pisd.roborally.model.SpaceComponents.BlueConveyorBelt;
 
+/**
+ * Testing out the method for Blueconveyorbelt
+ */
 class Blueconveyorbelttest {
 
     public static void main(String[] args) {
+        /**
+         * Creating board, Gamecontroller, Blueconveyorbelt and direction
+         */
 
         Board board = new Board(10,10);
         GameController gameController = new GameController(board);
@@ -17,9 +23,16 @@ class Blueconveyorbelttest {
         board.addPlayer(player);
 
         System.out.println(player.getSpace());
+        /**
+         * adding and placing blueconveyorbelt and thereafter positioning the player on it
+         */
 
         board.getSpace(1,1).getActions().add(blueConveyorBelt);
         board.getSpace(1,1).setPlayer(player);
+        /**
+         * if method is not equal to null which makes the player land on the conveyorbelt field
+         *if it is equal to null there are no blueconveyorbelts on the board
+         */
 
         if(player.getSpace().getActions() != null){
             System.out.println("Player has landed on blue conveyor belt");
