@@ -22,7 +22,7 @@
 package dk.dtu.compute.se.pisd.roborally.controller;
 
 import HTTPClientAndServer.Client;
-import dk.dtu.compute.se.pisd.roborally.Exception.cantMoveThroughWallExeption;
+import dk.dtu.compute.se.pisd.roborally.Exception.cantMoveThroughWallException;
 import dk.dtu.compute.se.pisd.roborally.model.*;
 import dk.dtu.compute.se.pisd.roborally.model.SpaceComponents.*;
 import javafx.scene.control.Alert;
@@ -251,7 +251,7 @@ public class GameController {
 
     boolean canMoveThroughWall = true;
 
-    public void canMoveOntoWalls(Player player) throws cantMoveThroughWallExeption {
+    public void canMoveOntoWalls(Player player) throws cantMoveThroughWallException {
 
         Heading heading = player.getHeading();
         Space space = player.getSpace();
@@ -261,7 +261,7 @@ public class GameController {
 
                 if (wallHeading == player.getHeading()) {
                     canMoveThroughWall = false;
-                    throw new cantMoveThroughWallExeption(player);
+                    throw new cantMoveThroughWallException(player);
                 }
             }
         }
@@ -275,11 +275,11 @@ public class GameController {
                 if ((wallHeading == Heading.SOUTH && player.getHeading() == Heading.NORTH)
                 || (wallHeading == Heading.NORTH && player.getHeading() == Heading.SOUTH)) {
                     canMoveThroughWall = false;
-                    throw new cantMoveThroughWallExeption(player);
+                    throw new cantMoveThroughWallException(player);
                 } else if((wallHeading == Heading.EAST && player.getHeading() == Heading.WEST)
                         || (wallHeading == Heading.WEST && player.getHeading() == Heading.EAST)){
                     canMoveThroughWall = false;
-                    throw new cantMoveThroughWallExeption(player);
+                    throw new cantMoveThroughWallException(player);
                 }
             }
         }
@@ -302,7 +302,7 @@ public class GameController {
 
                 try {
                     canMoveOntoWalls(player);
-                } catch (cantMoveThroughWallExeption e) {
+                } catch (cantMoveThroughWallException e) {
                     // Empty catch statement.
                 }
 
