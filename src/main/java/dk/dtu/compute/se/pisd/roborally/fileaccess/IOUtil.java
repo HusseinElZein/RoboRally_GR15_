@@ -42,7 +42,6 @@ public class IOUtil {
      * @return the string of the input stream
      */
     public static String readString(InputStream inputStream) {
-
         ByteSource byteSource = new ByteSource() {
             @Override
             public InputStream openStream() throws IOException {
@@ -61,7 +60,6 @@ public class IOUtil {
      * Returns a string from a resource of the project. This method is implemented
      * in such a way that resource can be read when the project is deployed in
      * a jar file.
-     *
      * @param relativeResourcePath the relative path to the resource
      * @return the string contents of the resource
      */
