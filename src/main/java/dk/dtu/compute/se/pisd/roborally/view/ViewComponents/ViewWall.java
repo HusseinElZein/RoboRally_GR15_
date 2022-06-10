@@ -13,6 +13,9 @@ import java.util.List;
 public class ViewWall {
 
     public static void drawWall(SpaceView spaceView, Space space) {
+        /**
+         * creating the wall and  its direction on the board
+         */
 
         List<Heading> walls = space.getWalls();
         Canvas canvas = new Canvas(SpaceView.SPACE_WIDTH, SpaceView.SPACE_HEIGHT);
@@ -21,6 +24,9 @@ public class ViewWall {
 
         Image verticalWall = new Image("Images/VerticalWall.png", 60, 60, true, true);
         Image horizontalWall = new Image("Images/HorizontalWall.png", 60, 60, true, true);
+        /**
+         * the direction for where the wall is placed on the fields
+         */
 
         for (Heading heading : walls) {
             switch (heading) {

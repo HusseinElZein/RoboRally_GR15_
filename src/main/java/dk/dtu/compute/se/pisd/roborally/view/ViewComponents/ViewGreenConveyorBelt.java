@@ -13,11 +13,17 @@ import javafx.scene.image.Image;
  */
 
 public class ViewGreenConveyorBelt {
-
+    /**
+     *Creating conveyorbelt and its direction
+     */
     public static void insertConveyorBeltView(SpaceView spaceView, FieldAction fieldAction) {
         ConveyorBelt conveyorBelt = (ConveyorBelt) fieldAction;
         Heading heading = conveyorBelt.getHeading();
         spaceView.getChildren().clear();
+        /**
+         * inserting images
+         */
+
         try {
             Image conveyorPointRight = new Image("Images/conveyorRight.png", 64, 64, true, true);
             Image conveyorPointLeft = new Image("Images/conveyorLeft.png", 64, 64, true, true);
@@ -26,6 +32,9 @@ public class ViewGreenConveyorBelt {
 
             Canvas canvas = new Canvas(SpaceView.SPACE_WIDTH, SpaceView.SPACE_HEIGHT);
             GraphicsContext GraphicsContext = canvas.getGraphicsContext2D();
+            /**
+             * the direction of the conveyorbelt
+             */
 
             switch (heading) {
                 case EAST -> GraphicsContext.drawImage(conveyorPointRight, 0, 0);

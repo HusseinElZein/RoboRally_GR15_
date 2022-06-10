@@ -40,6 +40,7 @@ import org.jetbrains.annotations.NotNull;
  *
  */
 
+
 /**
  * Visual representation of the Board
  */

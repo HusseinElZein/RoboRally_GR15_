@@ -13,11 +13,16 @@ import javafx.scene.image.Image;
  */
 
 public class ViewBlueConveyorBelt {
-
+    /**
+     * creating blueconveyorbelt and the direction it pushes the player in
+     */
     public static void insertBlueConveyorBelt(SpaceView spaceView, FieldAction fieldAction) {
         BlueConveyorBelt blueConveyorBelt = (BlueConveyorBelt) fieldAction;
         Heading heading = blueConveyorBelt.getHeading();
         spaceView.getChildren().clear();
+        /**
+         * inserting images
+         */
         try {
             Image conveyorPointRight = new Image("Images/blueConveyorRight.png", 60, 64.5, true, true);
             Image conveyorPointLeft = new Image("Images/blueConveyorLeft.png", 60, 64.5, true, true);
@@ -26,7 +31,9 @@ public class ViewBlueConveyorBelt {
 
             Canvas canvas = new Canvas(SpaceView.SPACE_WIDTH, SpaceView.SPACE_HEIGHT);
             GraphicsContext GraphicsContext = canvas.getGraphicsContext2D();
-
+            /**
+             * the direction of which the player can be pushed by the blueconveyorbelt
+             */
             switch (heading) {
                 case EAST -> GraphicsContext.drawImage(conveyorPointRight, 0, 7);
                 case WEST -> GraphicsContext.drawImage(conveyorPointLeft, 0, 3);
