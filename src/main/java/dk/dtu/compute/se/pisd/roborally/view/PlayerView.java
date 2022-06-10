@@ -39,7 +39,7 @@ import org.jetbrains.annotations.NotNull;
  * @author Ekkart Kindler, ekki@dtu.dk
  */
 
-/**@author Noorulein Jamil s215810@dtu.dk
+/**
  * visual representation of player and making it interactive
  */
 public class PlayerView extends Tab implements ViewObserver {

@@ -46,7 +46,7 @@ import org.jetbrains.annotations.NotNull;
  *
  */
 
-/**@author Noorulein Jamil s215810@dtu.dk
+/**
  * visual representation of space
  */
 public class SpaceView extends StackPane implements ViewObserver {

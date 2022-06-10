@@ -44,7 +44,7 @@ import org.jetbrains.annotations.NotNull;
  *
  */
 
-/**@author Noorulein Jamil s215810@dtu.dk
+/**
  * visual representation of the cardfield
  */
 public class CardFieldView extends GridPane implements ViewObserver {
