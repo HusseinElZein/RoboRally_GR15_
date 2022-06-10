@@ -61,6 +61,7 @@ public class Client implements IRoboRallyService {
     /**
      * Method that returns the urlUri object. For now the method is not used, but could be useful for later
      * purpases.
+     * @return returns urlUri
      */
     public String getServer() {
         return urlUri;
@@ -69,6 +70,7 @@ public class Client implements IRoboRallyService {
     /**
      * This method return the boolean of isStarted to the game controller. Here isStarted becomes true whenever
      * a player hosts a game.
+     * @return returns isStarted
      */
     public boolean getIsStarted(){
         return isStarted;
@@ -79,6 +81,9 @@ public class Client implements IRoboRallyService {
      * This method sets the updates the whole game by sending the string of the JSON file to the server via
      * a POST request. The method is used in the executeCommand method, such that a new version of the JSON file
      * gets send every time a new command has been used.
+     * @throws ExecutionException Exception thrown when attempting to retrieve the result of a task
+     * @throws InterruptedException Thrown when a thread is waiting, sleeping, or otherwise occupied
+     * @throws TimeoutException Exception thrown when a blocking operation times out.
      */
     @Override
     public void updateWholeGame() throws ExecutionException, InterruptedException, TimeoutException {
@@ -101,7 +106,11 @@ public class Client implements IRoboRallyService {
 
     /**
      * This is the getter method that gets all the updates. This method could be useful in the future.
-     **/
+     * @return result
+     * @throws ExecutionException Exception thrown when attempting to retrieve the result of a task
+     * @throws InterruptedException Thrown when a thread is waiting, sleeping, or otherwise occupied
+     * @throws TimeoutException Exception thrown when a blocking operation times out.
+     */
     @Override
     public String getUpdateWholeGame() throws ExecutionException, InterruptedException, TimeoutException {
         HttpRequest request = HttpRequest.newBuilder()
@@ -125,6 +134,10 @@ public class Client implements IRoboRallyService {
      * This method sets the state of the game to the server by using POST via HTTP.
      * The method is never used, but is included to show how a hypothetical scenario in which a client could
      * request from the server the state of the game.
+     * @param stringForStateOfGame String that gets POST'ed to the server.
+     * @throws ExecutionException Exception thrown when attempting to retrieve the result of a task.
+     * @throws InterruptedException Thrown when a thread is waiting, sleeping, or otherwise occupied.
+     * @throws TimeoutException Exception thrown when a blocking operation times out.
      */
     @Override
     public void setStateOfGame(String stringForStateOfGame) throws ExecutionException, InterruptedException, TimeoutException {
@@ -148,6 +161,7 @@ public class Client implements IRoboRallyService {
      * This method gets the state of the game by requesting via HTTP.
      * The method is never used, but is included to show how a hypothetical scenario in which a client could
      * request from the server the state of the game.
+     * @return result
      */
     @Override
     public String getStateOfGame() {
