@@ -29,7 +29,6 @@ package dk.dtu.compute.se.pisd.designpatterns.observer;
  *
  */
 public interface Observer {
-	
 	/**
 	 * The observer's update method, which is called, when the subject
 	 * changes. The subject is provided as a parameter in order to
@@ -39,5 +38,4 @@ public interface Observer {
 	 * @param subject the subject which changed
 	 */
 	void update(Subject subject);
-
 }
