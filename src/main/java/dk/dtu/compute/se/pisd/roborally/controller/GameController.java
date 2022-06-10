@@ -33,7 +33,7 @@ import java.util.concurrent.TimeoutException;
 
 /**
  * This is the GameController class. This class is used to control the flow of the game, and to invoke different
- * methods that relate to ???????????????????????????
+ * methods that relate to any logic in the game
  * @author Ekkart Kindler, ekki@dtu.dk
  */
 public class GameController {
