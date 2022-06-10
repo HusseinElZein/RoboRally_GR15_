@@ -70,5 +70,4 @@ public class IOUtil {
         InputStream inputStream = classLoader.getResourceAsStream(relativeResourcePath);
         return IOUtil.readString(inputStream);
     }
-
 }
