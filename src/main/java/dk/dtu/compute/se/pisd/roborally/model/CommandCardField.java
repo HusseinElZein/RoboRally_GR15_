@@ -29,6 +29,10 @@ import dk.dtu.compute.se.pisd.designpatterns.observer.Subject;
  * @author Ekkart Kindler, ekki@dtu.dk
  *
  */
+
+/**
+ * Creating CommandCardField and making it visible
+ */
 public class CommandCardField extends Subject {
 
     final public Player player;

@@ -30,6 +30,10 @@ import org.jetbrains.annotations.NotNull;
  * @author Ekkart Kindler, ekki@dtu.dk
  *
  */
+
+/**
+ * Creating CommandCard
+ */
 public class CommandCard extends Subject {
 
     final public Command command;

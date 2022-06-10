@@ -27,6 +27,10 @@ package dk.dtu.compute.se.pisd.roborally.model;
  * @author Ekkart Kindler, ekki@dtu.dk
  *
  */
+
+/**
+ * The different directions
+ */
 public enum Heading {
 
     SOUTH, WEST, NORTH, EAST;
