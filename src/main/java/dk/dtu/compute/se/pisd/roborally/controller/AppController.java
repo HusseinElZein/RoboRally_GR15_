@@ -24,14 +24,10 @@ package dk.dtu.compute.se.pisd.roborally.controller;
 import HTTPClientAndServer.Client;
 import dk.dtu.compute.se.pisd.designpatterns.observer.Observer;
 import dk.dtu.compute.se.pisd.designpatterns.observer.Subject;
-
 import dk.dtu.compute.se.pisd.roborally.RoboRally;
-
 import dk.dtu.compute.se.pisd.roborally.fileaccess.LoadBoard;
 import dk.dtu.compute.se.pisd.roborally.model.Board;
-import dk.dtu.compute.se.pisd.roborally.model.Heading;
 import dk.dtu.compute.se.pisd.roborally.model.Player;
-
 import javafx.application.Platform;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
@@ -39,7 +35,6 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.ChoiceDialog;
 import javafx.scene.control.TextInputDialog;
 import org.jetbrains.annotations.NotNull;
-
 import java.io.File;
 import java.util.Arrays;
 import java.util.List;
@@ -49,29 +44,37 @@ import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeoutException;
 
 /**
- * ...
- *
+ * The AppController implements Observer, but this is never used. So this is not necessary to have, but we decided
+ * to keep it as is, since this is how the software was delivered to us. And maybe the method is still useful to
+ * have for another use in the future.
  * @author Ekkart Kindler, ekki@dtu.dk
- *
  */
 public class AppController implements Observer {
-
     final private List<Integer> PLAYER_NUMBER_OPTIONS = Arrays.asList(2, 3, 4, 5, 6);
     final private List<String> PLAYER_COLORS = Arrays.asList("red", "green", "blue", "orange", "grey", "magenta");
-
     final private RoboRally roboRally;
-
     private GameController gameController;
     static Board board;
 
+    /**
+     * This method returns the board object.
+     * @return board returns the board.
+     */
     public static Board getBoard(){
         return board;
     }
 
+    /**
+     * Constructor for appController.
+     */
     public AppController(@NotNull RoboRally roboRally) {
         this.roboRally = roboRally;
     }
 
+    /**
+     * This method is used for creating a new singleplayer game. Here a game board is loaded and then creating
+     * players and then start the programming phase.
+     */
     public void newGame() {
         ChoiceDialog<Integer> dialog = new ChoiceDialog<>(PLAYER_NUMBER_OPTIONS.get(0), PLAYER_NUMBER_OPTIONS);
 
@@ -95,8 +98,8 @@ public class AppController implements Observer {
 
         board = LoadBoard.loadBoard(boardResult.get());
 
-        boardDialog.setTitle("Player number");
-        boardDialog.setHeaderText("Select number of players");
+        dialog.setTitle("Player number");
+        dialog.setHeaderText("Select number of players");
         Optional<Integer> result = dialog.showAndWait();
 
         if (result.isPresent()) {
@@ -126,20 +129,23 @@ public class AppController implements Observer {
 
     Client client = new Client();
 
+    /**
+     * Method to connect to the server. Not implemented yet, but might be useful in a later stage.
+     */
     public void connectToServer() {
         //This is not implemented! Sorry!
     }
 
+    /**
+     * This method is used for hosting a game. This is done through the client.
+     */
     public void hostGame(String... errorMessage) throws ExecutionException, InterruptedException, TimeoutException {
-        TextInputDialog serverCreation = new TextInputDialog();
-        serverCreation.setTitle("Start game server");
-        serverCreation.setHeaderText("Server name:");
-        if (errorMessage.length != 0){
-            serverCreation.setHeaderText(errorMessage[0]);
-        }
-        Optional<String> result = serverCreation.showAndWait();
-        if (result.isEmpty())
-            return;
+        TextInputDialog createServer = new TextInputDialog();
+        createServer.setHeaderText("Enter Server name:");
+        createServer.setTitle("Starting new server");
+
+        Optional<String> result = createServer.showAndWait();
+
         String response = client.hostServer(result.get());
         if (!Objects.equals(response, "success"))
             hostGame(response);
@@ -148,6 +154,10 @@ public class AppController implements Observer {
         }
     }
 
+    /**
+     * This method saves the board in the LoadBoard class whenever the user clicks on "Save Game" in the
+     * RoboRallyMenuBar class.
+     */
     public void saveGame() {
         // XXX needs to be implemented eventually
         TextInputDialog input = new TextInputDialog();
@@ -158,6 +168,11 @@ public class AppController implements Observer {
         boardName.ifPresent(end ->{LoadBoard.saveBoard(board, end);});
     }
 
+    /**
+     * Whenever the user presses on the load game botton, this method is invoked. Here the board gets loaded
+     * from the resources if and only if the gameController equals null, that is, the game has not already been
+     * created.
+     */
     public void loadGame() {
         // XXX needs to be implemented eventually
         // for now, we just create a new game
@@ -178,7 +193,6 @@ public class AppController implements Observer {
             dialog.setHeaderText("Select a game to load");
             Optional<String> result = dialog.showAndWait();
 
-
             result.ifPresent(choice->{
                 board = LoadBoard.loadBoard(choice);
                 gameController = new GameController(board);
@@ -196,7 +210,7 @@ public class AppController implements Observer {
      * there is no current game, false is returned.
      *
      * @return true if the current game was stopped, false otherwise
-     ***/
+     */
     public boolean stopGame() {
         if (gameController != null) {
 
@@ -210,6 +224,10 @@ public class AppController implements Observer {
         return false;
     }
 
+    /**
+     * This method is used for when a user clicks on exit. Here the user gets alerted with a new window, if
+     * the exit method is invoked in the RoboRally class. That is when a user uses his/hers mouse to close the game.
+     */
     public void exit() {
         if (gameController != null) {
             Alert alert = new Alert(AlertType.CONFIRMATION);
@@ -229,14 +247,22 @@ public class AppController implements Observer {
         }
     }
 
+    /**
+     * This method is used to check if the gameController object has been initialized. If it has, then it means that
+     * the game is running.
+     * @return gameController the gameController which gets returned
+     */
     public boolean isGameRunning() {
         return gameController != null;
     }
 
-
+    /**
+     * This method can be used if the App controller gets initiated in another class, and we want to use an
+     * overwritten version of the update method from the Observer interface.
+     * @param subject the subject which changed
+     */
     @Override
     public void update(Subject subject) {
         // XXX do nothing for now
     }
-
 }
