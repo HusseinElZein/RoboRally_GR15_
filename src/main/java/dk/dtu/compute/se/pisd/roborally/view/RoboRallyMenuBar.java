@@ -52,7 +52,7 @@ public class RoboRallyMenuBar extends MenuBar {
     public RoboRallyMenuBar(AppController appController) {
         this.appController = appController;
 
-        controlMenu = new Menu("File");
+        controlMenu = new Menu("Singleplayer");
         this.getMenus().add(controlMenu);
 
         newGame = new MenuItem("New Game");

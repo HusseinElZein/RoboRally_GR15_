@@ -154,20 +154,27 @@ public class GameController {
         continuePrograms();
     }
 
-    // XXX: V2
+    /**
+     * Method that executes step of the program for the program cards.
+     */
     public void executeStep() {
         board.setStepMode(true);
         continuePrograms();
     }
 
-    // XXX: V2
+    /**
+     * Method that continues program by executing the next step so long that the phase is in activation and the
+     * board is in step mode.
+     */
     private void continuePrograms() {
         do {
             executeNextStep();
         } while (board.getPhase() == Phase.ACTIVATION && !board.isStepMode());
     }
 
-    // XXX: V2
+    /**
+     * Method to execute the next step in the program.
+     */
     private void executeNextStep() {
         Player currentPlayer = board.getCurrentPlayer();
         if (board.getPhase() == Phase.ACTIVATION && currentPlayer != null) {
@@ -216,7 +223,12 @@ public class GameController {
     }
 
     private Client client = new Client();
-    // XXX: V2
+
+    /**
+     * Method that executes the different commands that the player might place on their programming fields.
+     * Here we use the client object to update the game for every command that is being executed.
+     * We also update the state of the game, but this is not so important.
+     */
     private void executeCommand(@NotNull Player player, Command command) {
         if (player != null && player.board == board && command != null) {
             // XXX This is a very simplistic way of dealing with some basic cards and
@@ -268,8 +280,12 @@ public class GameController {
 
     boolean canMoveThroughWall = true;
 
+    /**
+     * This method checks if a player is able to move through the wall.
+     * @param player
+     * @throws cantMoveThroughWallExeption
+     */
     public void canMoveOntoWalls(Player player) throws cantMoveThroughWallExeption {
-
         Heading heading = player.getHeading();
         Space space = player.getSpace();
 

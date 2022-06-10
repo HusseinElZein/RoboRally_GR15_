@@ -14,18 +14,22 @@ import static java.util.concurrent.TimeUnit.*;
 
 /**
  * This will create a http server using the roborally server, remember to have the server started before starting this
- * client!
+ * client.
  */
 public class Client implements IRoboRallyService {
     private static final HttpClient HTTP_CLIENT = HttpClient.newBuilder().version(HttpClient.Version.HTTP_2)
             .connectTimeout(Duration.ofSeconds(10)).build();
-
     private String urlUri = "http://localhost:8080";
     private String serverId; // Not used but could be useful for later purpases.
     public static boolean isStarted = false;
 
     /**
      * This method hosts a new game on a server and prepares the program for future updates.
+     * @param title object to be inserted for POST request to server
+     * @return returns succes string
+     * @throws ExecutionException standard Java library exception class
+     * @throws InterruptedException standard Java library exception class
+     * @throws TimeoutException standard Java library exception class
      */
     @Override
     public String hostServer(String title) throws ExecutionException, InterruptedException, TimeoutException {
@@ -48,6 +52,7 @@ public class Client implements IRoboRallyService {
 
     /**
      * This method sets the overall address of the server that has just been started.
+     * @param server object to be inserted as parameter in serverID
      */
     public void setServer(String server) {
         this.serverId = "http://" + server + ":8080";
