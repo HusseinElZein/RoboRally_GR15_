@@ -39,6 +39,7 @@ import org.jetbrains.annotations.NotNull;
  * @author Ekkart Kindler, ekki@dtu.dk
  *
  */
+
 public class BoardView extends VBox implements ViewObserver {
 
     private Board board;

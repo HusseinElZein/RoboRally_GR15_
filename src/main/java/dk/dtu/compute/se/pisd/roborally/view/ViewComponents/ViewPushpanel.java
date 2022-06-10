@@ -14,6 +14,9 @@ import javafx.scene.image.Image;
 public class ViewPushpanel {
 
     public static void insertPushPanelView (SpaceView spaceview, FieldAction fieldAction) {
+        /**
+         * Creating pushpanel and the direction it pushes them in
+         */
             PushPanel pushPanel = (PushPanel) fieldAction;
             Heading heading = pushPanel.getHeading();
      spaceview.getChildren().clear();
@@ -25,6 +28,9 @@ public class ViewPushpanel {
 
                 javafx.scene.canvas.Canvas canvas = new Canvas(SpaceView.SPACE_WIDTH, SpaceView.SPACE_HEIGHT);
                 GraphicsContext GraphicsContext = canvas.getGraphicsContext2D();
+                /**
+                 * the direction the pushpanel pushes the player in
+                 */
 
                 switch (heading) {
                     case EAST -> GraphicsContext.drawImage(PointRight, 0, 0);

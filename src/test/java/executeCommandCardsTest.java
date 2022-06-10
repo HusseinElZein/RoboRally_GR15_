@@ -1,9 +1,15 @@
 import dk.dtu.compute.se.pisd.roborally.model.Command;
 import dk.dtu.compute.se.pisd.roborally.model.CommandCard;
 
+/**
+ * Testing out the method for executing the command cards
+ */
 public class executeCommandCardsTest {
 
     public static void main(String[] args) {
+        /**
+         * creating command cards and executing them in numerical order
+         */
 
         Command[] commands = Command.values();
         CommandCard commandcard1 = new CommandCard(commands[0]);

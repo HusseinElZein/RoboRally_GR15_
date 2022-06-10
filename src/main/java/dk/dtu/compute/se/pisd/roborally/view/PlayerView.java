@@ -37,7 +37,10 @@ import org.jetbrains.annotations.NotNull;
  * ...
  *
  * @author Ekkart Kindler, ekki@dtu.dk
- *
+ */
+
+/**@author Noorulein Jamil s215810@dtu.dk
+ * visual representation of player and making it interactive
  */
 public class PlayerView extends Tab implements ViewObserver {
 
@@ -63,6 +66,9 @@ public class PlayerView extends Tab implements ViewObserver {
 
     private GameController gameController;
 
+    /**
+     *this method gives each player a name, color and program cards
+     */
     public PlayerView(@NotNull GameController gameController, @NotNull Player player) {
         super(player.getName());
         this.setStyle("-fx-text-base-color: " + player.getColor() + ";");
@@ -90,7 +96,10 @@ public class PlayerView extends Tab implements ViewObserver {
         // XXX  the following buttons should actually not be on the tabs of the individual
         //      players, but on the PlayersView (view for all players). This should be
         //      refactored.
-
+/**
+ * adding visual interactive buttons
+ * @param subject
+ */
         finishButton = new Button("Finish Programming");
         finishButton.setOnAction(e -> gameController.finishProgrammingPhase());
 
@@ -126,12 +135,20 @@ public class PlayerView extends Tab implements ViewObserver {
         top.getChildren().add(programPane);
         top.getChildren().add(cardsLabel);
         top.getChildren().add(cardsPane);
-
+/**
+ * update board
+ * @param subject
+ */
         if (player.board != null) {
             player.board.attach(this);
             update(player.board);
         }
     }
+
+    /**
+     * the if statements below is for updating the visual of the board
+     * @param subject
+     */
 
     @Override
     public void updateView(Subject subject) {
@@ -158,6 +175,9 @@ public class PlayerView extends Tab implements ViewObserver {
                     }
                 }
             }
+            /**
+             * below the different phases are shown. This includes the initialisation, programming and activation.
+             */
 
             if (player.board.getPhase() != Phase.PLAYER_INTERACTION) {
                 if (!programPane.getChildren().contains(buttonPanel)) {
@@ -198,7 +218,9 @@ public class PlayerView extends Tab implements ViewObserver {
                     programPane.add(playerInteractionPanel, Player.NO_REGISTERS, 0);
                 }
                 playerInteractionPanel.getChildren().clear();
-
+                /**
+                 * the if statement below implements the command cards by adding buttons.
+                 */
 
                 if (player.board.getCurrentPlayer() == player) {
                     // TODO Assignment P3: these buttons should be shown only when there is

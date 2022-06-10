@@ -33,12 +33,19 @@ import javafx.scene.control.TabPane;
  * @author Ekkart Kindler, ekki@dtu.dk
  *
  */
+
+/**@author Noorulein Jamil s215810@dtu.dk
+ * Visual representation of player
+ */
 public class PlayersView extends TabPane implements ViewObserver {
 
     private Board board;
 
     private PlayerView[] playerViews;
 
+    /*
+     *creating players on the board based on the number of players
+     */
     public PlayersView(GameController gameController) {
         board = gameController.board;
 
@@ -53,6 +60,10 @@ public class PlayersView extends TabPane implements ViewObserver {
         update(board);
     }
 
+    /**
+     * updating current player and board
+     * @param subject
+     */
     @Override
     public void updateView(Subject subject) {
         if (subject == board) {

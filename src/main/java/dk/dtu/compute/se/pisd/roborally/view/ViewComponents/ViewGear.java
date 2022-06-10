@@ -13,10 +13,16 @@ import javafx.scene.paint.Color;
 
 public class ViewGear {
     public static void insertGearView(SpaceView spaceView, FieldAction fieldAction) {
+        /**
+         * creating gear and the direction it rotates the robots in
+         */
         Gear gear = (Gear) fieldAction;
         Heading header = gear.getHeading();
         Canvas canvas = new Canvas(SpaceView.SPACE_WIDTH, SpaceView.SPACE_HEIGHT);
         GraphicsContext graphicsContext = canvas.getGraphicsContext2D();
+        /**
+         * Red gears rotate left, and green gears rotate right.
+         */
         Image gearRight = new Image("Images/leftGear.png", 60, 60, true, true);
         Image gearLeft = new Image("Images/rightGear.png", 60, 60, true, true);
         switch (header) {

@@ -45,6 +45,10 @@ import org.jetbrains.annotations.NotNull;
  * @author Ekkart Kindler, ekki@dtu.dk
  *
  */
+
+/**@author Noorulein Jamil s215810@dtu.dk
+ * visual representation of space
+ */
 public class SpaceView extends StackPane implements ViewObserver {
 
     final public static int SPACE_HEIGHT = 60; // 75;
@@ -52,7 +56,10 @@ public class SpaceView extends StackPane implements ViewObserver {
 
     public final Space space;
 
-
+    /**
+     * the following method implements the size of the space (fields)
+     * @param space parameter is for the board itself and is adjusted for the board size
+     */
     public SpaceView(@NotNull Space space) {
         this.space = space;
 
@@ -69,6 +76,10 @@ public class SpaceView extends StackPane implements ViewObserver {
         space.attach(this);
         update(space);
     }
+
+    /**
+     * Updating player when being moved
+     */
 
     private void updatePlayer() {
 
@@ -93,6 +104,11 @@ public class SpaceView extends StackPane implements ViewObserver {
             this.getChildren().add(arrow);
         }
     }
+
+    /**
+     * Updating the view
+     * @param subject parameter is being used for being able to use the same observer object as an observer
+     */
 
     @Override
     public void updateView(Subject subject) {

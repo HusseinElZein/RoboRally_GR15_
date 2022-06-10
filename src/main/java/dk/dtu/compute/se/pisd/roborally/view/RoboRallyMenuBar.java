@@ -35,6 +35,10 @@ import java.util.concurrent.TimeoutException;
  * @author Ekkart Kindler, ekki@dtu.dk
  *
  */
+
+/**@author Noorulein Jamil s215810@dtu.dk
+ * This class implements the MenuBar for the game.
+ */
 public class RoboRallyMenuBar extends MenuBar {
 
     private AppController appController;
@@ -47,7 +51,10 @@ public class RoboRallyMenuBar extends MenuBar {
     private MenuItem hostGame, connectToServer;
 
 
-
+    /**
+     * Added the different options for the Menubar
+     * @param appController is a interactive parameter that in this scenario allows the user to interact with the different options
+     */
 
     public RoboRallyMenuBar(AppController appController) {
         this.appController = appController;
@@ -106,6 +113,10 @@ public class RoboRallyMenuBar extends MenuBar {
 
         update();
     }
+
+    /**
+     * Appcontroller gets updated
+     */
 
     public void update() {
         if (appController.isGameRunning()) {
