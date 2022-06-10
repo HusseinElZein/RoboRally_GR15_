@@ -98,8 +98,8 @@ public class AppController implements Observer {
 
         board = LoadBoard.loadBoard(boardResult.get());
 
-        boardDialog.setTitle("Player number");
-        boardDialog.setHeaderText("Select number of players");
+        dialog.setTitle("Player number");
+        dialog.setHeaderText("Select number of players");
         Optional<Integer> result = dialog.showAndWait();
 
         if (result.isPresent()) {
