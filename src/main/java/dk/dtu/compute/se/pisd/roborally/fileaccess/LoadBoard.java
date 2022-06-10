@@ -36,9 +36,9 @@ import dk.dtu.compute.se.pisd.roborally.model.SpaceComponents.Checkpoint;
 import java.io.*;
 
 /**
- * ...
- *
- * @author Ekkart Kindler, ekki@dtu.dk
+ * This class consists of static methods. It basically uses Gson and Adapter class
+ * in order to serialize and deserialize. This class can load board and save board from and to a
+ * .Json file
  */
 public class LoadBoard {
 
@@ -46,6 +46,14 @@ public class LoadBoard {
     private static final String DEFAULTBOARD = "defaultboard";
     private static final String JSON_EXT = "json";
 
+
+    /**
+     * We do not want to create each field with its action
+     * manually as this prevents us from having multiple boards and multiple games.
+     * Therefore, we have the Json files and the LoadBoard class.
+     * Whenever a new game is initiated, the loadBoard() method is called.
+     * This deserializes the Json file with the Adapter class as well.
+     * */
     public static Board loadBoard(String boardname) {
         if (boardname == null) {
             boardname = DEFAULTBOARD;
@@ -119,6 +127,12 @@ public class LoadBoard {
         return null;
     }
 
+    /**
+     * This saves the whole baord as a Json file. It uses the Adapter class
+     * in order to serialize the instances and classes (objects pretty much).
+     * This method allows us to reuse and continue the state of the game, so that
+     * we can open it later whenever we would like to.
+     * **/
     public static void saveBoard(Board board, String name) {
         BoardTemplate template = new BoardTemplate();
         template.width = board.width;
@@ -156,6 +170,12 @@ public class LoadBoard {
         }
     }
 
+    /**
+     * It is pretty much as the method above, however, it is used to be saved in the
+     * http, which saves in the URI; /board.
+     * It uses the saveBoardToString method in class LoadBoard.
+     * The method builds (serializes the whole game) in the Json file with its fieldActions.
+     * **/
         public static String saveBoardToString(Board board, String name) {
             BoardTemplate template = new BoardTemplate();
             template.width = board.width;

@@ -66,6 +66,7 @@ public class AppController implements Observer {
 
     /**
      * Constructor for appController.
+     * @param roboRally class to be inserted in the app controller
      */
     public AppController(@NotNull RoboRally roboRally) {
         this.roboRally = roboRally;
@@ -137,9 +138,12 @@ public class AppController implements Observer {
     }
 
     /**
-     * This method is used for hosting a game. This is done through the client.
+     * This method is used for hosting a game. This is done through the hostServer method in Client.
+     * @throws ExecutionException Exception thrown when attempting to retrieve the result of a task.
+     * @throws InterruptedException Thrown when a thread is waiting, sleeping, or otherwise occupied.
+     * @throws TimeoutException Exception thrown when a blocking operation times out.
      */
-    public void hostGame(String... errorMessage) throws ExecutionException, InterruptedException, TimeoutException {
+    public void hostGame() throws ExecutionException, InterruptedException, TimeoutException {
         TextInputDialog createServer = new TextInputDialog();
         createServer.setHeaderText("Enter Server name:");
         createServer.setTitle("Starting new server");
@@ -148,7 +152,7 @@ public class AppController implements Observer {
 
         String response = client.hostServer(result.get());
         if (!Objects.equals(response, "success"))
-            hostGame(response);
+            hostGame();
         else {
             newGame();
         }
@@ -159,12 +163,10 @@ public class AppController implements Observer {
      * RoboRallyMenuBar class.
      */
     public void saveGame() {
-        // XXX needs to be implemented eventually
         TextInputDialog input = new TextInputDialog();
         input.setHeaderText("Enter filename");
         Optional<String> boardName = input.showAndWait();
         input.setTitle("Save state of game");
-
         boardName.ifPresent(end ->{LoadBoard.saveBoard(board, end);});
     }
 
@@ -203,13 +205,13 @@ public class AppController implements Observer {
     }
 
     /**
-     * Stop playing the current game, giving the user the option to save
+     * * Stop playing the current game, giving the user the option to save
      * the game or to cancel stopping the game. The method returns true
      * if the game was successfully stopped (with or without saving the
      * game); returns false, if the current game was not stopped. In case
      * there is no current game, false is returned.
      *
-     * @return true if the current game was stopped, false otherwise
+     * @return
      */
     public boolean stopGame() {
         if (gameController != null) {
@@ -259,7 +261,7 @@ public class AppController implements Observer {
     /**
      * This method can be used if the App controller gets initiated in another class, and we want to use an
      * overwritten version of the update method from the Observer interface.
-     * @param subject the subject which changed
+     * @param subject subject to be changed
      */
     @Override
     public void update(Subject subject) {

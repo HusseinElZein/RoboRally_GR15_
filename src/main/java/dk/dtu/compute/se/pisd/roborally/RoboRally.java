@@ -37,7 +37,7 @@ import javafx.stage.Stage;
  * @author Ekkart Kindler, ekki@dtu.dk
  */
 
-/**@author Noorulein Jamil s215810@dtu.dk
+/**
  * The following class RoboRally implements
  */
 public class RoboRally extends Application {

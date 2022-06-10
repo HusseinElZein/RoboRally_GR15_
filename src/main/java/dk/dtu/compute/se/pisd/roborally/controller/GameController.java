@@ -33,7 +33,7 @@ import java.util.concurrent.TimeoutException;
 
 /**
  * This is the GameController class. This class is used to control the flow of the game, and to invoke different
- * methods that relate to ???????????????????????????
+ * methods that relate to any logic in the game
  * @author Ekkart Kindler, ekki@dtu.dk
  */
 public class GameController {
@@ -41,7 +41,7 @@ public class GameController {
     final public Board board;
 
     /**
-     * Contructor for the GameController class.
+     * Constructor for the GameController class.
      * @param board board object.
      */
     public GameController(@NotNull Board board) {
@@ -228,6 +228,8 @@ public class GameController {
      * Method that executes the different commands that the player might place on their programming fields.
      * Here we use the client object to update the game for every command that is being executed.
      * We also update the state of the game, but this is not so important.
+     * @param player player to be moved
+     * @param command command for player
      */
     private void executeCommand(@NotNull Player player, Command command) {
         if (player != null && player.board == board && command != null) {
@@ -261,7 +263,6 @@ public class GameController {
             }
         }
 
-
         String stateOfGame = "Current player: " + board.getCurrentPlayer().getName() + "\nGame ended: " + "NO"
                 + "\nPhase " + board.getPhase() + "\nAmount of checkpoints in game: " + board.getCheckpointCounter();
 
@@ -282,8 +283,8 @@ public class GameController {
 
     /**
      * This method checks if a player is able to move through the wall.
-     * @param player
-     * @throws cantMoveThroughWallExeption
+     * @param player player to check for
+     * @throws cantMoveThroughWallExeption used to check for when a player tries to move through a wall.
      */
     public void canMoveOntoWalls(Player player) throws cantMoveThroughWallExeption {
         Heading heading = player.getHeading();
@@ -320,6 +321,12 @@ public class GameController {
 
 
     // TODO: V2
+    /**
+     * This method moves the player forward, while checking for any field actions. It checks both for the
+     * current player and also the player which is targeted.
+     * The method also takes care of checking if the player is able to move through a wall.
+     * @param player
+     */
     public void moveForward(@NotNull Player player) {
         Space space = player.getSpace();
 
@@ -328,20 +335,16 @@ public class GameController {
             Space target = board.getNeighbour(space, heading);
 
             if (target != null) {
-
                 // XXX note that this removes another player from the space, when there
                 //     is another player on the target. Eventually, this needs to be
                 //     implemented in a way so that other players are pushed away!
-
                 try {
                     canMoveOntoWalls(player);
                 } catch (cantMoveThroughWallExeption e) {
                     // Empty catch statement.
                 }
 
-
                 Player targetedPlayer = null;
-
                 Space otherSpace = board.getNeighbour(space, heading);
 
                 if (otherSpace.getPlayer() != null) {
@@ -350,7 +353,6 @@ public class GameController {
 
                 if (target.getPlayer() != null && otherSpace.getPlayer() == null && canMoveThroughWall) {
                     targetedPlayer = target.getPlayer();
-
                     boolean again = true;
                     while(targetedPlayer.getSpace().getActions().size() > 0 && again) {
                         for (FieldAction fieldAction : player.getSpace().getActions()) {
@@ -376,16 +378,14 @@ public class GameController {
                     }
 
                     Player cp = targetedPlayer;
-
                     space = cp.getSpace();
 
-                    //Space targetNew = board.getNeighbour(space, heading);
-                    //targetNew.setPlayer(targetedPlayer);
+                    // Space targetNew = board.getNeighbour(space, heading);
+                    // targetNew.setPlayer(targetedPlayer);
                 }
             }
 
             if (target.getPlayer() == null && canMoveThroughWall) {
-
                 target.setPlayer(player);
             }
 
@@ -407,47 +407,65 @@ public class GameController {
                         fieldAction.doAction(this, player.getSpace());
                         again = false;
                         break;
-                    }else if (fieldAction instanceof PushPanel){
+                    } else if (fieldAction instanceof PushPanel){
                         fieldAction.doAction(this, player.getSpace());
                         again = false;
                         break;
                     }
                 }
             }
-
         }
         if(!canMoveThroughWall){
             canMoveThroughWall = true;
         }
-
     }
 
     // TODO: V2
+    /**
+     * This method uses the previous moveForward method two times.
+     * @param player player to be moved.
+     */
     public void fastForward(@NotNull Player player) {
         moveForward(player);
         moveForward(player);
     }
 
     // TODO: V2
+    /**
+     * This method turns the heading of a player by using the setHeading method in the player class.
+     * @param player player to be turned
+     */
     public void turnRight(@NotNull Player player) {
-        if (player != null && player.board == board) {
+        if (player.board == board) {
             player.setHeading(player.getHeading().next());
         }
     }
 
     // TODO: V2
+    /**
+     * This method turns the heading of a player by using the setHeading method in the player class.
+     * @param player player to be turned
+     */
     public void turnLeft(@NotNull Player player) {
         if (player != null && player.board == board) {
             player.setHeading(player.getHeading().prev());
         }
     }
 
+    /**
+     * This method moves a player forward three times by using the moveForward method.
+     * @param player player to be moved
+     */
     public void tripleForward (@NotNull Player player){
         moveForward(player);
         moveForward(player);
         moveForward(player);
     }
 
+    /**
+     * This method makes the player do a u-turn dependent on which directing they are already heading.
+     * @param player player to be turned
+     */
     public void uTurn (@NotNull Player player){
         switch (player.getHeading()) {
             case NORTH -> player.setHeading(Heading.SOUTH);
@@ -457,13 +475,22 @@ public class GameController {
         }
     }
 
+    /**
+     * This method makes the player move backwards while still keeping their heading intact.
+     * @param player player to be backed up
+     */
     public void backUp(@NotNull Player player){
         uTurn(player);
         moveForward(player);
         uTurn(player);
     }
 
-
+    /**
+     * This method is used for checking if the player has already moved a command card.
+     * @param source command card to be moved
+     * @param target place where command card is placed
+     * @return true or false
+     */
     public boolean moveCards(@NotNull CommandCardField source, @NotNull CommandCardField target) {
         CommandCard sourceCard = source.getCard();
         CommandCard targetCard = target.getCard();
@@ -477,24 +504,23 @@ public class GameController {
     }
 
     /**
-     * A method called when no corresponding controller operation is implemented yet. This
-     * should eventually be removed.
+     * This method is called when no corresponding controller operation is implemented yet.
+     * @param chosenCommand command card to be executed.
      */
     public void executeCommandOptionAndContinue(Command chosenCommand) {
-
         Player currentPlayer = board.getCurrentPlayer();
 
         if(currentPlayer != null && board.getPhase() == Phase.PLAYER_INTERACTION && chosenCommand != null) {
-
             board.setPhase(Phase.ACTIVATION);
-
             executeCommand(currentPlayer, chosenCommand);
 
             int nextPlayer = 1 + board.getPlayerNumber(currentPlayer);
+
             if (nextPlayer < board.getPlayersNumber()) {
                 board.setCurrentPlayer(board.getPlayer(nextPlayer));
             } else {
                 int step = board.getStep() + 1;
+
                 if (step < Player.NO_REGISTERS) {
                     makeProgramFieldsVisible(step);
                     board.setStep(step);
@@ -506,8 +532,12 @@ public class GameController {
         }
     }
 
+    /**
+     * This method is used for finding the winner. And when found, an alert message saying
+     * @param player player to win
+     */
     public void findWinner(Player player) {
-        Alert winMessage = new Alert(Alert.AlertType.INFORMATION, player.getName() + " won.");
+        Alert winMessage = new Alert(Alert.AlertType.INFORMATION, player.getName() + " won. Congratulations!");
         winMessage.showAndWait();
         System.exit(0);
     }

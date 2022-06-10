@@ -52,6 +52,11 @@ public class Adapter<E> implements JsonSerializer<E>, JsonDeserializer<E>{
     private static final String CLASSNAME = "CLASSNAME";
     private static final String INSTANCE  = "INSTANCE";
 
+
+    /**
+     * When we read a .json file, we want to deserialize it. That is so
+     * because we want to recreate the object that has been stored in the file.
+     * **/
     @Override
     public JsonElement serialize(E src, Type typeOfSrc,
             JsonSerializationContext context) {
@@ -64,6 +69,10 @@ public class Adapter<E> implements JsonSerializer<E>, JsonDeserializer<E>{
         return retValue;
     }
 
+    /**
+     * When we save an object from a any class to a .json file, we want to serialize it. That is so
+     * because we later want to be able to recreate the object that has been stored in the file.
+     * **/
     @Override
     public E deserialize(JsonElement json, Type typeOfT,
             JsonDeserializationContext context) throws JsonParseException  {
