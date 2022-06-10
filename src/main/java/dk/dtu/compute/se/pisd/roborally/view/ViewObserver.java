@@ -31,6 +31,11 @@ import javafx.application.Platform;
  * @author Ekkart Kindler, ekki@dtu.dk
  *
  */
+
+/**@author Noorulein Jamil s215810@dtu.dk
+ * This class below shows the observer.
+ * The essence of an observer pattern is to essentially update different objects (classes) in a smart way.
+ */
 public interface ViewObserver extends Observer {
 
     void updateView(Subject subject);

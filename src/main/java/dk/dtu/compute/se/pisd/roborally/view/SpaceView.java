@@ -146,6 +146,9 @@ public class SpaceView extends StackPane implements ViewObserver {
         }
     }
 
+    /**
+     * This method updates spaceview
+     */
     public void updateSpaceView() {
         Image image = new Image("Images/Space.png", 60, 60, true, true);
         Canvas canvas = new Canvas(SpaceView.SPACE_WIDTH, SpaceView.SPACE_HEIGHT);

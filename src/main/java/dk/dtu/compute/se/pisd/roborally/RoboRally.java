@@ -35,7 +35,10 @@ import javafx.stage.Stage;
  * ...
  *
  * @author Ekkart Kindler, ekki@dtu.dk
- *
+ */
+
+/**@author Noorulein Jamil s215810@dtu.dk
+ * The following class RoboRally implements
  */
 public class RoboRally extends Application {
 
@@ -44,15 +47,21 @@ public class RoboRally extends Application {
     private Stage stage;
     private BorderPane boardRoot;
     // private RoboRallyMenuBar menuBar;
-
     // private AppController appController;
 
+    /**
+     *
+     * @throws Exception: Its subclasses are a form of Throwable that indicates conditions that our application might want to catch.
+     */
     @Override
     public void init() throws Exception {
         super.init();
     }
 
     @Override
+    /**
+     * This method is for starting the game
+     */
     public void start(Stage primaryStage) {
         stage = primaryStage;
 
@@ -78,6 +87,10 @@ public class RoboRally extends Application {
         stage.show();
     }
 
+    /**
+     * Creating the visual Board
+     * @param gameController checks if there is already an existing gamecontroller
+     */
     public void createBoardView(GameController gameController) {
         // if present, remove old BoardView
         boardRoot.getChildren().clear();
@@ -91,6 +104,10 @@ public class RoboRally extends Application {
         stage.sizeToScene();
     }
 
+    /**
+     * Method for stopping the game
+     * @throws Exception Its subclasses are a form of Throwable that indicates conditions that our application might want to catch.
+     */
     @Override
     public void stop() throws Exception {
         super.stop();
@@ -101,6 +118,10 @@ public class RoboRally extends Application {
         //     so that the AppController can take care of that.
     }
 
+    /**
+     * Main method
+     * @param args -> used to pass a variable number of arguments to a function
+     */
     public static void main(String[] args) {
         launch(args);
     }
