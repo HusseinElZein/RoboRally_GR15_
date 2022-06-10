@@ -131,11 +131,11 @@ public class AppController implements Observer {
     }
 
     public void hostGame(String... errorMessage) throws ExecutionException, InterruptedException, TimeoutException {
-        TextInputDialog serverCreation = new TextInputDialog();
-        serverCreation.setTitle("Start game server");
-        serverCreation.setHeaderText("Server name:");
+        TextInputDialog createServer = new TextInputDialog();
+        createServer.setHeaderText("Enter Server name:");
+        createServer.setTitle("Starting new server");
 
-        Optional<String> result = serverCreation.showAndWait();
+        Optional<String> result = createServer.showAndWait();
 
         String response = client.hostServer(result.get());
         if (!Objects.equals(response, "success"))
