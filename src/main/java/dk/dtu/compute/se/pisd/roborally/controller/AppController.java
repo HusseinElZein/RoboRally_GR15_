@@ -134,12 +134,9 @@ public class AppController implements Observer {
         TextInputDialog serverCreation = new TextInputDialog();
         serverCreation.setTitle("Start game server");
         serverCreation.setHeaderText("Server name:");
-        if (errorMessage.length != 0){
-            serverCreation.setHeaderText(errorMessage[0]);
-        }
+
         Optional<String> result = serverCreation.showAndWait();
-        if (result.isEmpty())
-            return;
+
         String response = client.hostServer(result.get());
         if (!Objects.equals(response, "success"))
             hostGame(response);
