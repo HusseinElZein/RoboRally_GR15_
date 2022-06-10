@@ -12,7 +12,7 @@ import javafx.scene.image.Image;
  * The visual representation of the conveyerbelt is implemented below
  */
 
-public class ViewConveyorBelt {
+public class ViewGreenConveyorBelt {
 
     public static void insertConveyorBeltView(SpaceView spaceView, FieldAction fieldAction) {
         ConveyorBelt conveyorBelt = (ConveyorBelt) fieldAction;
