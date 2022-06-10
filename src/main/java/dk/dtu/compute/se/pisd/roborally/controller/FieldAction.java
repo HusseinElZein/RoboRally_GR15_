@@ -23,10 +23,11 @@ package dk.dtu.compute.se.pisd.roborally.controller;
 import dk.dtu.compute.se.pisd.roborally.model.Space;
 
 /**
- * ...
- *
+ * This abstract class executes a field action for a given space. The class is primarily used in controller classes
+ * and model classes. This class has been included to achieve lower coupling, such that every class that uses the
+ * doAction method, can have their own version of this. Here the different classes are not coupled together via this
+ * method.
  * @author Ekkart Kindler, ekki@dtu.dk
- *
  */
 public abstract class FieldAction {
 
@@ -39,5 +40,4 @@ public abstract class FieldAction {
      * @return whether the action was successfully executed
      */
     public abstract boolean doAction(GameController gameController, Space space);
-
 }
