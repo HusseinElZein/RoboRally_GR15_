@@ -24,7 +24,6 @@ package dk.dtu.compute.se.pisd.designpatterns.observer;
 import java.util.Collections;
 import java.util.Set;
 import java.util.WeakHashMap;
-
 // import java.util.HashSet;
 
 /**
@@ -35,7 +34,6 @@ import java.util.WeakHashMap;
  *
  */
 public abstract class Subject {
-	
 	private Set<Observer> observers =
 			Collections.newSetFromMap(new WeakHashMap<>());
 	// Note: In JavaFX, the views do not have a way to know when they are
@@ -64,7 +62,7 @@ public abstract class Subject {
 	final public void detach(Observer observer) {
 		observers.remove(observer);
 	}
-	
+
 	/**
 	 * This method must be called from methods of concrete subclasses
 	 * of this subject class whenever its state is changed (in a way
@@ -75,5 +73,4 @@ public abstract class Subject {
 			observer.update(this);
 		}
 	}
-
 }
