@@ -44,8 +44,7 @@ import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeoutException;
 
 /**
- *
- * The AppController implements Observer, but this is never used. So this is not nescarry to have, but we decided
+ * The AppController implements Observer, but this is never used. So this is not necessary to have, but we decided
  * to keep it as is, since this is how the software was delivered to us. And maybe the method is still useful to
  * have for another use in the future.
  * @author Ekkart Kindler, ekki@dtu.dk

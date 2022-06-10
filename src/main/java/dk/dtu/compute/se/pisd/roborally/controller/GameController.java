@@ -32,15 +32,18 @@ import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeoutException;
 
 /**
- * ...
- *
+ * This is the GameController class. This class is used to control the flow of the game, and to invoke different
+ * methods that relate to ???????????????????????????
  * @author Ekkart Kindler, ekki@dtu.dk
- *
  */
 public class GameController {
 
     final public Board board;
 
+    /**
+     * Contructor for the GameController class.
+     * @param board board object.
+     */
     public GameController(@NotNull Board board) {
         this.board = board;
     }
@@ -70,7 +73,10 @@ public class GameController {
         }
     }
 
-    // XXX: V2
+    /**
+     * This method starts the programming phase. Here the phase is sat, and then for each player programming fields
+     * and card fields are generated and made visible.
+     */
     public void startProgrammingPhase() {
         board.setPhase(Phase.PROGRAMMING);
         board.setCurrentPlayer(board.getPlayer(0));
@@ -93,14 +99,19 @@ public class GameController {
         }
     }
 
-    // XXX: V2
+    /**
+     * This method generetes a random card by returning an command object that is randomised from an array of
+     * commands.
+     */
     private CommandCard generateRandomCommandCard() {
         Command[] commands = Command.values();
         int random = (int) (Math.random() * commands.length);
         return new CommandCard(commands[random]);
     }
 
-    // XXX: V2
+    /**
+     * This method finish the programming phase. This is done by setting the phase to the activation phase.
+     */
     public void finishProgrammingPhase() {
         makeProgramFieldsInvisible();
         makeProgramFieldsVisible(0);
@@ -109,7 +120,9 @@ public class GameController {
         board.setStep(0);
     }
 
-    // XXX: V2
+    /**
+     * This method makes the program fields visible. If 0 is parsed in the parameter, they won't be made visible.
+     */
     private void makeProgramFieldsVisible(int register) {
         if (register >= 0 && register < Player.NO_REGISTERS) {
             for (int i = 0; i < board.getPlayersNumber(); i++) {
@@ -120,7 +133,9 @@ public class GameController {
         }
     }
 
-    // XXX: V2
+    /**
+     * This method makes the programming fields invisible by setting the setVisible method to false.
+     */
     private void makeProgramFieldsInvisible() {
         for (int i = 0; i < board.getPlayersNumber(); i++) {
             Player player = board.getPlayer(i);
@@ -131,7 +146,9 @@ public class GameController {
         }
     }
 
-    // XXX: V2
+    /**
+     * This method executes the programs which the player has placed.
+     */
     public void executePrograms() {
         board.setStepMode(false);
         continuePrograms();
