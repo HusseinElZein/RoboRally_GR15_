@@ -54,6 +54,7 @@ public class PlayersView extends TabPane implements ViewObserver {
     }
 
     @Override
+
     public void updateView(Subject subject) {
         if (subject == board) {
             Player current = board.getCurrentPlayer();

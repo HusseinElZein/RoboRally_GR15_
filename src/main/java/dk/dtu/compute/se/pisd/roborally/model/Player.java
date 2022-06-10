@@ -32,6 +32,12 @@ import static dk.dtu.compute.se.pisd.roborally.model.Heading.SOUTH;
  * @author Ekkart Kindler, ekki@dtu.dk
  *
  */
+
+/**
+ * Creating the player and making him able to move around the board as well as being able to use command cards
+ */
+
+
 public class Player extends Subject {
 
     final public static int NO_REGISTERS = 5;
@@ -50,6 +56,12 @@ public class Player extends Subject {
 
     private int checkpoint;
 
+    /**
+     *
+     * @param board
+     * @param color
+     * @param name
+     */
     public Player(@NotNull Board board, String color, @NotNull String name) {
         this.board = board;
         this.name = name;
@@ -113,6 +125,10 @@ public class Player extends Subject {
         }
     }
 
+
+    /**
+     * Setting Direction of player
+     */
     public Heading getHeading() {
         return heading;
     }
@@ -127,6 +143,11 @@ public class Player extends Subject {
         }
     }
 
+    /**
+     *
+     * @param i
+     * @return
+     */
     public CommandCardField getProgramField(int i) {
         return program[i];
     }
