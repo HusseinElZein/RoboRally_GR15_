@@ -74,30 +74,25 @@ public class LoadBoard {
             result = new Board(template.width, template.height);
             for (SpaceTemplate spaceTemplate : template.spaces) {
                 Space space = result.getSpace(spaceTemplate.x, spaceTemplate.y);
-
-                if(spaceTemplate.walls != null){
-                    space.getWalls().addAll(spaceTemplate.walls);
-                }
-
                 if (space != null) {
                     space.getActions().addAll(spaceTemplate.actions);
                     space.getWalls().addAll(spaceTemplate.walls);
-
-                    if(space.getActions().size() != 0){
-                        if(space.getActions().get(0) instanceof Checkpoint){
+                    if (space.getActions().size() != 0) {
+                        if (space.getActions().get(0) instanceof Checkpoint) {
                             result.setCheckpointCounter(1);
                         }
+                    }
+                    if (spaceTemplate.walls != null) {
+                        space.getWalls().addAll(spaceTemplate.walls);
                     }
                 }
             }
 
             for (TemplateForPlayer templateForPlayer : template.players) {
                 Player player = new Player(result, templateForPlayer.color, templateForPlayer.name);
-
                 if(templateForPlayer.isCurrent) {
                     result.setCurrentPlayer(player);
                 }
-
                 player.setHeading(player.getHeading());
                 player.setSpace(result.getSpace(templateForPlayer.x, templateForPlayer.y));
                 player.setCheckpoints(templateForPlayer.CheckpointAmount);
