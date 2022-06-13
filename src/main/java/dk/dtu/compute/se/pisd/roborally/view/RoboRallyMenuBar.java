@@ -100,7 +100,7 @@ public class RoboRallyMenuBar extends MenuBar {
         serverMenu.getItems().add(hostGame);
 
         connectToServer = new MenuItem("Connect to a server");
-        saveGame.setOnAction( e -> this.appController.connectToServer());
+        connectToServer.setOnAction( e -> this.appController.connectToServer());
         serverMenu.getItems().add(connectToServer);
 
 
