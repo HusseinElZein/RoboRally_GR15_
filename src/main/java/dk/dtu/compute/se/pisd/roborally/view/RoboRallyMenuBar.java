@@ -36,7 +36,7 @@ import java.util.concurrent.TimeoutException;
  *
  */
 
-/**@author Noorulein Jamil s215810@dtu.dk
+/**
  * This class implements the MenuBar for the game.
  */
 public class RoboRallyMenuBar extends MenuBar {

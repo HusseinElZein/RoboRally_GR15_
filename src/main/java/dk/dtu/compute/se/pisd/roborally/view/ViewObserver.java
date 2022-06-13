@@ -32,7 +32,7 @@ import javafx.application.Platform;
  *
  */
 
-/**@author Noorulein Jamil s215810@dtu.dk
+/**
  * This class below shows the observer.
  * The essence of an observer pattern is to essentially update different objects (classes) in a smart way.
  */

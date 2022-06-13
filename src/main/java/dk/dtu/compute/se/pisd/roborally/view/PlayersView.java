@@ -34,7 +34,7 @@ import javafx.scene.control.TabPane;
  *
  */
 
-/**@author Noorulein Jamil s215810@dtu.dk
+/**
  * Visual representation of player
  */
 public class PlayersView extends TabPane implements ViewObserver {

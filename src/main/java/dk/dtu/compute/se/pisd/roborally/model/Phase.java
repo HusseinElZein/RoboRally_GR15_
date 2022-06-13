@@ -27,6 +27,10 @@ package dk.dtu.compute.se.pisd.roborally.model;
  * @author Ekkart Kindler, ekki@dtu.dk
  *
  */
+
+/**
+ * The different phases throughout the game
+ */
 public enum Phase {
     INITIALISATION, PROGRAMMING, ACTIVATION, PLAYER_INTERACTION
 }

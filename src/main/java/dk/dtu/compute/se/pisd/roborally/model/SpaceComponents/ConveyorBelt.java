@@ -33,6 +33,10 @@ import org.jetbrains.annotations.NotNull;
  * @author Ekkart Kindler, ekki@dtu.dk
  *
  */
+
+/**
+ * Implementing the Conveyorbelt feature
+ */
 public class ConveyorBelt extends FieldAction{
 
     private Heading heading;
@@ -44,6 +48,13 @@ public class ConveyorBelt extends FieldAction{
     public void setHeading(Heading heading) {
         this.heading = heading;
     }
+
+    /**
+     * The method for moving the player
+     * @param gameController the gameController of the respective game
+     * @param space the space this action should be executed for
+     * @return true boolean
+     */
 
     @Override
     public boolean doAction(@NotNull GameController gameController, @NotNull Space space) {

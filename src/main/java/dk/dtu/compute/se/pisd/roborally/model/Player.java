@@ -58,9 +58,9 @@ public class Player extends Subject {
 
     /**
      *
-     * @param board
-     * @param color
-     * @param name
+     * @param board is for placing the player
+     * @param color parameter is for the different players
+     * @param name parameter is for the players
      */
     public Player(@NotNull Board board, String color, @NotNull String name) {
         this.board = board;
@@ -145,8 +145,8 @@ public class Player extends Subject {
 
     /**
      *
-     * @param i
-     * @return
+     * @param i : Is a variable
+     * @return -> returns Program, cards, checkpoint
      */
     public CommandCardField getProgramField(int i) {
         return program[i];
